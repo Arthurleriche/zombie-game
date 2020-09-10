@@ -11,7 +11,6 @@ img{
 }
 
 .divTab{
-    height: 100vh;
     display: flex;
     justify-content: center;
     margin: 40px;

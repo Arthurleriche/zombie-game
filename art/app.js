@@ -1,6 +1,10 @@
 const nbLigne = 5;
 const nbCol = 5; 
 let tableau = []
+let c = 0
+let l = 0
+const fio = new Audio('fio2.mp3');
+const fio2 = new Audio('fio3.mp3')
 
 
 const createTab = (lig, col, car = 0) => {
@@ -14,7 +18,6 @@ const createTab = (lig, col, car = 0) => {
     }
     return tab
 }
-
 tableau = createTab(nbLigne, nbCol);
 
 const showTab = (tab) => {
@@ -41,16 +44,12 @@ const showTab = (tab) => {
         jeu.innerHTML = content
     }
     
-    let c = 0
-    let l = 0
-    const fio = new Audio('fio2.mp3');
-    const fio2 = new Audio('fio3.mp3')
     
-    const initGame = (newTab) => {
-        newTab[0][0] = 1 
-        showTab(newTab);
-    };
-
+const initGame = (newTab) => {
+    newTab[0][0] = 1 
+    showTab(newTab);
+};
+    
 const updateGame = (newTab) => {
     let counter = 0
     
@@ -62,14 +61,29 @@ const updateGame = (newTab) => {
         }
     }
     showTab(newTab);
+    let end = false
     if(counter === 24){
         setTimeout(() => {
             fio2.play();
+            end = true
+            endOfGame(end) 
         }, 1000)
     }
 }
 
-const player = (audio, audio2) => {
+const endOfGame = (fin) => {
+    if(fin){
+        alert('bien ouej le sang recommence j ai tres faim');
+        end = false
+        c = 0
+        l = 0
+        tableau = createTab(nbLigne, nbCol, 0);
+        initGame(tableau)
+        showTab(tableau)
+    }
+}
+
+const player = (audio) => {
     audio.pause()
     audio.currentTime = 0;
     audio.play()
@@ -105,6 +119,6 @@ const moovePlayer = (event, newTab) => {
 
 initGame(tableau);
 
-document.addEventListener('keyup' , () => {
+document.addEventListener('keydown' , () => {
     moovePlayer(event, tableau);
 })
