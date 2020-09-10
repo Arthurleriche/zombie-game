@@ -119,6 +119,8 @@ const moovePlayer = (event, newTab) => {
 
 initGame(tableau);
 
-document.addEventListener('keydown' , () => {
+document.addEventListener('keydown', () => {
+    event.repeat = true
     moovePlayer(event, tableau);
+    console.log(event)
 })
