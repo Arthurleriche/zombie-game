@@ -47,9 +47,8 @@
 		//FONCTION QUI DESSINE UNE GRILLE  (à chaque i,j de grid(i,j) on crée une div (i,j) )
 		let container = document.getElementById('container');
 
-		function drawGrid(){
-			var nombreDeColonnes=90; 
-			var nombreDeLignes = 60; 
+		function drawGrid(nombreDeColonnes,nombreDeLignes){
+			
 			
 			for(let i = 0; i < nombreDeLignes; i++){
 
@@ -71,11 +70,74 @@
 				}
 			}			
 		}
-		drawGrid();	
+		drawGrid(15,10);	
 
-		var test = document.getElementById('square(1,0)');
-		test.setAttribute("style", "background-color:black");
 
+		var hero = document.getElementById('square(1,0)'); // (i,j) = (1,0)
+		hero.setAttribute("style", "background-color:black");
+		var position = [1,0];
+
+
+
+		document.addEventListener('keydown', handleKey);
+
+		function handleKey(e) {
+			var key = e.keyCode;
+			//RIGHT 
+			if(key == 39){
+			position[1] += 1;
+			hero.setAttribute("style", "background-color:blue;");
+			console.log(position);
+
+			hero = document.getElementById('square'+"(" + position[0] + "," + position[1] +")")
+			hero.setAttribute("style", "background-color:orange;");
+			}
+
+			//LEFT
+			if(key == 37){
+			position[1] -= 1;
+			hero.setAttribute("style", "background-color:blue;");
+			console.log(position);
+
+			hero = document.getElementById('square'+"(" + position[0] + "," + position[1] +")")
+			hero.setAttribute("style", "background-color:orange;");
+			}
+
+			//DOWN 
+			if(key == 40){
+				position[0] += 1;
+				hero.setAttribute("style", "background-color:blue;");
+				console.log(position);
+
+				hero = document.getElementById('square'+"(" + position[0] + "," + position[1] +")")
+				hero.setAttribute("style", "background-color:orange;background: url('./img/nico.png');");
+			}
+
+			// UP 
+			if(key == 38){
+				position[0] -= 1;
+				hero.setAttribute("style", "background-color:blue;");
+				console.log(position);
+
+				hero = document.getElementById('square'+"(" + position[0] + "," + position[1] +")")
+				hero.setAttribute("style", "background-color:orange;");
+
+			}
+
+
+			
+			// hero.setAttribute("style", "background-color:red");	
+  			// container.textContent += ` ${e.code}`;
+		}
+
+
+
+
+		// FONCTION QUI DESSINE LE HERO 
+	
+
+
+		
 
 		}
 
