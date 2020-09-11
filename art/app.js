@@ -1,10 +1,13 @@
+const jeu = document.querySelector("#tableau");
 const nbLigne = 5;
 const nbCol = 5; 
 let tableau = []
 let c = 0
 let l = 0
 const fio = new Audio('fio2.mp3');
-const fio2 = new Audio('fio3.mp3')
+const fio2 = new Audio('fio3.mp3');
+let lastEvent = ""
+
 
 
 const createTab = (lig, col, car = 0) => {
@@ -21,7 +24,6 @@ const createTab = (lig, col, car = 0) => {
 tableau = createTab(nbLigne, nbCol);
 
 const showTab = (tab) => {
-    const jeu = document.querySelector("#tableau");
     let content = "<table>";
     for(let i=0; i< nbLigne; i++){
         content += "<tr>";
@@ -83,6 +85,39 @@ const endOfGame = (fin) => {
     }
 }
 
+let ligne = 0
+let colonne = 0
+
+const bastos = (newTab, col, lig, lastE) => {
+    if(event.key === "a" && lastE === "ArrowDown"){
+     newTab[lig + 1][col] = 3
+     lingne = lig + 1
+     colonne = col
+    }
+    if(event.key === "a" && lastE === "ArrowUp"){
+        newTab[lig - 1][col] = 3
+        ligne = lig - 1
+        colonne = col
+    }
+    if(event.key === "a" && lastE === "ArrowLeft"){
+        newTab[lig][col - 1] = 3
+        ligne = lig
+        colonne = col - 1
+    } 
+    if(event.key === "a" && lastE === "ArrowRight"){
+        newTab[lig][col + 1] = 3
+        ligne = lig
+        colonne = col + 1
+    }
+    if(event.key === "a"){
+        newTab[ligne][colonne]
+    } 
+    showTab(newTab);
+
+    console.log(newTab)
+
+}
+
 const player = (audio) => {
     audio.pause()
     audio.currentTime = 0;
@@ -119,8 +154,11 @@ const moovePlayer = (event, newTab) => {
 
 initGame(tableau);
 
-document.addEventListener('keydown', () => {
+let array = []
+document.addEventListener('keydown', (event) => {
+    array = [event.key, ...array]
+    array.splice(2)
     event.repeat = true
     moovePlayer(event, tableau);
-    console.log(event)
+    bastos(tableau, c, l, array[1])
 })
