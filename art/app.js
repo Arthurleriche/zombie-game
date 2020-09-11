@@ -2,8 +2,8 @@ const jeu = document.querySelector("#tableau");
 const nbLigne = 5;
 const nbCol = 5; 
 let tableau = []
-let c = 0
 let l = 0
+let c = 0
 const fio = new Audio('fio2.mp3');
 const fio2 = new Audio('fio3.mp3');
 let lastEvent = ""
@@ -91,26 +91,32 @@ let colonne = 0
 const bastos = (newTab, col, lig, lastE) => {
     if(event.key === "a" && lastE === "ArrowDown"){
      newTab[lig + 1][col] = 3
-     lingne = lig + 1
+     ligne = lig + 1
      colonne = col
+     console.log(ligne, colonne)
+     
     }
     if(event.key === "a" && lastE === "ArrowUp"){
         newTab[lig - 1][col] = 3
         ligne = lig - 1
         colonne = col
+        console.log(ligne, colonne)
     }
     if(event.key === "a" && lastE === "ArrowLeft"){
         newTab[lig][col - 1] = 3
         ligne = lig
         colonne = col - 1
+        console.log(ligne, colonne)
     } 
     if(event.key === "a" && lastE === "ArrowRight"){
         newTab[lig][col + 1] = 3
         ligne = lig
         colonne = col + 1
+        console.log(ligne, colonne)
     }
     if(event.key === "a"){
         newTab[ligne][colonne]
+        console.log(ligne, colonne)
     } 
     showTab(newTab);
 
@@ -126,27 +132,27 @@ const player = (audio) => {
 
 const moovePlayer = (event, newTab) => {
     if(event.key === "ArrowDown" && c <= 3){
-        tableau[c][l] = 2;
-        c++;
-        newTab[c][l] = 1;
+        tableau[l][c] = 2;
+        l++;
+        newTab[l][c] = 1;
         player(fio)
     }
     if(event.key === "ArrowUp" && c >= 1){
-        tableau[c][l] = 2;
-        c--;
-        newTab[c][l] = 1;
+        tableau[l][c] = 2;
+        l--;
+        newTab[l][c] = 1;
         player(fio)    
     }
     if(event.key === "ArrowRight" && l <= 3){
-        tableau[c][l] = 2;
-        l++;
-        newTab[c][l] = 1;
+        tableau[l][c] = 2;
+        c++;
+        newTab[l][c] = 1;
         player(fio)    
     }
     if(event.key === "ArrowLeft" && l >= 1){
-        tableau[c][l] = 2;
-        l--;
-        newTab[c][l] = 1;
+        tableau[l][c] = 2;
+        c--;
+        newTab[l][c] = 1;
         player(fio)    
     }
     updateGame(newTab)
