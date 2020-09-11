@@ -1,6 +1,6 @@
 const jeu = document.querySelector("#tableau");
-const nbLigne = 5;
-const nbCol = 5; 
+const nbLigne = 10;
+const nbCol = 10; 
 let tableau = []
 let l = 0
 let c = 0
@@ -64,7 +64,7 @@ const updateGame = (newTab) => {
     }
     showTab(newTab);
     let end = false
-    if(counter === 24){
+    if(counter === 99){
         setTimeout(() => {
             fio2.play();
             end = true
@@ -90,37 +90,72 @@ let colonne = 0
 
 const bastos = (newTab, col, lig, lastE) => {
     if(event.key === "a" && lastE === "ArrowDown"){
-     newTab[lig + 1][col] = 3
-     ligne = lig + 1
-     colonne = col
-     console.log(ligne, colonne)
+        let ligne = lig + 1
+        newTab[ligne][col] = 3
+     
+        setInterval(() => {
+            newTab[ligne][col] = 2
+            ligne++
+            newTab[ligne][col] = 3
+            showTab(newTab);
+        }, 10);
+
+        ligne = lig + 1
+        colonne = col
+        
      
     }
     if(event.key === "a" && lastE === "ArrowUp"){
-        newTab[lig - 1][col] = 3
+        ligne = lig - 1
+        newTab[ligne][col] = 3
+        let stop = nbLigne - ligne
+
+        setInterval((stop) => {
+            newTab[ligne][col] = 2
+            ligne--
+            newTab[ligne][col] = 3
+            showTab(newTab);
+        },stop * 10);
+        
         ligne = lig - 1
         colonne = col
-        console.log(ligne, colonne)
+    
     }
     if(event.key === "a" && lastE === "ArrowLeft"){
-        newTab[lig][col - 1] = 3
+        let colonne = col - 1
+        newTab[lig][colonne] = 3
+
+        setInterval(() => {
+            newTab[lig][colonne] = 2
+            colonne--
+            newTab[lig][colonne] = 3
+            showTab(newTab);
+        }, 10);
+
         ligne = lig
         colonne = col - 1
-        console.log(ligne, colonne)
+        
     } 
     if(event.key === "a" && lastE === "ArrowRight"){
-        newTab[lig][col + 1] = 3
+        let colonne = col + 1
+        newTab[lig][colonne] = 3
+
+        setInterval(() => {
+            newTab[lig][colonne] = 2
+            colonne++
+            newTab[lig][colonne] = 3
+            showTab(newTab);
+        }, 10);
+
         ligne = lig
         colonne = col + 1
-        console.log(ligne, colonne)
+        
     }
     if(event.key === "a"){
         newTab[ligne][colonne]
-        console.log(ligne, colonne)
+        
     } 
     showTab(newTab);
-
-    console.log(newTab)
 
 }
 
@@ -131,25 +166,25 @@ const player = (audio) => {
 }
 
 const moovePlayer = (event, newTab) => {
-    if(event.key === "ArrowDown" && c <= 3){
+    if(event.key === "ArrowDown" && l <= 8){
         tableau[l][c] = 2;
         l++;
         newTab[l][c] = 1;
         player(fio)
     }
-    if(event.key === "ArrowUp" && c >= 1){
+    if(event.key === "ArrowUp" && l >= 1){
         tableau[l][c] = 2;
         l--;
         newTab[l][c] = 1;
         player(fio)    
     }
-    if(event.key === "ArrowRight" && l <= 3){
+    if(event.key === "ArrowRight" && c <= 8){
         tableau[l][c] = 2;
         c++;
         newTab[l][c] = 1;
         player(fio)    
     }
-    if(event.key === "ArrowLeft" && l >= 1){
+    if(event.key === "ArrowLeft" && c >= 0){
         tableau[l][c] = 2;
         c--;
         newTab[l][c] = 1;
