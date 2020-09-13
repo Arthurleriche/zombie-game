@@ -11,8 +11,8 @@
     }
 
     .squareSize{
-        width:10px; 
-        height:10px;
+        width:30px; 
+        height:30px;
     }
     
 
