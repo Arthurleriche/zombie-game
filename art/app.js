@@ -38,6 +38,9 @@ const showTab = (tab) => {
                 if(tab[i][j] === 2){
                     content += "<img src='./caca.png'>"
                 }
+                if(tab[i][j] === 3){
+                    content += "<img src='https://media.giphy.com/media/Qvp6Z2fidQR34IcwQ5/source.gif'>"
+                }
                 content += "</td>";
             }
             content += " </tr>";
@@ -89,63 +92,76 @@ let ligne = 0
 let colonne = 0
 
 const bastos = (newTab, col, lig, lastE) => {
+    
     if(event.key === "a" && lastE === "ArrowDown"){
         let ligne = lig + 1
         newTab[ligne][col] = 3
-     
-        setInterval(() => {
-            newTab[ligne][col] = 2
-            ligne++
-            newTab[ligne][col] = 3
-            showTab(newTab);
-        }, 10);
-
+        for(i=0; i<=nbLigne - ligne; i++){
+            setTimeout(() => {
+                newTab[ligne][col] = 2
+                ligne++
+                newTab[ligne][col] = 3
+                showTab(newTab);
+            }, i * 400)
+        }
+        
         ligne = lig + 1
         colonne = col
-        
-     
+    
     }
-    if(event.key === "a" && lastE === "ArrowUp"){
-        ligne = lig - 1
-        newTab[ligne][col] = 3
-        let stop = nbLigne - ligne
 
-        setInterval((stop) => {
-            newTab[ligne][col] = 2
-            ligne--
-            newTab[ligne][col] = 3
-            showTab(newTab);
-        },stop * 10);
+    if(event.key === "a" && lastE === "ArrowUp"){
+        ligne = lig - 1;
+        newTab[ligne][col] = 3;
+
+        for(i=0; i<lig; i++ ){
+            setTimeout(() => {
+                newTab[ligne][col] = 2
+                ligne--
+                newTab[ligne][col] = 3
+                showTab(newTab);
+                if(ligne === 0){
+                    newTab[ligne][col] = 2
+                }
+            },i * 400);
+        }
+
         
         ligne = lig - 1
         colonne = col
     
     }
+
     if(event.key === "a" && lastE === "ArrowLeft"){
         let colonne = col - 1
         newTab[lig][colonne] = 3
 
-        setInterval(() => {
-            newTab[lig][colonne] = 2
-            colonne--
-            newTab[lig][colonne] = 3
-            showTab(newTab);
-        }, 10);
+        for(i = 0; i<col; i++){
+            setTimeout(() => {
+                newTab[lig][colonne] = 2
+                colonne--
+                newTab[lig][colonne] = 3
+                showTab(newTab);
+            },i * 400);       
+        }
+
 
         ligne = lig
         colonne = col - 1
         
     } 
+
     if(event.key === "a" && lastE === "ArrowRight"){
         let colonne = col + 1
         newTab[lig][colonne] = 3
-
-        setInterval(() => {
-            newTab[lig][colonne] = 2
-            colonne++
-            newTab[lig][colonne] = 3
-            showTab(newTab);
-        }, 10);
+        for(i=0; i<nbCol - colonne; i++){
+            setTimeout(() => {
+                newTab[lig][colonne] = 2
+                colonne++
+                newTab[lig][colonne] = 3
+                showTab(newTab);
+            }, i * 400);       
+        }
 
         ligne = lig
         colonne = col + 1
