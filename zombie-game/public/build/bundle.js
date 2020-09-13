@@ -611,7 +611,7 @@ var app = (function () {
     }
 
     const app = new App({
-    	target: document.body,
+    	target: document.querySelector('#tab'),
     	props: {
     		name: 'world'
     	}
