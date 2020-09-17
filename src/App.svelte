@@ -459,7 +459,7 @@
   ];
   const persoUp = document.querySelector(`.tr${l - 1} .td${c - 1}`);
   const perso = document.querySelector(`.tr${l} .td${c}`);
-  let supPerso = document.querySelector(`.tr${l} .td${c}`);
+  const supPerso = document.querySelector(`.tr${l} .td${c}`);
   const persoDown = document.querySelector(`.tr${l + 1} .td${c - 1}`);
 
   // init du tableau
@@ -520,7 +520,6 @@
     const perso = document.querySelector(`.tr${l} .td${c}`);
     const supPerso = document.querySelector(`.tr${l} .td${c}`);
     const persoDown = document.querySelector(`.tr${l + 1} .td${c - 1}`);
-
     if (down) {
       supPerso.innerHTML = '';
       persoDown.nextElementSibling.innerHTML = `<div class="personnage"> <div class="Characters"><img class="Character ${position}${foot}" src="./img/Heroe.png" alt="Character"> </div></div>`;
@@ -554,7 +553,7 @@
 
   // direction character
   const switchDirection = (event, newTab) => {
-    if (event.key === 'ArrowDown' && l <= 47) {
+    if (event.key === 'ArrowDown' && l < 47) {
       const interval = setInterval(stopFunction, 90);
       function stopFunction() {
         if (down === false) {
@@ -563,7 +562,7 @@
           position = 'down';
           // showTab(newTab);
         } else {
-          if (l >= 47) {
+          if (l > 47) {
             clearInterval(interval);
           }
           showCharacter();
@@ -607,14 +606,14 @@
       }
     }
 
-    if (event.key === 'ArrowRight' && c <= 47) {
+    if (event.key === 'ArrowRight' && c < 47) {
       const interval = setInterval(stopFunction, 90);
       function stopFunction() {
         if (right === false) {
           clearInterval(interval);
           foot = 1;
         } else {
-          if (c >= 47) {
+          if (c > 47) {
             clearInterval(interval);
           }
           showCharacter();

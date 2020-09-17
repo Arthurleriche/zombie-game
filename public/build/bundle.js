@@ -472,7 +472,7 @@ var app = (function () {
 
     	const persoUp = document.querySelector(`.tr${l - 1} .td${c - 1}`);
     	const perso = document.querySelector(`.tr${l} .td${c}`);
-    	let supPerso = document.querySelector(`.tr${l} .td${c}`);
+    	const supPerso = document.querySelector(`.tr${l} .td${c}`);
     	const persoDown = document.querySelector(`.tr${l + 1} .td${c - 1}`);
 
     	// init du tableau
@@ -580,7 +580,7 @@ var app = (function () {
     	// fin création du tableau
     	// direction character
     	const switchDirection = (event, newTab) => {
-    		if (event.key === "ArrowDown" && l <= 47) {
+    		if (event.key === "ArrowDown" && l < 47) {
     			const interval = setInterval(stopFunction, 90);
 
     			function stopFunction() {
@@ -589,7 +589,7 @@ var app = (function () {
     					foot = 1;
     					position = "down";
     				} else {
-    					if (l >= 47) {
+    					if (l > 47) {
     						clearInterval(interval); // showTab(newTab);
     					}
 
@@ -637,7 +637,7 @@ var app = (function () {
     			}
     		}
 
-    		if (event.key === "ArrowRight" && c <= 47) {
+    		if (event.key === "ArrowRight" && c < 47) {
     			const interval = setInterval(stopFunction, 90);
 
     			function stopFunction() {
@@ -645,7 +645,7 @@ var app = (function () {
     					clearInterval(interval);
     					foot = 1;
     				} else {
-    					if (c >= 47) {
+    					if (c > 47) {
     						clearInterval(interval);
     					}
 
@@ -798,7 +798,6 @@ var app = (function () {
     		if ("right" in $$props) right = $$props.right;
     		if ("left" in $$props) left = $$props.left;
     		if ("array" in $$props) array = $$props.array;
-    		if ("supPerso" in $$props) supPerso = $$props.supPerso;
     	};
 
     	if ($$props && "$$inject" in $$props) {
