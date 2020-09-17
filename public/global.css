@@ -1,63 +1,152 @@
-html, body {
-	position: relative;
-	width: 100%;
-	height: 100%;
+.border{
+    width: 100px;
+    height: 50px;
+    align-items: center;
 }
 
-body {
-	color: #333;
-	margin: 0;
-	padding: 8px;
-	box-sizing: border-box;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+img{
+
 }
 
-a {
-	color: rgb(0,100,200);
-	text-decoration: none;
+.divTab{
+    display: flex;
+    justify-content: center;
+    margin: 40px;
 }
 
-a:hover {
-	text-decoration: underline;
+h1{
+    text-align: center
 }
 
-a:visited {
-	color: rgb(0,80,160);
+p{
+    text-align: center
 }
 
-label {
-	display: block;
+.cel{
+width: 10px;
+height: 10px;
+position: relative;
 }
 
-input, button, select, textarea {
-	font-family: inherit;
-	font-size: inherit;
-	-webkit-padding: 0.4em 0;
-	padding: 0.4em;
-	margin: 0 0 0.5em 0;
-	box-sizing: border-box;
-	border: 1px solid #ccc;
-	border-radius: 2px;
+/* .ligne{
+    height: 30px
+} */
+
+
+:root{
+    --pixel-size: 6
 }
 
-input:disabled {
-	color: #ccc;
+.pixelart{
+    image-rendering: pixelated; 
 }
 
-button {
-	color: #333;
-	background-color: #f4f4f4;
-	outline: none;
+body{
+    background: green;
 }
 
-button:disabled {
-	color: #999;
+.personnage{
+    display: flex;
+    justify-content: center;
+    align-items: center
 }
 
-button:not(:disabled):active {
-	background-color: #ddd;
+.Characters{
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    position: absolute; 
+    z-index: 1
 }
 
-button:focus {
-	border-color: #666;
+.down1{
+    position: relative;
+    top: 0px;
+}
+
+.down2{
+    position: relative;
+    top: 0px;
+    left: -100px;
+}
+
+.down3{
+    position: relative;
+    top: 0px;
+    left: -200px;
+}
+
+.down4{
+    position: relative;
+    top: 0px;
+    left: -300px;
+}
+
+.up1{    
+    position: relative;
+    top: -100px;
+}
+
+.up2{    
+    position: relative;
+    top: -100px;
+    left: -100px;
+}
+
+.up3{    
+    position: relative;
+    top: -100px;
+    left: -200px;
+}
+
+.up4{    
+    position: relative;
+    top: -100px;
+    left: -300px;
+}
+
+.left1{
+    position: relative;
+    top: calc(-100px * 2); 
+    left: -100px;
+}
+
+.left2{
+    position: relative;
+    top: calc(-100px * 2); 
+    left: -200px;
+}  
+
+.left3{
+    position: relative;
+    top: calc(-100px * 2); 
+    left: -300px;
+} 
+
+.left4{
+    position: relative;
+    top: calc(-100px * 2); 
+}  
+
+.right1{
+    position: relative;
+    top: calc(-100px * 3);
+    left: -100px;
+}
+
+.right2{
+    position: relative;
+    top: calc(-100px * 3);
+    left: -200px;
+}
+
+.right3{
+    position: relative;
+    top: calc(-100px * 3);
+    left: -300px;
+}
+
+.right4{
+    position: relative;
+    top: calc(-100px * 3);
 }

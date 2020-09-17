@@ -1,368 +1,229 @@
-
-<body class=" flex flex-col h-auto  " >
-	<h1 class="text-center"> ZOMBIE GAME </h1>
-	<h2 class="text-center"> Plateau Zombie Game - Test 1 (grille : 900x600, carré=10x10)  </h2>
-	
-	<div id="container" class=" containerSize border border-blue-500  m-auto">
-		<div id="tableau">
-		</div>
-	</div>
-	
-	<div id="ball" class="bg-pink-600 h-12 w-12" >boule</div>
-	
-
-	<!-- containerSize = 900 x 600  -->
-
-</body>
-	<Tailwindcss />
 <script>
+  import Tailwindcss from './Tailwindcss.svelte';
 
-	import Tailwindcss from './Tailwindcss.svelte'; 
+  const jeu = document.querySelector('#tab');
+  const nbLigne = 50;
+  const nbCol = 50;
+  let tableau = [];
+  let l = 0;
+  let c = 0;
+  let lastEvent = '';
+  let position = ' ';
+  let foot = 1;
+  let down = false;
+  let up = false;
+  let right = false;
+  let left = false;
+  let array = [];
 
-	let tableau = []
-	const lignes = 20
-	const colonnes = 30
+  // init du tableau
+  const createTab = (lig, col, car = 0) => {
+    let tab = [];
+    for (let i = 0; i <= lig; i++) {
+      const ligne = [];
+      for (let y = 0; y <= col; y++) {
+        ligne.push(car);
+      }
+      tab.push(ligne);
+    }
+    return tab;
+  };
 
-	window.onload = function(){
+  tableau = createTab(nbLigne, nbCol);
 
-		const createTab = (lignes,colonnes,car= 0) => {
-			let tab =[]
-			for(let i =0; i<lignes;i++){
-				const ligne = []
-				for(let j=0; j<colonnes; j++){
-					ligne.push(car);
-				}
-				tab.push(ligne)
-			}
-			return tab;
-		}
-		tableau = createTab(lignes,colonnes);
+  const initGame = newTab => {
+    newTab[0][0] = 1;
+    showTab(newTab);
+  };
+  // fin init du tableau
 
+  // afficher le tableau
+  const showTab = tab => {
+    let content = '<table>';
+    for (let i = 0; i < nbLigne; i++) {
+      content += "<tr class='ligne'>";
+      for (let j = 0; j < nbCol; j++) {
+        content += "<td class='border cel'>";
+        if (tab[i][j] === 0) {
+        }
+        if (tab[i][j] === 1) {
+          content += `<div class="personnage"> <div class="Characters"><img class="Character ${position}${foot}" src="./img/Heroe.png" alt="Character"> </div></div>`;
+        }
+        if (tab[i][j] === 2) {
+          content += '';
+        }
+        if (tab[i][j] === 3) {
+          content +=
+            "<img src='https://media.giphy.com/media/Qvp6Z2fidQR34IcwQ5/source.gif'>";
+        }
+        content += '</td>';
+      }
+      content += ' </tr>';
+    }
+    content += '</table>';
+    jeu.innerHTML = content;
+  };
+  // fin afficher tableau
 
-		const showTab = (tab) => {
-			// tab[0][0]=1;
-			// tab[1][4] = 2;
-			// tab[3][1]=2;
-			const jeu = document.querySelector('#tableau'); 
-			let content = "<table>";
-			for(let i=0; i<lignes; i++){
-				content += "<tr class='relative'>";
-				for(let j=0; j<colonnes; j++){
-					if(tab[i][j] === 0){
-						content += "<td class='border border-blue-500 bg-black squareSize'>"
-					}
-					if(tab[i][j] === 1){
-						content += "<td class=' z-0 absolute border border-blue-500 bg-red-600 squareSize'>"
-						content += "<img src= './img/nico.png' class='' alt = 'nico' style='z-index:1;'' />"
-						
-					}
-					if(tab[i][j] === 2){
-						content += "<td class='border border-blue-500 bg-blue-600 squareSize'>"
-					}
-					if(tab[i][j] === 3){
+  const updateGame = newTab => {
+    showTab(newTab);
+  };
 
-						content += "<td class='border border-blue-500 bg-yellow-600 squareSize'>"
-					}
+  // création du tableau
+  tableau = createTab(nbLigne, nbCol);
+  initGame(tableau);
+  // fin création du tableau
 
-					if(tab[i][j] === 4){
+  // direction character
+  const switchDirection = (event, newTab) => {
+    if (event.key === 'ArrowDown' && l <= 47) {
+      const interval = setInterval(stopFunction, 90);
+      function stopFunction() {
+        if (down === false) {
+          clearInterval(interval);
+          foot = 1;
+          showTab(newTab);
+        } else {
+          if (l >= 47) {
+            clearInterval(interval);
+          }
+          newTab[l][c] = 2;
+          l++;
+          newTab[l][c] = 1;
+          position = 'down';
+          if (foot === 4) {
+            foot = 1;
+            position = '';
+          }
+          foot++;
+          showTab(newTab);
+        }
+      }
+    }
 
-						content += "<td class='border border-yellow-500 bg-white squareSize'>"
-					}
-				}
-			}
-			
-			jeu.innerHTML = content
-		}	
+    if (event.key === 'ArrowUp' && l >= 2) {
+      const interval = setInterval(stopFunction, 110);
+      function stopFunction() {
+        if (up === false) {
+          clearInterval(interval);
+          foot = 1;
+          showTab(newTab);
+        } else {
+          if (l <= 2) {
+            clearInterval(interval);
+          }
+          tableau[l][c] = 2;
+          l--;
+          newTab[l][c] = 1;
+          position = 'up';
+          if (foot === 4) {
+            foot = 1;
+            position = 'up';
+          }
+          foot++;
+          showTab(newTab);
+        }
+      }
+    }
+    if (event.key === 'ArrowRight' && c <= 49) {
+      const interval = setInterval(stopFunction, 90);
+      function stopFunction() {
+        if (right === false) {
+          clearInterval(interval);
+          foot = 1;
+          showTab(newTab);
+        } else {
+          if (c >= 49) {
+            clearInterval(interval);
+          } else {
+            tableau[l][c] = 2;
+            c++;
+            newTab[l][c] = 1;
+            position = 'right';
+            if (foot === 4) {
+              foot = 1;
+            }
+            foot++;
+            showTab(newTab);
+          }
+        }
+      }
+    }
 
+    if (event.key === 'ArrowLeft') {
+      const interval = setInterval(stopFunction, 90);
+      function stopFunction() {
+        if (left === false) {
+          clearInterval(interval);
+          foot = 1;
+          showTab(newTab);
+        } else {
+          if (c < 2) {
+            clearInterval(interval);
+          } else {
+            tableau[l][c] = 2;
+            c--;
+            newTab[l][c] = 1;
+            position = 'left';
+            if (foot === 4) {
+              foot = 1;
+            }
+            foot++;
+            showTab(newTab);
+          }
+        }
+      }
+    }
+  };
+  // fin direction character
 
-		const initGame = (newTab) => { 
-			newTab[0][0] = 1
-			// newTab[0][1] = 1
-			// newTab[1][0] = 1
-			// newTab[1][1] = 1
-			showTab(newTab)
-		}
+  // event Player
+  document.addEventListener(
+    'keydown',
+    event => {
+      array = [event.key, ...array];
+      array.splice(2);
+      switch (event.key) {
+        case 'ArrowDown':
+          if (down) return;
+          down = true;
+          position = 'down';
+          break;
+        case 'ArrowUp':
+          if (up) return;
+          up = true;
+          break;
+        case 'ArrowLeft':
+          if (left) return;
+          left = true;
+          console.log(left);
+          break;
+        case 'ArrowRight':
+          if (right) return;
+          right = true;
+          console.log('je suis right');
+          break;
+      }
+      switchDirection(event, tableau);
+    },
+    false
+  );
 
-
-//////////// B A S T O S /////////////////////
-
-		function bastos(newTab, col, lig, lastE){
-
-			if(event.key ==="a"){
-				player(gun);
-			}
-
-			if(event.key ==="a" && lastE === "ArrowDown"){
-				player(gun);
-				let ligne = lig + 1
-				newTab[ligne][col] = 3
-				let myVar = setInterval( bastosDown, 80);
-
-
-				function bastosDown() {
-					if(ligne == 39){  //colonnes - 1
-						newTab[ligne][col] = 2 
-						clearInterval(myVar)
-					} else {
-						newTab[ligne][col] = 2
-						ligne++
-						newTab[ligne][col] = 3
-						showTab(newTab)
-						
-					}	
-				}	
-				ligne = lig +1; 
-				colonne = col; 	
-			}
-
-
-			if(event.key ==="a" && lastE === "ArrowRight"){
-				let colonne = col + 1
-				newTab[lig][colonne] = 3
-				let myVar = setInterval( bastosRight, 30)
-
-				function bastosRight(){
-					if(colonne == 59){
-						newTab[lig][colonne] = 2 
-						clearInterval(myVar)
-					} else {
-						newTab[lig][colonne] = 2
-						colonne++
-						newTab[lig][colonne] = 3
-						showTab(newTab)
-					}
-
-				}
-				colonne = col + 1;
-				ligne = lig 
-			}
-
-			if(event.key ==="a" && lastE === "ArrowUp"){
-				let ligne = lig - 1
-				newTab[ligne][col] = 3
-				let myVar = setInterval( bastosUp, 30)
-
-				function bastosUp(){
-					if(ligne == 0){
-						newTab[ligne][col] = 2 
-						clearInterval(myVar)
-					} else {
-						newTab[ligne][col] = 2
-						ligne--
-						newTab[ligne][col] = 3
-						showTab(newTab)
-					}
-
-				}
-				ligne = lig - 1 
-				colonne = col 
-			}
-
-
-
-			if(event.key ==="a" && lastE === "ArrowLeft"){
-				let colonne  = col - 1
-				newTab[lig][colonne] = 3
-				let myVar = setInterval( bastosLeft, 30)
-
-				function bastosLeft(){
-					if(colonne == 0){
-						newTab[lig][colonne] = 2 
-						clearInterval(myVar)
-					} else {
-						newTab[lig][colonne] = 2
-						colonne--
-						newTab[lig][colonne] = 3
-						showTab(newTab)
-					}
-
-				}
-				colonne = col - 1
-				ligne = lig 
-			}
-			
-		}
-
-		const gun = new Audio('./audios/gun.mp3')
-		const player = (audio) => {
-			// audio.pause()
-			audio.currentTime=0;
-			audio.play()
-		}
-
-//////////// B A S T O S /////////////////////
-
-
-
-//////////// D R A W  E N E M Y //////////
-
-
-		var enemyLoop;
-
-		function createEnemies() {
-			enemyLoop = setInterval( drawEnemy,500, tableau);
-		}
-
-		function drawEnemy(newTab){
-			let randomLine = getRandom(1,40); 
-			let randomCol = getRandom(1,60);
-			newTab[randomLine][randomCol] = 4;
-
-			let monuk = setInterval(enemyWalk, 600)
-			
-		
-			function enemyWalk(){
-
-				if(randomLine < 0){
-					clearInterval(monuk);
-					} else {
-					newTab[randomLine][randomCol] = 0;
-					randomLine--
-					newTab[randomLine][randomCol] = 4;
-					showTab(newTab)
-					console.log("OKKKK")
-				}
-			}
-		}
-
-		createEnemies();
-
-
-////	// D R A W  E N E M Y //////////
-
-
-////	///  M O O V E P L A Y E R //////////////
-		let c = 0;
-		let l = 0; 
-			const moovePlayer = (event, newTab) => {
-				if(event.key === "ArrowDown" && l < lignes - 1 ){
-					tableau [l][c] = 2;
-					// tableau [l][c+1] = 2
-					// tableau [l+1][c] = 2
-					// tableau [l+1][c+1] = 2 
-				l++;
-					newTab[l][c] = 1;
-					// tableau [l][c+1] = 1
-					// tableau [l+1][c] = 1
-					// tableau [l+1][c+1] = 1
-				}
-			
-				if(event.key === "ArrowUp" && l>=1 ){
-					tableau[l][c] = 2;
-					// tableau [l][c+1] = 2
-					// tableau [l+1][c] = 2
-					// tableau [l+1][c+1] = 2 
-					l--;
-					newTab[l][c] = 1;
-					// tableau [l][c+1] = 1
-					// tableau [l+1][c] = 1
-					// tableau [l+1][c+1] = 1
-				}
-			
-				if(event.key === "ArrowRight" && c < colonnes - 1 ){
-					tableau[l][c] = 2;
-					// tableau [l][c+1] = 2
-					// tableau [l+1][c] = 2
-					// tableau [l+1][c+1] = 2 
-					c++;
-					newTab[l][c] = 1;
-					// tableau [l][c+1] = 1
-					// tableau [l+1][c] = 1
-					// tableau [l+1][c+1] = 1
-				}
-			
-				if(event.key === "ArrowLeft" && c>=1){
-					tableau[l][c] = 2;
-					// tableau [l][c+1] = 2
-					// tableau [l+1][c] = 2
-					// tableau [l+1][c+1] = 2 
-					c--;
-					newTab[l][c] = 1;
-					// tableau [l][c+1] = 1
-					// tableau [l+1][c] = 1
-					// tableau [l+1][c+1] = 1
-				}
-
-				updateGame(newTab);
-			
-			}
-///////////  M O O V E P L A Y E R //////////////
-
-
-
-
-/////////// I N I T      G A M E ///////////////
-			initGame(tableau);
-/////////// I N I T      G A M E ///////////////
-
-
-			const updateGame = (newTab) => {
-			showTab(newTab); 
-			}
-
-
-			let array=[]
-			let lastE=""
-			document.addEventListener('keydown', (event) =>{
-				array = [event.key, ...array]  // array = [dernier, avant-dernier, etc..]
-				console.log(event.key)
-				console.log(array)
-				array.splice(2)   //array = [dernier, avant-dernier]
-				console.log(array)
-				moovePlayer(event, tableau);
-				bastos(tableau,c,l, array[1]);
-			})
-
-
-
-			function getRandom(min, max) {
-  				min = Math.ceil(min);
-				max = Math.floor(max);
-				let randomNum = Math.floor(Math.random() * (max - min +1)) + min;
-				return randomNum; 
-
-			}
-
-    	}  //-------- W I N D O W . O N L O A D ------- 	
+  document.addEventListener('keyup', () => {
+    switch (event.key) {
+      case 'ArrowDown':
+        down = false;
+        break;
+      case 'ArrowUp':
+        up = false;
+        break;
+      case 'ArrowLeft':
+        left = false;
+        break;
+      case 'ArrowRight':
+        right = false;
+        break;
+    }
+  });
+  // fin  player
 </script>
-	
-	
-	
-	
-	
-	<style>
-		main {
-			text-align: center;
-			/* padding: 1em; */
-			max-width: 240px;
-			margin: 0 auto;
-			/* background: no-repeat url('./img/spaceship.jpg'); */
-			background-size: cover;
-		}
-	
-		h1{
-			color: #ff3e00;
-			text-transform: uppercase;
-			font-size: 4em;
-			font-weight: 100;
-		}
-	
-		h2{
-			color: black;
-			/* text-transform: uppercase; */
-			font-size: 1.5em;
-			font-weight: 100;
-	
-		}
-	
-		@media (min-width: 640px) {
-			main {
-				max-width: none;
-			}
-		}
-	
-	
-	</style>
-	
-
-	
