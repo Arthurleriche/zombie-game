@@ -150,3 +150,24 @@ body{
     position: relative;
     top: calc(-100px * 3);
 }
+
+.fire{
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    position: absolute;
+
+}
+
+@keyframes movefire{
+    from{
+        transform: translate3d(0%, 0, 0)
+    }
+    to{
+        transform: translate3d(-100%, 0, 0)
+    }
+}
+
+#fire{
+    animation: movefire 0.3s steps(5) infinite;
+}

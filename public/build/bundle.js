@@ -346,8 +346,8 @@ var app = (function () {
     function instance$1($$self, $$props, $$invalidate) {
     	const jeu = document.querySelector("#tab");
     	let tableau = [];
-    	let l = 0;
-    	let c = 0;
+    	let l = 1;
+    	let c = 1;
     	let lastEvent = "";
     	let position = " ";
     	let foot = 1;
@@ -356,6 +356,124 @@ var app = (function () {
     	let right = false;
     	let left = false;
     	let array = [];
+
+    	const arrayFire = [
+    		{ lig: 0, col: 0 },
+    		{ lig: 0, col: 2 },
+    		{ lig: 0, col: 4 },
+    		{ lig: 0, col: 6 },
+    		{ lig: 0, col: 0 },
+    		{ lig: 0, col: 8 },
+    		{ lig: 0, col: 10 },
+    		{ lig: 0, col: 12 },
+    		{ lig: 0, col: 14 },
+    		{ lig: 0, col: 16 },
+    		{ lig: 0, col: 2 },
+    		{ lig: 0, col: 18 },
+    		{ lig: 0, col: 20 },
+    		{ lig: 0, col: 22 },
+    		{ lig: 0, col: 24 },
+    		{ lig: 0, col: 26 },
+    		{ lig: 0, col: 28 },
+    		{ lig: 0, col: 30 },
+    		{ lig: 0, col: 32 },
+    		{ lig: 0, col: 34 },
+    		{ lig: 0, col: 36 },
+    		{ lig: 0, col: 38 },
+    		{ lig: 0, col: 40 },
+    		{ lig: 0, col: 42 },
+    		{ lig: 0, col: 44 },
+    		{ lig: 0, col: 46 },
+    		{ lig: 0, col: 48 },
+    		{ lig: 0, col: 50 },
+    		{ lig: 48, col: 2 },
+    		{ lig: 48, col: 2 },
+    		{ lig: 48, col: 4 },
+    		{ lig: 48, col: 6 },
+    		{ lig: 48, col: 8 },
+    		{ lig: 48, col: 10 },
+    		{ lig: 48, col: 10 },
+    		{ lig: 48, col: 12 },
+    		{ lig: 48, col: 14 },
+    		{ lig: 48, col: 16 },
+    		{ lig: 48, col: 2 },
+    		{ lig: 48, col: 18 },
+    		{ lig: 48, col: 20 },
+    		{ lig: 48, col: 22 },
+    		{ lig: 48, col: 24 },
+    		{ lig: 48, col: 26 },
+    		{ lig: 48, col: 28 },
+    		{ lig: 48, col: 30 },
+    		{ lig: 48, col: 32 },
+    		{ lig: 48, col: 34 },
+    		{ lig: 48, col: 36 },
+    		{ lig: 48, col: 38 },
+    		{ lig: 48, col: 40 },
+    		{ lig: 48, col: 42 },
+    		{ lig: 48, col: 44 },
+    		{ lig: 48, col: 46 },
+    		{ lig: 48, col: 48 },
+    		{ col: 0, lig: 0 },
+    		{ col: 0, lig: 2 },
+    		{ col: 0, lig: 4 },
+    		{ col: 0, lig: 6 },
+    		{ col: 0, lig: 0 },
+    		{ col: 0, lig: 8 },
+    		{ col: 0, lig: 10 },
+    		{ col: 0, lig: 12 },
+    		{ col: 0, lig: 14 },
+    		{ col: 0, lig: 16 },
+    		{ col: 0, lig: 2 },
+    		{ col: 0, lig: 18 },
+    		{ col: 0, lig: 20 },
+    		{ col: 0, lig: 22 },
+    		{ col: 0, lig: 24 },
+    		{ col: 0, lig: 26 },
+    		{ col: 0, lig: 28 },
+    		{ col: 0, lig: 30 },
+    		{ col: 0, lig: 32 },
+    		{ col: 0, lig: 34 },
+    		{ col: 0, lig: 36 },
+    		{ col: 0, lig: 38 },
+    		{ col: 0, lig: 40 },
+    		{ col: 0, lig: 42 },
+    		{ col: 0, lig: 44 },
+    		{ col: 0, lig: 46 },
+    		{ col: 0, lig: 48 },
+    		{ col: 0, lig: 50 },
+    		{ col: 48, lig: 2 },
+    		{ col: 48, lig: 2 },
+    		{ col: 48, lig: 4 },
+    		{ col: 48, lig: 6 },
+    		{ col: 48, lig: 8 },
+    		{ col: 48, lig: 10 },
+    		{ col: 48, lig: 10 },
+    		{ col: 48, lig: 12 },
+    		{ col: 48, lig: 14 },
+    		{ col: 48, lig: 16 },
+    		{ col: 48, lig: 2 },
+    		{ col: 48, lig: 18 },
+    		{ col: 48, lig: 20 },
+    		{ col: 48, lig: 22 },
+    		{ col: 48, lig: 24 },
+    		{ col: 48, lig: 26 },
+    		{ col: 48, lig: 28 },
+    		{ col: 48, lig: 30 },
+    		{ col: 48, lig: 32 },
+    		{ col: 48, lig: 34 },
+    		{ col: 48, lig: 36 },
+    		{ col: 48, lig: 38 },
+    		{ col: 48, lig: 40 },
+    		{ col: 48, lig: 42 },
+    		{ col: 48, lig: 44 },
+    		{ col: 48, lig: 46 },
+    		{ col: 48, lig: 48 }
+    	];
+
+    	const persoUp = document.querySelector(`.tr${l - 1} .td${c - 1}`);
+    	const perso = document.querySelector(`.tr${l} .td${c}`);
+    	let supPerso = document.querySelector(`.tr${l} .td${c}`);
+    	const persoDown = document.querySelector(`.tr${l + 1} .td${c - 1}`);
 
     	// init du tableau
     	const createTab = (lig, col, car = 0) => {
@@ -377,7 +495,13 @@ var app = (function () {
     	tableau = createTab(nbLigne, nbCol);
 
     	const initGame = newTab => {
-    		newTab[0][0] = 1;
+    		newTab[3][3] = 1;
+
+    		arrayFire.forEach(fire => {
+    			console.log(c);
+    			newTab[fire.lig][fire.col] = 2;
+    		});
+
     		showTab(newTab);
     	};
 
@@ -387,10 +511,10 @@ var app = (function () {
     		let content = "<table>";
 
     		for (let i = 0; i < nbLigne; i++) {
-    			content += "<tr class='ligne'>";
+    			content += `<tr class='ligne tr${i}'>`;
 
     			for (let j = 0; j < nbCol; j++) {
-    				content += "<td class='border cel'>";
+    				content += `<td class="border td${j} cel">`;
 
     				if (tab[i][j] === 0) ;
 
@@ -399,7 +523,7 @@ var app = (function () {
     				}
 
     				if (tab[i][j] === 2) {
-    					content += "";
+    					content += "<div class=\"fire\"><img id=\"fire\" src=\"./img/fire.png\" alt=\"fire\"></div>";
     				}
 
     				if (tab[i][j] === 3) {
@@ -414,6 +538,33 @@ var app = (function () {
 
     		content += "</table>";
     		jeu.innerHTML = content;
+    	};
+
+    	const showCharacter = () => {
+    		const persoUp = document.querySelector(`.tr${l - 1} .td${c - 1}`);
+    		const perso = document.querySelector(`.tr${l} .td${c}`);
+    		const supPerso = document.querySelector(`.tr${l} .td${c}`);
+    		const persoDown = document.querySelector(`.tr${l + 1} .td${c - 1}`);
+
+    		if (down) {
+    			supPerso.innerHTML = "";
+    			persoDown.nextElementSibling.innerHTML = `<div class="personnage"> <div class="Characters"><img class="Character ${position}${foot}" src="./img/Heroe.png" alt="Character"> </div></div>`;
+    		}
+
+    		if (up) {
+    			supPerso.innerHTML = "";
+    			persoUp.nextElementSibling.innerHTML = `<div class="personnage"> <div class="Characters"><img class="Character ${position}${foot}" src="./img/Heroe.png" alt="Character"> </div></div>`;
+    		}
+
+    		if (left) {
+    			supPerso.innerHTML = "";
+    			perso.previousElementSibling.innerHTML = `<div class="personnage"> <div class="Characters"><img class="Character ${position}${foot}" src="./img/Heroe.png" alt="Character"> </div></div>`;
+    		}
+
+    		if (right) {
+    			perso.nextElementSibling.innerHTML = `<div class="personnage"> <div class="Characters"><img class="Character ${position}${foot}" src="./img/Heroe.png" alt="Character"> </div></div>`;
+    			supPerso.innerHTML = "";
+    		}
     	};
 
     	// fin afficher tableau
@@ -436,13 +587,14 @@ var app = (function () {
     				if (down === false) {
     					clearInterval(interval);
     					foot = 1;
-    					showTab(newTab);
+    					position = "down";
     				} else {
     					if (l >= 47) {
-    						clearInterval(interval);
+    						clearInterval(interval); // showTab(newTab);
     					}
 
-    					newTab[l][c] = 2;
+    					showCharacter();
+    					newTab[l][c] = 0;
     					l++;
     					newTab[l][c] = 1;
     					position = "down";
@@ -453,25 +605,24 @@ var app = (function () {
     					}
 
     					foot++;
-    					showTab(newTab);
-    				}
+    				} // showTab(newTab);
     			}
     		}
 
-    		if (event.key === "ArrowUp" && l >= 2) {
-    			const interval = setInterval(stopFunction, 110);
+    		if (event.key === "ArrowUp" && l >= 3) {
+    			const interval = setInterval(stopFunction, 90);
 
     			function stopFunction() {
     				if (up === false) {
     					clearInterval(interval);
     					foot = 1;
-    					showTab(newTab);
     				} else {
-    					if (l <= 2) {
-    						clearInterval(interval);
+    					if (l <= 3) {
+    						clearInterval(interval); // showTab(newTab);
     					}
 
-    					tableau[l][c] = 2;
+    					showCharacter();
+    					tableau[l][c] = 0;
     					l--;
     					newTab[l][c] = 1;
     					position = "up";
@@ -482,63 +633,60 @@ var app = (function () {
     					}
 
     					foot++;
-    					showTab(newTab);
-    				}
+    				} // showTab(newTab);
     			}
     		}
 
-    		if (event.key === "ArrowRight" && c <= 49) {
+    		if (event.key === "ArrowRight" && c <= 47) {
     			const interval = setInterval(stopFunction, 90);
 
     			function stopFunction() {
     				if (right === false) {
     					clearInterval(interval);
     					foot = 1;
-    					showTab(newTab);
     				} else {
-    					if (c >= 49) {
+    					if (c >= 47) {
     						clearInterval(interval);
-    					} else {
-    						tableau[l][c] = 2;
-    						c++;
-    						newTab[l][c] = 1;
-    						position = "right";
-
-    						if (foot === 4) {
-    							foot = 1;
-    						}
-
-    						foot++;
-    						showTab(newTab);
     					}
+
+    					showCharacter();
+    					tableau[l][c] = 0;
+    					c++;
+    					newTab[l][c] = 1;
+    					position = "right";
+
+    					if (foot === 4) {
+    						foot = 1;
+    					}
+
+    					foot++;
     				}
     			}
     		}
 
-    		if (event.key === "ArrowLeft") {
+    		if (event.key === "ArrowLeft" && c >= +3) {
     			const interval = setInterval(stopFunction, 90);
 
     			function stopFunction() {
     				if (left === false) {
     					clearInterval(interval);
     					foot = 1;
-    					showTab(newTab);
     				} else {
-    					if (c < 2) {
+    					if (c < 3) {
     						clearInterval(interval);
-    					} else {
-    						tableau[l][c] = 2;
-    						c--;
-    						newTab[l][c] = 1;
-    						position = "left";
-
-    						if (foot === 4) {
-    							foot = 1;
-    						}
-
-    						foot++;
-    						showTab(newTab);
     					}
+
+    					showCharacter();
+    					newTab[l][c] = 0;
+    					c--;
+    					newTab[l][c] = 1;
+    					position = "left";
+
+    					if (foot === 4) {
+    						foot = 1;
+    					}
+
+    					foot++;
     				}
     			}
     		}
@@ -557,18 +705,22 @@ var app = (function () {
     					if (down) return;
     					down = true;
     					position = "down";
+    					// supCharacter();
     					break;
     				case "ArrowUp":
     					if (up) return;
+    					// supCharacter();
     					up = true;
     					break;
     				case "ArrowLeft":
     					if (left) return;
+    					// supCharacter();
     					left = true;
     					console.log(left);
     					break;
     				case "ArrowRight":
     					if (right) return;
+    					// supCharacter();
     					right = true;
     					console.log("je suis right");
     					break;
@@ -621,9 +773,15 @@ var app = (function () {
     		right,
     		left,
     		array,
+    		arrayFire,
+    		persoUp,
+    		perso,
+    		supPerso,
+    		persoDown,
     		createTab,
     		initGame,
     		showTab,
+    		showCharacter,
     		updateGame,
     		switchDirection
     	});
@@ -640,6 +798,7 @@ var app = (function () {
     		if ("right" in $$props) right = $$props.right;
     		if ("left" in $$props) left = $$props.left;
     		if ("array" in $$props) array = $$props.array;
+    		if ("supPerso" in $$props) supPerso = $$props.supPerso;
     	};
 
     	if ($$props && "$$inject" in $$props) {
