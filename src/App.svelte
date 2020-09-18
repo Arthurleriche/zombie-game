@@ -1,5 +1,6 @@
 <script>
   import Tailwindcss from './Tailwindcss.svelte';
+  let newGame= false; 
 
   const jeu = document.querySelector('#tab');
   const nbLigne = 50;
@@ -483,8 +484,33 @@
       console.log(c);
       newTab[fire.lig][fire.col] = 2;
     });
+    if(newGame==true){
     showTab(newTab);
+    }
+    else{
+      console.log('WESH')
+      let contenu = '<table>'
+      contenu += '<img style="position:absolute; top:0px; left:0px; width: 100vw; height: 100vh; " src=" https://images7.alphacoders.com/812/812638.jpg" alt=""/>  <img id="logo" style="position:absolute; z-index:7; width:40%; height:40%; top:10%; left:30%; "  src="./img/zlogo.png" alt=""/> <div style="position:absolute; background-color:transparent; top: 50%;left:40%"> <div style=" display:flex; flex-direction:column;  width:200px;"> <button id= "a" style="color:white; background-color:black;margin-bottom:5px;" > NEW GAME</button><button> HI SCORES</button><button > OPTIONS</button</div>'
+      // contenu += ' <div class=" border border-black container2 m-0 p-0 w-full h-auto"><img class="BG relative" src=" https://images7.alphacoders.com/812/812638.jpg" alt=""/><img class =" logo z-20 absolute" src="./img/zlogo.png" alt=""/> <div class=" menu absolute  bg-transparent  mt-20"> <div class="items flew flex-col"><button class="button hover:bg-gray-800 bg-white text-white">  NEW GAME</button><button class="button hover:bg-gray-800 bg-white text-white">  HI SCORES</button><button class="button hover:bg-gray-800 bg-white text-white"> OPTIONS</button</div></div></div>'
+      jeu.innerHTML = contenu;
+    }
   };
+
+   // CLICK NEWGAME //
+   window.onload = function() {
+  const bouton = document.querySelector('#a');
+  const fond = document.querySelector('body');
+  bouton.onclick= function(){ 
+    console.log(newGame)
+    newGame = true; 
+    console.log(newGame)
+    showTab(tableau)
+    fond.style.background = 'green'}
+  }
+
+
+
+
   // fin init du tableau
 
   // afficher le tableau
