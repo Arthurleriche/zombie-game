@@ -4,6 +4,17 @@ var app = (function () {
     'use strict';
 
     function noop() { }
+    function assign(tar, src) {
+        // @ts-ignore
+        for (const k in src)
+            tar[k] = src[k];
+        return tar;
+    }
+    function add_location(element, file, line, column, char) {
+        element.__svelte_meta = {
+            loc: { file, line, column, char }
+        };
+    }
     function run(fn) {
         return fn();
     }
@@ -22,8 +33,98 @@ var app = (function () {
     function is_empty(obj) {
         return Object.keys(obj).length === 0;
     }
+    function validate_store(store, name) {
+        if (store != null && typeof store.subscribe !== 'function') {
+            throw new Error(`'${name}' is not a store with a 'subscribe' method`);
+        }
+    }
+    function subscribe(store, ...callbacks) {
+        if (store == null) {
+            return noop;
+        }
+        const unsub = store.subscribe(...callbacks);
+        return unsub.unsubscribe ? () => unsub.unsubscribe() : unsub;
+    }
+    function component_subscribe(component, store, callback) {
+        component.$$.on_destroy.push(subscribe(store, callback));
+    }
+    function create_slot(definition, ctx, $$scope, fn) {
+        if (definition) {
+            const slot_ctx = get_slot_context(definition, ctx, $$scope, fn);
+            return definition[0](slot_ctx);
+        }
+    }
+    function get_slot_context(definition, ctx, $$scope, fn) {
+        return definition[1] && fn
+            ? assign($$scope.ctx.slice(), definition[1](fn(ctx)))
+            : $$scope.ctx;
+    }
+    function get_slot_changes(definition, $$scope, dirty, fn) {
+        if (definition[2] && fn) {
+            const lets = definition[2](fn(dirty));
+            if ($$scope.dirty === undefined) {
+                return lets;
+            }
+            if (typeof lets === 'object') {
+                const merged = [];
+                const len = Math.max($$scope.dirty.length, lets.length);
+                for (let i = 0; i < len; i += 1) {
+                    merged[i] = $$scope.dirty[i] | lets[i];
+                }
+                return merged;
+            }
+            return $$scope.dirty | lets;
+        }
+        return $$scope.dirty;
+    }
+    function update_slot(slot, slot_definition, ctx, $$scope, dirty, get_slot_changes_fn, get_slot_context_fn) {
+        const slot_changes = get_slot_changes(slot_definition, $$scope, dirty, get_slot_changes_fn);
+        if (slot_changes) {
+            const slot_context = get_slot_context(slot_definition, ctx, $$scope, get_slot_context_fn);
+            slot.p(slot_context, slot_changes);
+        }
+    }
+    function set_store_value(store, ret, value = ret) {
+        store.set(value);
+        return ret;
+    }
+
+    function append(target, node) {
+        target.appendChild(node);
+    }
+    function insert(target, node, anchor) {
+        target.insertBefore(node, anchor || null);
+    }
     function detach(node) {
         node.parentNode.removeChild(node);
+    }
+    function destroy_each(iterations, detaching) {
+        for (let i = 0; i < iterations.length; i += 1) {
+            if (iterations[i])
+                iterations[i].d(detaching);
+        }
+    }
+    function element(name) {
+        return document.createElement(name);
+    }
+    function text(data) {
+        return document.createTextNode(data);
+    }
+    function space() {
+        return text(' ');
+    }
+    function empty() {
+        return text('');
+    }
+    function listen(node, event, handler, options) {
+        node.addEventListener(event, handler, options);
+        return () => node.removeEventListener(event, handler, options);
+    }
+    function attr(node, attribute, value) {
+        if (value == null)
+            node.removeAttribute(attribute);
+        else if (node.getAttribute(attribute) !== value)
+            node.setAttribute(attribute, value);
     }
     function children(element) {
         return Array.from(element.childNodes);
@@ -37,6 +138,14 @@ var app = (function () {
     let current_component;
     function set_current_component(component) {
         current_component = component;
+    }
+    function get_current_component() {
+        if (!current_component)
+            throw new Error(`Function called outside component initialization`);
+        return current_component;
+    }
+    function onMount(fn) {
+        get_current_component().$$.on_mount.push(fn);
     }
 
     const dirty_components = [];
@@ -102,10 +211,40 @@ var app = (function () {
         }
     }
     const outroing = new Set();
+    let outros;
+    function group_outros() {
+        outros = {
+            r: 0,
+            c: [],
+            p: outros // parent group
+        };
+    }
+    function check_outros() {
+        if (!outros.r) {
+            run_all(outros.c);
+        }
+        outros = outros.p;
+    }
     function transition_in(block, local) {
         if (block && block.i) {
             outroing.delete(block);
             block.i(local);
+        }
+    }
+    function transition_out(block, local, detach, callback) {
+        if (block && block.o) {
+            if (outroing.has(block))
+                return;
+            outroing.add(block);
+            outros.c.push(() => {
+                outroing.delete(block);
+                if (callback) {
+                    if (detach)
+                        block.d(1);
+                    callback();
+                }
+            });
+            block.o(local);
         }
     }
 
@@ -114,6 +253,9 @@ var app = (function () {
         : typeof globalThis !== 'undefined'
             ? globalThis
             : global);
+    function create_component(block) {
+        block && block.c();
+    }
     function mount_component(component, target, anchor) {
         const { fragment, on_mount, on_destroy, after_update } = component.$$;
         fragment && fragment.m(target, anchor);
@@ -236,6 +378,47 @@ var app = (function () {
     function dispatch_dev(type, detail) {
         document.dispatchEvent(custom_event(type, Object.assign({ version: '3.24.1' }, detail)));
     }
+    function append_dev(target, node) {
+        dispatch_dev("SvelteDOMInsert", { target, node });
+        append(target, node);
+    }
+    function insert_dev(target, node, anchor) {
+        dispatch_dev("SvelteDOMInsert", { target, node, anchor });
+        insert(target, node, anchor);
+    }
+    function detach_dev(node) {
+        dispatch_dev("SvelteDOMRemove", { node });
+        detach(node);
+    }
+    function listen_dev(node, event, handler, options, has_prevent_default, has_stop_propagation) {
+        const modifiers = options === true ? ["capture"] : options ? Array.from(Object.keys(options)) : [];
+        if (has_prevent_default)
+            modifiers.push('preventDefault');
+        if (has_stop_propagation)
+            modifiers.push('stopPropagation');
+        dispatch_dev("SvelteDOMAddEventListener", { node, event, handler, modifiers });
+        const dispose = listen(node, event, handler, options);
+        return () => {
+            dispatch_dev("SvelteDOMRemoveEventListener", { node, event, handler, modifiers });
+            dispose();
+        };
+    }
+    function attr_dev(node, attribute, value) {
+        attr(node, attribute, value);
+        if (value == null)
+            dispatch_dev("SvelteDOMRemoveAttribute", { node, attribute });
+        else
+            dispatch_dev("SvelteDOMSetAttribute", { node, attribute, value });
+    }
+    function validate_each_argument(arg) {
+        if (typeof arg !== 'string' && !(arg && typeof arg === 'object' && 'length' in arg)) {
+            let msg = '{#each} only iterates over array-like objects.';
+            if (typeof Symbol === 'function' && arg && Symbol.iterator in arg) {
+                msg += ' You can use a spread to convert this iterable into an array.';
+            }
+            throw new Error(msg);
+        }
+    }
     function validate_slots(name, slot, keys) {
         for (const slot_key of Object.keys(slot)) {
             if (!~keys.indexOf(slot_key)) {
@@ -260,19 +443,54 @@ var app = (function () {
         $inject_state() { }
     }
 
-    /* src/Tailwindcss.svelte generated by Svelte v3.24.1 */
+    /* src/components/tableau/Tableau.svelte generated by Svelte v3.24.1 */
+
+    const file = "src/components/tableau/Tableau.svelte";
 
     function create_fragment(ctx) {
+    	let div;
+    	let current;
+    	const default_slot_template = /*$$slots*/ ctx[1].default;
+    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[0], null);
+
     	const block = {
-    		c: noop,
+    		c: function create() {
+    			div = element("div");
+    			if (default_slot) default_slot.c();
+    			add_location(div, file, 0, 0, 0);
+    		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
-    		m: noop,
-    		p: noop,
-    		i: noop,
-    		o: noop,
-    		d: noop
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+
+    			if (default_slot) {
+    				default_slot.m(div, null);
+    			}
+
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (default_slot) {
+    				if (default_slot.p && dirty & /*$$scope*/ 1) {
+    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[0], dirty, null, null);
+    				}
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(default_slot, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(default_slot, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			if (default_slot) default_slot.d(detaching);
+    		}
     	};
 
     	dispatch_dev("SvelteRegisterBlock", {
@@ -286,47 +504,129 @@ var app = (function () {
     	return block;
     }
 
-    function instance($$self, $$props) {
+    function instance($$self, $$props, $$invalidate) {
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Tailwindcss> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Tableau> was created with unknown prop '${key}'`);
     	});
 
     	let { $$slots = {}, $$scope } = $$props;
-    	validate_slots("Tailwindcss", $$slots, []);
-    	return [];
+    	validate_slots("Tableau", $$slots, ['default']);
+
+    	$$self.$$set = $$props => {
+    		if ("$$scope" in $$props) $$invalidate(0, $$scope = $$props.$$scope);
+    	};
+
+    	return [$$scope, $$slots];
     }
 
-    class Tailwindcss extends SvelteComponentDev {
+    class Tableau extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
     		init(this, options, instance, create_fragment, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
-    			tagName: "Tailwindcss",
+    			tagName: "Tableau",
     			options,
     			id: create_fragment.name
     		});
     	}
     }
 
-    /* src/App.svelte generated by Svelte v3.24.1 */
+    const subscriber_queue = [];
+    /**
+     * Create a `Writable` store that allows both updating and reading by subscription.
+     * @param {*=}value initial value
+     * @param {StartStopNotifier=}start start and stop notifications for subscriptions
+     */
+    function writable(value, start = noop) {
+        let stop;
+        const subscribers = [];
+        function set(new_value) {
+            if (safe_not_equal(value, new_value)) {
+                value = new_value;
+                if (stop) { // store is ready
+                    const run_queue = !subscriber_queue.length;
+                    for (let i = 0; i < subscribers.length; i += 1) {
+                        const s = subscribers[i];
+                        s[1]();
+                        subscriber_queue.push(s, value);
+                    }
+                    if (run_queue) {
+                        for (let i = 0; i < subscriber_queue.length; i += 2) {
+                            subscriber_queue[i][0](subscriber_queue[i + 1]);
+                        }
+                        subscriber_queue.length = 0;
+                    }
+                }
+            }
+        }
+        function update(fn) {
+            set(fn(value));
+        }
+        function subscribe(run, invalidate = noop) {
+            const subscriber = [run, invalidate];
+            subscribers.push(subscriber);
+            if (subscribers.length === 1) {
+                stop = start(set) || noop;
+            }
+            run(value);
+            return () => {
+                const index = subscribers.indexOf(subscriber);
+                if (index !== -1) {
+                    subscribers.splice(index, 1);
+                }
+                if (subscribers.length === 0) {
+                    stop();
+                    stop = null;
+                }
+            };
+        }
+        return { set, update, subscribe };
+    }
 
-    const { console: console_1 } = globals;
+    const nbrLig = writable(10);
+    const nbrCol = writable(10);
+
+    const tableau = writable([]);
+
+    const  ligHero$1 = writable(8);
+    const  colHero$1 = writable(2);
+
+    /* src/components/characters/Hero.svelte generated by Svelte v3.24.1 */
+    const file$1 = "src/components/characters/Hero.svelte";
 
     function create_fragment$1(ctx) {
+    	let div;
+    	let img;
+    	let img_src_value;
+
     	const block = {
-    		c: noop,
+    		c: function create() {
+    			div = element("div");
+    			img = element("img");
+    			attr_dev(img, "id", "hero");
+    			if (img.src !== (img_src_value = "./img/Heroe.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "character");
+    			add_location(img, file$1, 116, 18, 2518);
+    			attr_dev(div, "class", "hero");
+    			add_location(div, file$1, 116, 0, 2500);
+    		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
-    		m: noop,
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, img);
+    		},
     		p: noop,
     		i: noop,
     		o: noop,
-    		d: noop
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
     	};
 
     	dispatch_dev("SvelteRegisterBlock", {
@@ -340,422 +640,113 @@ var app = (function () {
     	return block;
     }
 
-    const nbLigne = 50;
-    const nbCol = 50;
-
     function instance$1($$self, $$props, $$invalidate) {
-    	let newGame = false;
-    	const jeu = document.querySelector("#tab");
-    	let tableau = [];
-    	let l = 1;
-    	let c = 1;
-    	let lastEvent = "";
-    	let position = " ";
-    	let foot = 1;
+    	let $ligHero;
+    	let $colHero;
+    	let $tableau;
+    	validate_store(ligHero$1, "ligHero");
+    	component_subscribe($$self, ligHero$1, $$value => $$invalidate(6, $ligHero = $$value));
+    	validate_store(colHero$1, "colHero");
+    	component_subscribe($$self, colHero$1, $$value => $$invalidate(7, $colHero = $$value));
+    	validate_store(tableau, "tableau");
+    	component_subscribe($$self, tableau, $$value => $$invalidate(8, $tableau = $$value));
     	let down = false;
     	let up = false;
     	let right = false;
     	let left = false;
-    	let array = [];
+    	let lig = $ligHero;
+    	let col = $colHero;
 
-    	const arrayFire = [
-    		{ lig: 0, col: 0 },
-    		{ lig: 0, col: 2 },
-    		{ lig: 0, col: 4 },
-    		{ lig: 0, col: 6 },
-    		{ lig: 0, col: 0 },
-    		{ lig: 0, col: 8 },
-    		{ lig: 0, col: 10 },
-    		{ lig: 0, col: 12 },
-    		{ lig: 0, col: 14 },
-    		{ lig: 0, col: 16 },
-    		{ lig: 0, col: 2 },
-    		{ lig: 0, col: 18 },
-    		{ lig: 0, col: 20 },
-    		{ lig: 0, col: 22 },
-    		{ lig: 0, col: 24 },
-    		{ lig: 0, col: 26 },
-    		{ lig: 0, col: 28 },
-    		{ lig: 0, col: 30 },
-    		{ lig: 0, col: 32 },
-    		{ lig: 0, col: 34 },
-    		{ lig: 0, col: 36 },
-    		{ lig: 0, col: 38 },
-    		{ lig: 0, col: 40 },
-    		{ lig: 0, col: 42 },
-    		{ lig: 0, col: 44 },
-    		{ lig: 0, col: 46 },
-    		{ lig: 0, col: 48 },
-    		{ lig: 0, col: 50 },
-    		{ lig: 48, col: 2 },
-    		{ lig: 48, col: 2 },
-    		{ lig: 48, col: 4 },
-    		{ lig: 48, col: 6 },
-    		{ lig: 48, col: 8 },
-    		{ lig: 48, col: 10 },
-    		{ lig: 48, col: 10 },
-    		{ lig: 48, col: 12 },
-    		{ lig: 48, col: 14 },
-    		{ lig: 48, col: 16 },
-    		{ lig: 48, col: 2 },
-    		{ lig: 48, col: 18 },
-    		{ lig: 48, col: 20 },
-    		{ lig: 48, col: 22 },
-    		{ lig: 48, col: 24 },
-    		{ lig: 48, col: 26 },
-    		{ lig: 48, col: 28 },
-    		{ lig: 48, col: 30 },
-    		{ lig: 48, col: 32 },
-    		{ lig: 48, col: 34 },
-    		{ lig: 48, col: 36 },
-    		{ lig: 48, col: 38 },
-    		{ lig: 48, col: 40 },
-    		{ lig: 48, col: 42 },
-    		{ lig: 48, col: 44 },
-    		{ lig: 48, col: 46 },
-    		{ lig: 48, col: 48 },
-    		{ col: 0, lig: 0 },
-    		{ col: 0, lig: 2 },
-    		{ col: 0, lig: 4 },
-    		{ col: 0, lig: 6 },
-    		{ col: 0, lig: 0 },
-    		{ col: 0, lig: 8 },
-    		{ col: 0, lig: 10 },
-    		{ col: 0, lig: 12 },
-    		{ col: 0, lig: 14 },
-    		{ col: 0, lig: 16 },
-    		{ col: 0, lig: 2 },
-    		{ col: 0, lig: 18 },
-    		{ col: 0, lig: 20 },
-    		{ col: 0, lig: 22 },
-    		{ col: 0, lig: 24 },
-    		{ col: 0, lig: 26 },
-    		{ col: 0, lig: 28 },
-    		{ col: 0, lig: 30 },
-    		{ col: 0, lig: 32 },
-    		{ col: 0, lig: 34 },
-    		{ col: 0, lig: 36 },
-    		{ col: 0, lig: 38 },
-    		{ col: 0, lig: 40 },
-    		{ col: 0, lig: 42 },
-    		{ col: 0, lig: 44 },
-    		{ col: 0, lig: 46 },
-    		{ col: 0, lig: 48 },
-    		{ col: 0, lig: 50 },
-    		{ col: 48, lig: 2 },
-    		{ col: 48, lig: 2 },
-    		{ col: 48, lig: 4 },
-    		{ col: 48, lig: 6 },
-    		{ col: 48, lig: 8 },
-    		{ col: 48, lig: 10 },
-    		{ col: 48, lig: 10 },
-    		{ col: 48, lig: 12 },
-    		{ col: 48, lig: 14 },
-    		{ col: 48, lig: 16 },
-    		{ col: 48, lig: 2 },
-    		{ col: 48, lig: 18 },
-    		{ col: 48, lig: 20 },
-    		{ col: 48, lig: 22 },
-    		{ col: 48, lig: 24 },
-    		{ col: 48, lig: 26 },
-    		{ col: 48, lig: 28 },
-    		{ col: 48, lig: 30 },
-    		{ col: 48, lig: 32 },
-    		{ col: 48, lig: 34 },
-    		{ col: 48, lig: 36 },
-    		{ col: 48, lig: 38 },
-    		{ col: 48, lig: 40 },
-    		{ col: 48, lig: 42 },
-    		{ col: 48, lig: 44 },
-    		{ col: 48, lig: 46 },
-    		{ col: 48, lig: 48 }
-    	];
-
-    	const persoUp = document.querySelector(`.tr${l - 1} .td${c - 1}`);
-    	const perso = document.querySelector(`.tr${l} .td${c}`);
-    	const supPerso = document.querySelector(`.tr${l} .td${c}`);
-    	const persoDown = document.querySelector(`.tr${l + 1} .td${c - 1}`);
-
-    	// init du tableau
-    	const createTab = (lig, col, car = 0) => {
-    		let tab = [];
-
-    		for (let i = 0; i <= lig; i++) {
-    			const ligne = [];
-
-    			for (let y = 0; y <= col; y++) {
-    				ligne.push(car);
-    			}
-
-    			tab.push(ligne);
-    		}
-
-    		return tab;
-    	};
-
-    	tableau = createTab(nbLigne, nbCol);
-
-    	const initGame = newTab => {
-    		newTab[3][3] = 1;
-
-    		arrayFire.forEach(fire => {
-    			console.log(c);
-    			newTab[fire.lig][fire.col] = 2;
-    		});
-
-    		if (newGame == true) {
-    			showTab(newTab);
-    		} else {
-    			console.log("WESH");
-    			let contenu = "<table>";
-    			contenu += "<img style=\"position:absolute; top:0px; left:0px; width: 100vw; height: 100vh; \" src=\" https://images7.alphacoders.com/812/812638.jpg\" alt=\"\"/>  <img id=\"logo\" style=\"position:absolute; z-index:7; width:40%; height:40%; top:10%; left:30%; \"  src=\"./img/zlogo.png\" alt=\"\"/> <div style=\"position:absolute; background-color:transparent; top: 50%;left:40%\"> <div style=\" display:flex; flex-direction:column;  width:200px;\"> <button id= \"a\" style=\"color:white; background-color:black;margin-bottom:5px;\" > NEW GAME</button><button> HI SCORES</button><button > OPTIONS</button</div>";
-
-    			// contenu += ' <div class=" border border-black container2 m-0 p-0 w-full h-auto"><img class="BG relative" src=" https://images7.alphacoders.com/812/812638.jpg" alt=""/><img class =" logo z-20 absolute" src="./img/zlogo.png" alt=""/> <div class=" menu absolute  bg-transparent  mt-20"> <div class="items flew flex-col"><button class="button hover:bg-gray-800 bg-white text-white">  NEW GAME</button><button class="button hover:bg-gray-800 bg-white text-white">  HI SCORES</button><button class="button hover:bg-gray-800 bg-white text-white"> OPTIONS</button</div></div></div>'
-    			jeu.innerHTML = contenu;
-    		}
-    	};
-
-    	// CLICK NEWGAME //
-    	window.onload = function () {
-    		const bouton = document.querySelector("#a");
-    		const fond = document.querySelector("body");
-
-    		bouton.onclick = function () {
-    			console.log(newGame);
-    			newGame = true;
-    			console.log(newGame);
-    			showTab(tableau);
-    			fond.style.background = "green";
-    		};
-    	};
-
-    	// fin init du tableau
-    	// afficher le tableau
-    	const showTab = tab => {
-    		let content = "<table>";
-
-    		for (let i = 0; i < nbLigne; i++) {
-    			content += `<tr class='ligne tr${i}'>`;
-
-    			for (let j = 0; j < nbCol; j++) {
-    				content += `<td class="border td${j} cel">`;
-
-    				if (tab[i][j] === 0) ;
-
-    				if (tab[i][j] === 1) {
-    					content += `<div class="personnage"> <div class="Characters"><img class="Character ${position}${foot}" src="./img/Heroe.png" alt="Character"> </div></div>`;
-    				}
-
-    				if (tab[i][j] === 2) {
-    					content += "<div class=\"fire\"><img id=\"fire\" src=\"./img/fire.png\" alt=\"fire\"></div>";
-    				}
-
-    				if (tab[i][j] === 3) {
-    					content += "<img src='https://media.giphy.com/media/Qvp6Z2fidQR34IcwQ5/source.gif'>";
-    				}
-
-    				content += "</td>";
-    			}
-
-    			content += " </tr>";
-    		}
-
-    		content += "</table>";
-    		jeu.innerHTML = content;
-    	};
-
-    	const showCharacter = () => {
-    		const persoUp = document.querySelector(`.tr${l - 1} .td${c - 1}`);
-    		const perso = document.querySelector(`.tr${l} .td${c}`);
-    		const supPerso = document.querySelector(`.tr${l} .td${c}`);
-    		const persoDown = document.querySelector(`.tr${l + 1} .td${c - 1}`);
-
-    		if (down) {
-    			supPerso.innerHTML = "";
-    			persoDown.nextElementSibling.innerHTML = `<div class="personnage"> <div class="Characters"><img class="Character ${position}${foot}" src="./img/Heroe.png" alt="Character"> </div></div>`;
-    		}
-
-    		if (up) {
-    			supPerso.innerHTML = "";
-    			persoUp.nextElementSibling.innerHTML = `<div class="personnage"> <div class="Characters"><img class="Character ${position}${foot}" src="./img/Heroe.png" alt="Character"> </div></div>`;
-    		}
-
-    		if (left) {
-    			supPerso.innerHTML = "";
-    			perso.previousElementSibling.innerHTML = `<div class="personnage"> <div class="Characters"><img class="Character ${position}${foot}" src="./img/Heroe.png" alt="Character"> </div></div>`;
-    		}
-
-    		if (right) {
-    			perso.nextElementSibling.innerHTML = `<div class="personnage"> <div class="Characters"><img class="Character ${position}${foot}" src="./img/Heroe.png" alt="Character"> </div></div>`;
-    			supPerso.innerHTML = "";
-    		}
-    	};
-
-    	// fin afficher tableau
-    	const updateGame = newTab => {
-    		showTab(newTab);
-    	};
-
-    	// création du tableau
-    	tableau = createTab(nbLigne, nbCol);
-
-    	initGame(tableau);
-
-    	// fin création du tableau
-    	// direction character
-    	const switchDirection = (event, newTab) => {
-    		if (event.key === "ArrowDown" && l < 47) {
+    	const mooveHero = e => {
+    		if (e.key === "ArrowDown") {
     			const interval = setInterval(stopFunction, 90);
 
     			function stopFunction() {
     				if (down === false) {
     					clearInterval(interval);
-    					foot = 1;
-    					position = "down";
     				} else {
-    					if (l > 47) {
-    						clearInterval(interval); // showTab(newTab);
-    					}
-
-    					showCharacter();
-    					newTab[l][c] = 0;
-    					l++;
-    					newTab[l][c] = 1;
-    					position = "down";
-
-    					if (foot === 4) {
-    						foot = 1;
-    						position = "";
-    					}
-
-    					foot++;
-    				} // showTab(newTab);
+    					set_store_value(tableau, $tableau[lig - 1][col] = 0, $tableau);
+    					lig++;
+    					set_store_value(tableau, $tableau[lig][col] = "p", $tableau);
+    					ligHero$1.set(lig);
+    				}
     			}
     		}
 
-    		if (event.key === "ArrowUp" && l >= 3) {
+    		if (e.key === "ArrowUp") {
     			const interval = setInterval(stopFunction, 90);
 
     			function stopFunction() {
     				if (up === false) {
     					clearInterval(interval);
-    					foot = 1;
     				} else {
-    					if (l <= 3) {
-    						clearInterval(interval); // showTab(newTab);
-    					}
-
-    					showCharacter();
-    					tableau[l][c] = 0;
-    					l--;
-    					newTab[l][c] = 1;
-    					position = "up";
-
-    					if (foot === 4) {
-    						foot = 1;
-    						position = "up";
-    					}
-
-    					foot++;
-    				} // showTab(newTab);
-    			}
-    		}
-
-    		if (event.key === "ArrowRight" && c < 47) {
-    			const interval = setInterval(stopFunction, 90);
-
-    			function stopFunction() {
-    				if (right === false) {
-    					clearInterval(interval);
-    					foot = 1;
-    				} else {
-    					if (c > 47) {
-    						clearInterval(interval);
-    					}
-
-    					showCharacter();
-    					tableau[l][c] = 0;
-    					c++;
-    					newTab[l][c] = 1;
-    					position = "right";
-
-    					if (foot === 4) {
-    						foot = 1;
-    					}
-
-    					foot++;
+    					set_store_value(tableau, $tableau[lig][col] = 0, $tableau);
+    					lig--;
+    					set_store_value(tableau, $tableau[lig][col] = "p", $tableau);
+    					ligHero$1.set(lig);
     				}
     			}
     		}
 
-    		if (event.key === "ArrowLeft" && c >= +3) {
+    		if (e.key === "ArrowLeft") {
     			const interval = setInterval(stopFunction, 90);
 
     			function stopFunction() {
     				if (left === false) {
     					clearInterval(interval);
-    					foot = 1;
     				} else {
-    					if (c < 3) {
-    						clearInterval(interval);
-    					}
+    					set_store_value(tableau, $tableau[lig][col] = 0, $tableau);
+    					col--;
+    					set_store_value(tableau, $tableau[lig][col] = "p", $tableau);
+    					colHero$1.set(col);
+    				}
+    			}
+    		}
 
-    					showCharacter();
-    					newTab[l][c] = 0;
-    					c--;
-    					newTab[l][c] = 1;
-    					position = "left";
+    		if (e.key === "ArrowRight") {
+    			const interval = setInterval(stopFunction, 90);
 
-    					if (foot === 4) {
-    						foot = 1;
-    					}
-
-    					foot++;
+    			function stopFunction() {
+    				if (right === false) {
+    					clearInterval(interval);
+    				} else {
+    					set_store_value(tableau, $tableau[lig][col] = 0, $tableau);
+    					col++;
+    					set_store_value(tableau, $tableau[lig][col] = "p", $tableau);
+    					colHero$1.set(col);
     				}
     			}
     		}
     	};
 
-    	// fin direction character
-    	// event Player
     	document.addEventListener(
     		"keydown",
     		event => {
-    			array = [event.key, ...array];
-    			array.splice(2);
-
     			switch (event.key) {
     				case "ArrowDown":
     					if (down) return;
     					down = true;
-    					position = "down";
-    					// supCharacter();
     					break;
     				case "ArrowUp":
     					if (up) return;
-    					// supCharacter();
     					up = true;
     					break;
     				case "ArrowLeft":
     					if (left) return;
-    					// supCharacter();
     					left = true;
-    					console.log(left);
     					break;
     				case "ArrowRight":
     					if (right) return;
-    					// supCharacter();
     					right = true;
-    					console.log("je suis right");
     					break;
     			}
 
-    			switchDirection(event, tableau);
+    			mooveHero(event);
     		},
     		false
     	);
 
-    	document.addEventListener("keyup", () => {
+    	document.addEventListener("keyup", event => {
     		switch (event.key) {
     			case "ArrowDown":
     				down = false;
@@ -775,55 +766,35 @@ var app = (function () {
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1.warn(`<App> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<Hero> was created with unknown prop '${key}'`);
     	});
 
     	let { $$slots = {}, $$scope } = $$props;
-    	validate_slots("App", $$slots, []);
+    	validate_slots("Hero", $$slots, []);
 
     	$$self.$capture_state = () => ({
-    		Tailwindcss,
-    		newGame,
-    		jeu,
-    		nbLigne,
-    		nbCol,
     		tableau,
-    		l,
-    		c,
-    		lastEvent,
-    		position,
-    		foot,
+    		ligHero: ligHero$1,
+    		colHero: colHero$1,
     		down,
     		up,
     		right,
     		left,
-    		array,
-    		arrayFire,
-    		persoUp,
-    		perso,
-    		supPerso,
-    		persoDown,
-    		createTab,
-    		initGame,
-    		showTab,
-    		showCharacter,
-    		updateGame,
-    		switchDirection
+    		lig,
+    		col,
+    		mooveHero,
+    		$ligHero,
+    		$colHero,
+    		$tableau
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ("newGame" in $$props) newGame = $$props.newGame;
-    		if ("tableau" in $$props) tableau = $$props.tableau;
-    		if ("l" in $$props) l = $$props.l;
-    		if ("c" in $$props) c = $$props.c;
-    		if ("lastEvent" in $$props) lastEvent = $$props.lastEvent;
-    		if ("position" in $$props) position = $$props.position;
-    		if ("foot" in $$props) foot = $$props.foot;
     		if ("down" in $$props) down = $$props.down;
     		if ("up" in $$props) up = $$props.up;
     		if ("right" in $$props) right = $$props.right;
     		if ("left" in $$props) left = $$props.left;
-    		if ("array" in $$props) array = $$props.array;
+    		if ("lig" in $$props) lig = $$props.lig;
+    		if ("col" in $$props) col = $$props.col;
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -833,16 +804,705 @@ var app = (function () {
     	return [];
     }
 
-    class App extends SvelteComponentDev {
+    class Hero extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
     		init(this, options, instance$1, create_fragment$1, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
-    			tagName: "App",
+    			tagName: "Hero",
     			options,
     			id: create_fragment$1.name
+    		});
+    	}
+    }
+
+    /* src/components/tableau/Case.svelte generated by Svelte v3.24.1 */
+
+    const { console: console_1 } = globals;
+    const file$2 = "src/components/tableau/Case.svelte";
+
+    // (12:2) {#if idCase === 'p'}
+    function create_if_block(ctx) {
+    	let hero;
+    	let current;
+    	hero = new Hero({ $$inline: true });
+
+    	const block = {
+    		c: function create() {
+    			create_component(hero.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(hero, target, anchor);
+    			current = true;
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(hero.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(hero.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(hero, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block.name,
+    		type: "if",
+    		source: "(12:2) {#if idCase === 'p'}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$2(ctx) {
+    	let td;
+    	let td_class_value;
+    	let current;
+    	let if_block = /*idCase*/ ctx[0] === "p" && create_if_block(ctx);
+
+    	const block = {
+    		c: function create() {
+    			td = element("td");
+    			if (if_block) if_block.c();
+    			attr_dev(td, "class", td_class_value = "border cel " + /*idCase*/ ctx[0]);
+    			add_location(td, file$2, 10, 0, 191);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, td, anchor);
+    			if (if_block) if_block.m(td, null);
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (/*idCase*/ ctx[0] === "p") {
+    				if (if_block) {
+    					if (dirty & /*idCase*/ 1) {
+    						transition_in(if_block, 1);
+    					}
+    				} else {
+    					if_block = create_if_block(ctx);
+    					if_block.c();
+    					transition_in(if_block, 1);
+    					if_block.m(td, null);
+    				}
+    			} else if (if_block) {
+    				group_outros();
+
+    				transition_out(if_block, 1, 1, () => {
+    					if_block = null;
+    				});
+
+    				check_outros();
+    			}
+
+    			if (!current || dirty & /*idCase*/ 1 && td_class_value !== (td_class_value = "border cel " + /*idCase*/ ctx[0])) {
+    				attr_dev(td, "class", td_class_value);
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(if_block);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(td);
+    			if (if_block) if_block.d();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$2.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$2($$self, $$props, $$invalidate) {
+    	let { idCase } = $$props;
+
+    	onMount(async () => {
+    		console.log(colHero, ligHero);
+    	});
+
+    	const writable_props = ["idCase"];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1.warn(`<Case> was created with unknown prop '${key}'`);
+    	});
+
+    	let { $$slots = {}, $$scope } = $$props;
+    	validate_slots("Case", $$slots, []);
+
+    	$$self.$$set = $$props => {
+    		if ("idCase" in $$props) $$invalidate(0, idCase = $$props.idCase);
+    	};
+
+    	$$self.$capture_state = () => ({ onMount, Hero, idCase });
+
+    	$$self.$inject_state = $$props => {
+    		if ("idCase" in $$props) $$invalidate(0, idCase = $$props.idCase);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [idCase];
+    }
+
+    class Case extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$2, create_fragment$2, safe_not_equal, { idCase: 0 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Case",
+    			options,
+    			id: create_fragment$2.name
+    		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*idCase*/ ctx[0] === undefined && !("idCase" in props)) {
+    			console_1.warn("<Case> was created without expected prop 'idCase'");
+    		}
+    	}
+
+    	get idCase() {
+    		throw new Error("<Case>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set idCase(value) {
+    		throw new Error("<Case>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src/components/tableau/Level.svelte generated by Svelte v3.24.1 */
+
+    const { console: console_1$1 } = globals;
+    const file$3 = "src/components/tableau/Level.svelte";
+
+    function get_each_context_1(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[10] = list[i];
+    	return child_ctx;
+    }
+
+    function get_each_context(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[7] = list[i];
+    	return child_ctx;
+    }
+
+    // (47:6) {#each lig as col}
+    function create_each_block_1(ctx) {
+    	let case_1;
+    	let current;
+
+    	case_1 = new Case({
+    			props: { idCase: /*col*/ ctx[10] },
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(case_1.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(case_1, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const case_1_changes = {};
+    			if (dirty & /*$tableau*/ 1) case_1_changes.idCase = /*col*/ ctx[10];
+    			case_1.$set(case_1_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(case_1.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(case_1.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(case_1, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block_1.name,
+    		type: "each",
+    		source: "(47:6) {#each lig as col}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (45:2) {#each $tableau as lig}
+    function create_each_block(ctx) {
+    	let tr;
+    	let t;
+    	let current;
+    	let each_value_1 = /*lig*/ ctx[7];
+    	validate_each_argument(each_value_1);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value_1.length; i += 1) {
+    		each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
+    	}
+
+    	const out = i => transition_out(each_blocks[i], 1, 1, () => {
+    		each_blocks[i] = null;
+    	});
+
+    	const block = {
+    		c: function create() {
+    			tr = element("tr");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			t = space();
+    			attr_dev(tr, "class", "ligne");
+    			add_location(tr, file$3, 45, 4, 1001);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, tr, anchor);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(tr, null);
+    			}
+
+    			append_dev(tr, t);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*$tableau*/ 1) {
+    				each_value_1 = /*lig*/ ctx[7];
+    				validate_each_argument(each_value_1);
+    				let i;
+
+    				for (i = 0; i < each_value_1.length; i += 1) {
+    					const child_ctx = get_each_context_1(ctx, each_value_1, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    						transition_in(each_blocks[i], 1);
+    					} else {
+    						each_blocks[i] = create_each_block_1(child_ctx);
+    						each_blocks[i].c();
+    						transition_in(each_blocks[i], 1);
+    						each_blocks[i].m(tr, t);
+    					}
+    				}
+
+    				group_outros();
+
+    				for (i = each_value_1.length; i < each_blocks.length; i += 1) {
+    					out(i);
+    				}
+
+    				check_outros();
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+
+    			for (let i = 0; i < each_value_1.length; i += 1) {
+    				transition_in(each_blocks[i]);
+    			}
+
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			each_blocks = each_blocks.filter(Boolean);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				transition_out(each_blocks[i]);
+    			}
+
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(tr);
+    			destroy_each(each_blocks, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block.name,
+    		type: "each",
+    		source: "(45:2) {#each $tableau as lig}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (44:0) <Plateau>
+    function create_default_slot(ctx) {
+    	let each_1_anchor;
+    	let current;
+    	let each_value = /*$tableau*/ ctx[0];
+    	validate_each_argument(each_value);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+    	}
+
+    	const out = i => transition_out(each_blocks[i], 1, 1, () => {
+    		each_blocks[i] = null;
+    	});
+
+    	const block = {
+    		c: function create() {
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			each_1_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(target, anchor);
+    			}
+
+    			insert_dev(target, each_1_anchor, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*$tableau*/ 1) {
+    				each_value = /*$tableau*/ ctx[0];
+    				validate_each_argument(each_value);
+    				let i;
+
+    				for (i = 0; i < each_value.length; i += 1) {
+    					const child_ctx = get_each_context(ctx, each_value, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    						transition_in(each_blocks[i], 1);
+    					} else {
+    						each_blocks[i] = create_each_block(child_ctx);
+    						each_blocks[i].c();
+    						transition_in(each_blocks[i], 1);
+    						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+    					}
+    				}
+
+    				group_outros();
+
+    				for (i = each_value.length; i < each_blocks.length; i += 1) {
+    					out(i);
+    				}
+
+    				check_outros();
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+
+    			for (let i = 0; i < each_value.length; i += 1) {
+    				transition_in(each_blocks[i]);
+    			}
+
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			each_blocks = each_blocks.filter(Boolean);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				transition_out(each_blocks[i]);
+    			}
+
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_each(each_blocks, detaching);
+    			if (detaching) detach_dev(each_1_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot.name,
+    		type: "slot",
+    		source: "(44:0) <Plateau>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$3(ctx) {
+    	let plateau;
+    	let t;
+    	let button;
+    	let current;
+    	let mounted;
+    	let dispose;
+
+    	plateau = new Tableau({
+    			props: {
+    				$$slots: { default: [create_default_slot] },
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(plateau.$$.fragment);
+    			t = space();
+    			button = element("button");
+    			add_location(button, file$3, 52, 0, 1120);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(plateau, target, anchor);
+    			insert_dev(target, t, anchor);
+    			insert_dev(target, button, anchor);
+    			current = true;
+
+    			if (!mounted) {
+    				dispose = listen_dev(button, "click", /*test*/ ctx[1], false, false, false);
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, [dirty]) {
+    			const plateau_changes = {};
+
+    			if (dirty & /*$$scope, $tableau*/ 8193) {
+    				plateau_changes.$$scope = { dirty, ctx };
+    			}
+
+    			plateau.$set(plateau_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(plateau.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(plateau.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(plateau, detaching);
+    			if (detaching) detach_dev(t);
+    			if (detaching) detach_dev(button);
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$3.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function click() {
+    	var fileobj = event.target.files[0];
+    	var fr = new FileReader();
+
+    	fr.onload = function (event) {
+    		index.push(fr.result);
+    	};
+
+    	fr.readAsText(fileobj);
+    }
+
+    function instance$3($$self, $$props, $$invalidate) {
+    	let $tableau;
+    	let $nbrLig;
+    	let $nbrCol;
+    	let $ligHero;
+    	let $colHero;
+    	validate_store(tableau, "tableau");
+    	component_subscribe($$self, tableau, $$value => $$invalidate(0, $tableau = $$value));
+    	validate_store(nbrLig, "nbrLig");
+    	component_subscribe($$self, nbrLig, $$value => $$invalidate(2, $nbrLig = $$value));
+    	validate_store(nbrCol, "nbrCol");
+    	component_subscribe($$self, nbrCol, $$value => $$invalidate(3, $nbrCol = $$value));
+    	validate_store(ligHero$1, "ligHero");
+    	component_subscribe($$self, ligHero$1, $$value => $$invalidate(4, $ligHero = $$value));
+    	validate_store(colHero$1, "colHero");
+    	component_subscribe($$self, colHero$1, $$value => $$invalidate(5, $colHero = $$value));
+
+    	const createTab = (lig, col, car = 0) => {
+    		let tab = [];
+
+    		for (let i = 0; i <= lig; i++) {
+    			const ligne = [];
+
+    			for (let y = 0; y <= col; y++) {
+    				ligne.push(car);
+    			}
+
+    			tab.push(ligne);
+    		}
+
+    		return tab;
+    	};
+
+    	set_store_value(tableau, $tableau = createTab($nbrLig, $nbrCol));
+
+    	onMount(async () => {
+    		set_store_value(tableau, $tableau[$ligHero][$colHero] = "p", $tableau);
+    		console.log("coucou lala");
+    	});
+
+    	const test = () => {
+    		console.log(l);
+    	};
+
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$1.warn(`<Level> was created with unknown prop '${key}'`);
+    	});
+
+    	let { $$slots = {}, $$scope } = $$props;
+    	validate_slots("Level", $$slots, []);
+
+    	$$self.$capture_state = () => ({
+    		Plateau: Tableau,
+    		Case,
+    		onMount,
+    		tableau,
+    		nbrLig,
+    		nbrCol,
+    		ligHero: ligHero$1,
+    		colHero: colHero$1,
+    		createTab,
+    		click,
+    		test,
+    		$tableau,
+    		$nbrLig,
+    		$nbrCol,
+    		$ligHero,
+    		$colHero
+    	});
+
+    	return [$tableau, test];
+    }
+
+    class Level extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$3, create_fragment$3, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Level",
+    			options,
+    			id: create_fragment$3.name
+    		});
+    	}
+    }
+
+    /* src/App.svelte generated by Svelte v3.24.1 */
+
+    function create_fragment$4(ctx) {
+    	let level;
+    	let current;
+    	level = new Level({ $$inline: true });
+
+    	const block = {
+    		c: function create() {
+    			create_component(level.$$.fragment);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(level, target, anchor);
+    			current = true;
+    		},
+    		p: noop,
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(level.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(level.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(level, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$4.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$4($$self, $$props, $$invalidate) {
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<App> was created with unknown prop '${key}'`);
+    	});
+
+    	let { $$slots = {}, $$scope } = $$props;
+    	validate_slots("App", $$slots, []);
+    	$$self.$capture_state = () => ({ Level });
+    	return [];
+    }
+
+    class App extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$4, create_fragment$4, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "App",
+    			options,
+    			id: create_fragment$4.name
     		});
     	}
     }

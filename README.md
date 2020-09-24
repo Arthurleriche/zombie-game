@@ -1,6 +1,9 @@
 # zombie-game
 
-Wesh l'équipe type,
+#### CHANGEMENT ARTHUR LUNDI 
+
+J'ai refais comme vu avec soso la création du tableau avec les components case et tableau. 
+
 
 ### PRODUCT
 
@@ -31,3 +34,6 @@ npm run dev
 ```
 
 ### COMMENT JOUER
+
+
+

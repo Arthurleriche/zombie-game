@@ -4,14 +4,26 @@
     align-items: center;
 }
 
-img{
 
+
+.cel{
+    border: solid 1px
+}
+
+.p{
+    background: red;
 }
 
 .divTab{
     display: flex;
     justify-content: center;
     margin: 40px;
+}
+
+#hero{
+    height: 10px;
+    width: 10px;
+    overflow: hidden;
 }
 
 h1{

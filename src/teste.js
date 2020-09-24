@@ -19,3 +19,23 @@ console.log(tableau);
 tableau.forEach(element => 
     element[10].forEach(elements => console.log(elements))    
 );
+
+
+//  generer tableau
+function test() {
+  const fileInput = document.querySelector('#file');
+
+  console.log(fileInput.href);
+  var reader = new FileReader();
+  console.log(reader);
+  reader.onload = function () {
+    alert(
+      'Contenu du fichier "' +
+        fileInput.files[0].name +
+        '" :\n\n' +
+        reader.result
+    );
+  };
+  console.log(fileInput.files[0].arrayBuffer());
+  const level1 = fileInput.files[0].arrayBuffer()
+}
