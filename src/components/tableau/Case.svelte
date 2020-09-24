@@ -4,7 +4,7 @@
   export let idCase;
 
   onMount(async () => {
-    console.log(colHero, ligHero);
+    console.log('didmount Case.svelte');
   });
 </script>
 
