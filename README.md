@@ -4,6 +4,9 @@
 
 J'ai refais comme vu avec soso la création du tableau avec les components case et tableau. 
 
+Wesh mamos j'ai fait des changements sur le App.svelte. je te laisse faire les composants pour la page d'accueil et les autre pages que tu veux creer ? tiens moi au jus 
+
+
 
 ### PRODUCT
 

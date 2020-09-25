@@ -1,33 +1,23 @@
 <script>
-  import Plateau from './Tableau.svelte';
+  import Tableau from './Tableau.svelte';
   import Case from './Case.svelte';
   import { onMount } from 'svelte';
 
   import { tableau } from '../Store';
-  import { nbrLig } from '../Store';
-  import { nbrCol } from '../Store';
   import { ligHero } from '../Store';
   import { colHero } from '../Store';
 
-  const createTab = (lig, col, car = 0) => {
-    let tab = [];
-    for (let i = 0; i <= lig; i++) {
-      const ligne = [];
-      for (let y = 0; y <= col; y++) {
-        ligne.push(car);
-      }
-      tab.push(ligne);
-    }
-    return tab;
-  };
+  let down = false;
+  let up = false;
+  let right = false;
+  let left = false;
 
-  $tableau = createTab($nbrLig, $nbrCol);
   onMount(async () => {
-    $tableau[$ligHero][$colHero] = 'p';
-    console.log('coucou lala');
+    console.log('didMount Level');
+    // $tableau[$ligHero][$colHero] = 'p';
   });
 
-  function click() {
+  function parseFile() {
     var fileobj = event.target.files[0];
     var fr = new FileReader();
     fr.onload = function (event) {
@@ -35,13 +25,107 @@
     };
     fr.readAsText(fileobj);
   }
-
-  const test = () => {
-    console.log(l);
+  const mooveHero = e => {
+    if (e.key === 'ArrowDown') {
+      const interval = setInterval(stopFunction, 90);
+      function stopFunction() {
+        if (down === false) {
+          clearInterval(interval);
+          console.log($ligHero);
+        } else {
+          $tableau[$ligHero][$colHero] = 0;
+          $ligHero++;
+          $tableau[$ligHero][$colHero] = 'p';
+        }
+      }
+    }
+    if (e.key === 'ArrowUp') {
+      const interval = setInterval(stopFunction, 90);
+      function stopFunction() {
+        if (up === false) {
+          clearInterval(interval);
+        } else {
+          $tableau[$ligHero][$colHero] = 0;
+          $ligHero--;
+          $tableau[$ligHero][$colHero] = 'p';
+        }
+      }
+    }
+    if (e.key === 'ArrowLeft') {
+      const interval = setInterval(stopFunction, 90);
+      function stopFunction() {
+        if (left === false) {
+          clearInterval(interval);
+        } else {
+          $tableau[$ligHero][$colHero] = 0;
+          $colHero--;
+          $tableau[$ligHero][$colHero] = 'p';
+        }
+      }
+    }
+    if (e.key === 'ArrowRight') {
+      const interval = setInterval(stopFunction, 90);
+      function stopFunction() {
+        if (right === false) {
+          clearInterval(interval);
+        } else {
+          $tableau[$ligHero][$colHero] = 0;
+          $colHero++;
+          $tableau[$ligHero][$colHero] = 'p';
+        }
+      }
+    }
   };
+
+  document.addEventListener(
+    'keydown',
+    event => {
+      switch (event.key) {
+        case 'ArrowDown':
+          if (down) return;
+          down = true;
+
+          break;
+        case 'ArrowUp':
+          if (up) return;
+          up = true;
+
+          break;
+        case 'ArrowLeft':
+          if (left) return;
+          left = true;
+
+          break;
+        case 'ArrowRight':
+          if (right) return;
+          right = true;
+
+          break;
+      }
+      mooveHero(event);
+    },
+    false
+  );
+
+  document.addEventListener('keyup', event => {
+    switch (event.key) {
+      case 'ArrowDown':
+        down = false;
+        break;
+      case 'ArrowUp':
+        up = false;
+        break;
+      case 'ArrowLeft':
+        left = false;
+        break;
+      case 'ArrowRight':
+        right = false;
+        break;
+    }
+  });
 </script>
 
-<Plateau>
+<Tableau>
   {#each $tableau as lig}
     <tr class="ligne">
       {#each lig as col}
@@ -49,5 +133,5 @@
       {/each}
     </tr>
   {/each}
-</Plateau>
-<button on:click={test} />
+</Tableau>
+<button on:click={parseFile} />

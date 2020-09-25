@@ -5,5 +5,5 @@ export const nbrCol = writable(10);
 
 export const tableau = writable([])
 
-export const  ligHero = writable(8);
-export const  colHero = writable(2);
+export const  ligHero = writable(1);
+export const  colHero = writable(1);

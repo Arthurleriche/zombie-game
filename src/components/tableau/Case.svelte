@@ -1,10 +1,11 @@
 <script>
   import { onMount } from 'svelte';
   import Hero from '../characters/Hero.svelte';
+
   export let idCase;
 
   onMount(async () => {
-    console.log('didmount Case.svelte');
+    console.log('didMount Case.svelte');
   });
 </script>
 
