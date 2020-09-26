@@ -36,8 +36,7 @@
     
     }
     
-    .main{
-    }
+  
     .header{
       height:20%; 
     }
@@ -50,9 +49,9 @@
       100%{transform: rotate(0deg);}
       }
     
-      .main{
-        height:110%; 
-      }
+      /* .main{
+        height:95%; 
+      } */
     
       .img1, .img2, .img3{
         animation-name: headMove; 
@@ -93,16 +92,11 @@
         height:60%;
       }
     
-    
-      /* .grass{
-        position: absolute; 
-        bottom:0; 
-      } */
-      .grass2{
+      /* .grass2{
         margin-left:12px;
         margin-bottom:20px;
         color:rgb(53, 50, 50);
-      }
+      } */
     
       @keyframes grow{
         0% {transform:scale(1); transform:translate(200)}
@@ -110,16 +104,21 @@
         100% {transform:scale(1)}
     
       }
-      .hand2{
+
+      .grass{
+        position : absolute;
+        bottom:-20px; 
+      }
+      /* .hand2{
     
-        bottom:0px;
-        left:42%;
+        bottom:50%;
+        left:44%;
     
         animation-name: grow; 
         animation-duration:2s;
         animation-iteration-count: infinite;
-        
-      }
+         
+      } */
     </style>
     
     
@@ -129,28 +128,12 @@
     import { createEventDispatcher } from 'svelte';
     const dispatch = createEventDispatcher();
     console.log(newGame)
-
-    // function handleNewGame(){
-    //     dispatch('newgame', newGame=true)
-
-    //     console.log(newGame)
-    // }
-
-
-
+      
     </script>
     
     
     
-    <div class="main relative w-full"> 
-    
-      <div class="header flex flex-row justify-around w-full">
-        <div class=" logo text-white">LOGO</div>
-        <div class="title text-6xl fon">ZOMBAV</div>
-        <div class="logo text-white">LOGO</div>
-      </div>
-    
-    
+    <div class="main  w-full"> 
       <div class="trio flex justify-center space-x-20 mt-12">
         <div >
           <img class="img1" src='./img/zombie1.svg' alt='zombie-1' width='200px'>
@@ -166,14 +149,15 @@
         </div>
       </div>
     
-      <div class="flex  bottom-0">
+
+      <div class="flex">
         {#each array as square}
           <div class="sq {square}">
-            <img class = "grass" src = "./img/grass.svg"  alt =  "zombie hand"  height = "100px" width = "120px" />
-            <!-- <img class = "grass2" src = "./img/grass.svg"  alt =  "zombie hand"  height = "100px" width = "120px" /> -->
+            <img class = "grass" src = "./img/grass.svg"  alt =  "grass"  height = "100px" width = "120px" />
           </div>
         {/each}
+        <!-- <img class = "hand2 absolute" src = "./img/living-dead2.svg"  alt =  "zombie hand"  height = "100px" width = "120px" /> -->
       </div>
     
-      <img class = "hand2 absolute" src = "./img/living-dead2.svg"  alt =  "zombie hand"  height = "100px" width = "120px" />
+      
     </div>
