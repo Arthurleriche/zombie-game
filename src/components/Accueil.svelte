@@ -2,7 +2,6 @@
     @font-face {
         font-family: 'zbg';
         src: url('Deanna.ttf');
-    
     }
     
     .zbt{

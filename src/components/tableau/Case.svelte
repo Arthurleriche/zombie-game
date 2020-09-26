@@ -1,16 +1,28 @@
+<style>
+    .cel{
+      width:25px; 
+      height:25px; 
+      background-color:rgb(37, 36, 36);
+    }
+</style>
+
 <script>
   import { onMount } from 'svelte';
-  import Hero from '../characters/Hero.svelte';
-
+  import Hero2 from '../Hero2.svelte';
+  
   export let idCase;
 
   onMount(async () => {
-    console.log('didMount Case.svelte');
+    console.log('didmount Case.svelte');
   });
 </script>
 
 <td class="border cel {idCase}">
   {#if idCase === 'p'}
-    <Hero />
+    <Hero2 />
   {/if}
 </td>
+
+
+
+

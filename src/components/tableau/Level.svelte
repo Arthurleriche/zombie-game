@@ -1,11 +1,15 @@
 <script>
+  import Hero1 from '../Hero1.svelte'
+  import Enemies from '../Enemies.svelte';
+
   import Tableau from './Tableau.svelte';
   import Case from './Case.svelte';
   import { onMount } from 'svelte';
+  
 
-  import { tableau } from '../Store';
-  import { ligHero } from '../Store';
-  import { colHero } from '../Store';
+  import { tableau } from '../Store.js';
+  import { ligHero } from '../Store.js';
+  import { colHero } from '../Store.js';
 
   let down = false;
   let up = false;
@@ -125,6 +129,7 @@
   });
 </script>
 
+<!-- JEU 1  -->
 <Tableau>
   {#each $tableau as lig}
     <tr class="ligne">
@@ -135,3 +140,27 @@
   {/each}
 </Tableau>
 <button on:click={parseFile} />
+
+
+
+
+<!-- JEU 2  -->
+<div class="table2 h-full relative mt-8 border border-black">
+  <div class="h-20 w-40 mt-4 float-right">
+    <!-- ZQSD  -->
+    <div class="flex flex-col">
+      <p class="m-auto border p-2">Z</p>
+      <div class="flex flex-row justify-center">
+          <p class="border p-2">Q</p> <p class="border p-2">S</p> <p class="border p-2">D</p>
+      </div>
+    <!-- ZQSD  -->
+    </div>
+  </div>
+  <Hero1/>
+  <Enemies/>
+</div>
+
+
+
+
+
