@@ -1,29 +1,41 @@
-.border{
-    width: 100px;
-    height: 50px;
-    align-items: center;
+html, body {
+	position: relative;
+	/* width: 100%;*/
+	height: 100vh; 
+	border-bottom:35px solid black;
 }
 
+<<<<<<< HEAD
 
 
 .cel{
-    border: solid 1px;
     width: 20px;
     height: 20px;
+    border: none;
+}
+
+=======
+body {
+	color: #333;
+	margin: 0;
+	padding: 0px;
+	box-sizing: border-box;
+	height:100vh;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+a {
+	color: rgb(0,100,200);
+	text-decoration: none;
+}
+>>>>>>> d5fb3ce178a72a2230edee51c0b867dc2500cd4e
+
+a:hover {
+	text-decoration: underline;
 }
 
 
-.divTab{
-    display: flex;
-    justify-content: center;
-    margin: 40px;
-}
-.hero{
-    height: 100px;
-    width: 100px;
-    overflow: hidden;
-}
-
+<<<<<<< HEAD
 /* #hero{
     overflow: hidden;
     animation: mooveHero 1s steps(4) infinite
@@ -36,176 +48,56 @@
     to{
         transform: translate3d(-100%, 0, 0)
     }
+=======
+a:visited {
+	color: rgb(0,80,160);
+>>>>>>> d5fb3ce178a72a2230edee51c0b867dc2500cd4e
 }
 
-h1{
-    text-align: center
+label {
+	display: block;
 }
 
-p{
-    text-align: center
+input, button, select, textarea {
+	font-family: inherit;
+	font-size: inherit;
+	-webkit-padding: 0.4em 0;
+	padding: 0.4em;
+	margin: 0 0 0.5em 0;
+	box-sizing: border-box;
+	/* border: 1px solid #ccc; */
+	/* border-radius: 2px; */
 }
 
-.cel{
-width: 10px;
-height: 10px;
-position: relative;
+/* input:disabled {
+	color: #ccc;
+} */
+
+button:hover{
+	background-color: rgb(41, 42, 43)
 }
 
-/* .ligne{
-    height: 30px
+button {
+	color: #333;
+	background-color: #f4f4f4;
+	outline: none;
+}
+
+button:disabled {
+	color: #999;
+}
+
+button:not(:disabled):active {
+	background-color: #ddd;
+}
+
+/* button:focus {
+	border-color:transparent; 
 } */
 
 
-:root{
-    --pixel-size: 6
-}
 
-.pixelart{
-    image-rendering: pixelated; 
-}
 
-body{
-    background: green;
-}
 
-.personnage{
-    display: flex;
-    justify-content: center;
-    align-items: center
-}
 
-.Characters{
-    width: 100px;
-    height: 100px;
-    overflow: hidden;
-    position: absolute; 
-    z-index: 1
-}
 
-.down1{
-    position: relative;
-    top: 0px;
-}
-
-.down2{
-    position: relative;
-    top: 0px;
-    left: -100px;
-}
-
-.down3{
-    position: relative;
-    top: 0px;
-    left: -200px;
-}
-
-.down4{
-    position: relative;
-    top: 0px;
-    left: -300px;
-}
-
-.up1{    
-    position: relative;
-    top: -100px;
-}
-
-.up2{    
-    position: relative;
-    top: -100px;
-    left: -100px;
-}
-
-.up3{    
-    position: relative;
-    top: -100px;
-    left: -200px;
-}
-
-.up4{    
-    position: relative;
-    top: -100px;
-    left: -300px;
-}
-
-.left1{
-    position: relative;
-    top: calc(-100px * 2); 
-    left: -100px;
-}
-
-.left2{
-    position: relative;
-    top: calc(-100px * 2); 
-    left: -200px;
-}  
-
-.left3{
-    position: relative;
-    top: calc(-100px * 2); 
-    left: -300px;
-} 
-
-.left4{
-    position: relative;
-    top: calc(-100px * 2); 
-}  
-
-.right1{
-    position: relative;
-    top: calc(-100px * 3);
-    left: -100px;
-}
-
-.right2{
-    position: relative;
-    top: calc(-100px * 3);
-    left: -200px;
-}
-
-.right3{
-    position: relative;
-    top: calc(-100px * 3);
-    left: -300px;
-}
-
-.right4{
-    position: relative;
-    top: calc(-100px * 3);
-}
-
-.fire{
-    width: 40px;
-    height: 40px;
-    overflow: hidden;
-    position: absolute;
-
-}
-
-@keyframes movefire{
-    from{
-        transform: translate3d(0%, 0, 0)
-    }
-    to{
-        transform: translate3d(-100%, 0, 0)
-    }
-}
-@keyframes movefire2{
-    from{
-        transform: translate3d(0%, 0, 0)
-    }
-    to{
-        transform: translate3d(100%, 0, 0)
-    }
-}
-
-#fire{
-    animation: movefire 0.3s steps(5) infinite;
-}
-
-#fire2{
-    position: relative;
-    left: -100%;
-    animation: movefire2 0.3s steps(5) infinite;
-}

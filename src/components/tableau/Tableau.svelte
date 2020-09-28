@@ -1,9 +1,9 @@
 <script>
-  import { tableau } from '../Store';
-  import { nbrLig } from '../Store';
-  import { nbrCol } from '../Store';
-  import { ligHero } from '../Store';
-  import { colHero } from '../Store';
+  import { tableau } from '../Store.js';
+  import { nbrLig } from '../Store.js';
+  import { nbrCol } from '../Store.js';
+  import { ligHero } from '../Store.js';
+  import { colHero } from '../Store.js';
 
   const createTab = (lig, col, car = 0) => {
     let tab = [];
@@ -21,6 +21,7 @@
   $tableau[$ligHero][$colHero] = 'p';
 </script>
 
+<p>Utlisez les touches directionnelles</p>
 <div>
   <slot />
 </div>
