@@ -17,13 +17,17 @@
     // $tableau[$ligHero][$colHero] = 'p';
   });
 
+  let level = [];
   function parseFile() {
-    var fileobj = event.target.files[0];
-    var fr = new FileReader();
+    // let fileobj = event.target.files[0];
+    let file = new File(['level1.text'], './level1.txt');
+    console.log(file);
+    let fr = new FileReader();
     fr.onload = function (event) {
-      index.push(fr.result);
+      level.push(fr.result);
     };
-    fr.readAsText(fileobj);
+    fr.readAsText(file);
+    console.log(index);
   }
   const mooveHero = e => {
     if (e.key === 'ArrowDown') {
@@ -31,7 +35,6 @@
       function stopFunction() {
         if (down === false) {
           clearInterval(interval);
-          console.log($ligHero);
         } else {
           $tableau[$ligHero][$colHero] = 0;
           $ligHero++;
@@ -99,7 +102,6 @@
         case 'ArrowRight':
           if (right) return;
           right = true;
-
           break;
       }
       mooveHero(event);

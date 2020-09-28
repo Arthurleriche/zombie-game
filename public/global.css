@@ -7,23 +7,35 @@
 
 
 .cel{
-    border: solid 1px
+    border: solid 1px;
+    width: 20px;
+    height: 20px;
 }
 
-.p{
-    background: red;
-}
 
 .divTab{
     display: flex;
     justify-content: center;
     margin: 40px;
 }
-
-#hero{
-    height: 10px;
-    width: 10px;
+.hero{
+    height: 100px;
+    width: 100px;
     overflow: hidden;
+}
+
+/* #hero{
+    overflow: hidden;
+    animation: mooveHero 1s steps(4) infinite
+} */
+
+@keyframes mooveHero{
+    from{
+        transform: translate3d(0%, 0, 0)
+    }
+    to{
+        transform: translate3d(-100%, 0, 0)
+    }
 }
 
 h1{
