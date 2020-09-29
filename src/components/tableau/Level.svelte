@@ -1,7 +1,4 @@
 <script>
-  import Hero1 from '../Hero1.svelte';
-  import Enemies from '../Enemies.svelte';
-
   import Tableau from './Tableau.svelte';
   import Case from './Case.svelte';
   import { onMount } from 'svelte';
@@ -157,32 +154,19 @@
   });
 </script>
 
-<!-- JEU 1  -->
-<Tableau>
-  {#each $tableau as lig}
-    <tr class="ligne">
-      {#each lig as col}
-        <Case idCase={col} feature={direction} steps={foot} />
+<div class="flex flex-col justify-around w-full">
+  <div class="gamefield border border-black">
+    <Tableau>
+      {#each $tableau as lig}
+        <tr class="ligne">
+        {#each lig as col}
+          <Case idCase={col} feature={direction} steps={foot} />
+        {/each}
+        </tr>
       {/each}
-    </tr>
-  {/each}
-</Tableau>
-<button on:click={parseFile} />
-
-<!-- JEU 2  -->
-<div class="table2 h-full relative mt-8 border border-black">
-  <div class="h-20 w-40 mt-4 float-right">
-    <!-- ZQSD  -->
-    <div class="flex flex-col">
-      <p class="m-auto border p-2">Z</p>
-      <div class="flex flex-row justify-center">
-        <p class="border p-2">Q</p>
-        <p class="border p-2">S</p>
-        <p class="border p-2">D</p>
-      </div>
-      <!-- ZQSD  -->
-    </div>
+    </Tableau>
+    <button on:click={parseFile} />
   </div>
-  <Hero1 />
-  <Enemies />
 </div>
+
+

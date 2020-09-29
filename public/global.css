@@ -1,12 +1,12 @@
 html, body {
 	position: relative;
-	/* width: 100%;*/
 	height: 100vh; 
-	border-bottom:35px solid black;
 }
 
-<<<<<<< HEAD
-
+body{
+	background-image:url('./img/nasa.jpg');
+  background-size:cover;
+}
 
 .cel{
     width: 20px;
@@ -14,28 +14,17 @@ html, body {
     border: none;
 }
 
-=======
-body {
-	color: #333;
-	margin: 0;
-	padding: 0px;
-	box-sizing: border-box;
-	height:100vh;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+.floor{
+  position:absolute; 
+  width:100%;
+  bottom:0px; 
+  border-bottom:24px solid black; 
 }
-
-a {
-	color: rgb(0,100,200);
-	text-decoration: none;
-}
->>>>>>> d5fb3ce178a72a2230edee51c0b867dc2500cd4e
 
 a:hover {
 	text-decoration: underline;
 }
 
-
-<<<<<<< HEAD
 /* #hero{
     overflow: hidden;
     animation: mooveHero 1s steps(4) infinite
@@ -48,10 +37,6 @@ a:hover {
     to{
         transform: translate3d(-100%, 0, 0)
     }
-=======
-a:visited {
-	color: rgb(0,80,160);
->>>>>>> d5fb3ce178a72a2230edee51c0b867dc2500cd4e
 }
 
 label {
@@ -98,6 +83,112 @@ button:not(:disabled):active {
 
 
 
+/* ACCUEIL - ANIM  */
 
+@keyframes treeMove{
+    30% {transform:skew(1deg)}
+    60% {transform:skew(0deg)}
+    90% {transform:skew(-1deg)}
+  }
+.deadtree{
+    height:40%;
+	width:auto; 
+	position:absolute;
+	bottom:0; 
+    /* bottom:4.5%; 
+    left:2%; */
+    opacity:0.6; 
+    animation:treeMove 2s linear infinite; 
+  }
+
+@keyframes soucoupeDiag{
+  from {transform: translate(-40px,-400px)}
+  to {transform: translate(751px,200px)}
+}
+.soucoupe{
+  z-index:-10;
+  width:15%;
+  height:10%;
+  animation-name:soucoupeDiag;
+  animation-duration:15s;
+  animation-delay:1s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  transform:translate(-40px,-400px);
+}
+
+@keyframes ufoMove{
+  20%{top:54%;left:45%;opacity:1}
+  30% {top:57%;left:45%;}
+  40%{top:54%;left:45%;transform:scale(1)}
+  50% {top:57%;left:45%;transform:scale(1);opacity:1}
+  60%{top:54%;left:45%;transform:scale(1)}
+  70% {top:57%;left:45%;transform:scale(1);opacity:1}
+  80%{top:54%;left:45%;transform:scale(1)}
+  90% {top:57%;left:45%;transform:scale(1);opacity:1}
+  100%{top:0%;left:90%; transform:scale(0)} 
+}
+
+.ufo{
+  z-index:-10;
+  position:absolute; 
+  opacity:0;
+  left:45%;
+  top:85%;
+  width:10%;
+  animation:ufoMove 7s; 
+  animation-delay:2s
+}
+
+
+
+@keyframes bulletRight{
+  from {transform: translate(-40px,0)}
+  to {transform: translate(1440px,0)}
+}
+
+.bullet1{
+  width:4%;
+  height:2%;
+  position:absolute; 
+  animation-name:bulletRight;
+  animation-duration:4s;
+  animation-delay:1s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  transform:translate(-130px);
+}
+
+@keyframes bulletDiag{
+  from{top:0; left:-5%; }
+  to{top:100%; left :80%; }
+}
+
+.bullet2{
+  z-index:-10; 
+  width:4%;
+  height:2%;
+  position:absolute; 
+  transform:rotate(35deg);
+  left:-5%;
+  top:0; 
+  animation: bulletDiag 5s ease-in-out 4; 
+}
+
+.grass{
+  position : absolute;
+  bottom:-20px; 
+}
+
+/* ACCUEIL - DECOR  */
+
+
+/* GAMEFIELD */
+.gamefield{
+  width:1000px;
+  height:600px;
+  margin:auto;
+  background-color:rgb(20, 20, 20,0.95);
+}
 
 

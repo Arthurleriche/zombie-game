@@ -4,15 +4,14 @@
 import Tailwindcss from './Tailwindcss.svelte'
 import Accueil from './components/Accueil.svelte'
 import Level from './components/tableau/Level.svelte'
-let newGame=false; 
 
+let newGame=false; 
 let src = './img/mute.svg'
 let muted = true ; 
 
 
 function handleAudio(){
   var Player = document.getElementById('player')
-  
   if (muted == true ){
     Player.play();
     src = './img/volume.svg'
@@ -22,10 +21,24 @@ function handleAudio(){
   }
   muted = !muted; 
 }
-
-
 </script>
 <Tailwindcss/>
+
+<!-- COMPOSANT header -->
+<div class="header  relative w-full">
+  <div class="title text-6xl text-center"  on:click={() => newGame = false}><p class='title'>ZOMBAV</p></div>
+  <audio id="player"  src="./audio/laylow.mp3">
+    <track kind="captions">
+  </audio> 
+  <img id="mute" class="h-16 w-16 absolute m-8 left-0 top-0" {src} alt="volume"  on:click={handleAudio}/>
+</div>
+<!-- COMPOSANT header -->
+
+{#if !newGame}
+<Accueil bind:newGame={newGame}/>
+{:else}
+    <Level/>
+{/if}
 
 
 
@@ -33,36 +46,9 @@ function handleAudio(){
   .title{
     font-family:'Courier New', Courier, monospace;
     font-weight: bold;
+    color:white; 
   }
-
-  .gamefield{
-    width:1000px;
-    height:600px;
-    margin:auto;
-  }
-
 </style>
-
-
-<div class="header  relative w-full">
-  <div class="title text-6xl text-center">ZOMBAV</div>
-  <audio id="player"  src="./audio/laylow.mp3">
-    <track kind="captions">
-  </audio> 
-  <img id="mute" class="h-16 w-16 absolute m-8 left-0 top-0" {src} alt="volume"  on:click={handleAudio}/>
-</div>
-    
-
-{#if !newGame}
-<Accueil bind:newGame={newGame}/>
-{:else}
-<div class="header flex flex-col justify-around w-full">
-  <div class="gamefield border border-black">
-    <Level/>
-  </div>
-</div>
-{/if}
-
 
 
 

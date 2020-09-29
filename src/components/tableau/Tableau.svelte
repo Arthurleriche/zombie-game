@@ -21,7 +21,7 @@
   $tableau[$ligHero][$colHero] = 'p';
 </script>
 
-<p>Utlisez les touches directionnelles</p>
+<p class="text-white">Utlisez les touches directionnelles</p>
 <div>
   <slot />
 </div>
