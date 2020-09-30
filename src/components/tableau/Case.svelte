@@ -11,15 +11,15 @@
   });
 </script>
 
+<style>
+  .cel {
+    width: 10px;
+    height: 10px;
+  }
+</style>
+
 <td class="border cel {idCase} border-none">
   {#if idCase === 'p'}
     <Hero {feature} {steps} />
   {/if}
 </td>
-
-<style>
-  .cel {
-    width: 25px;
-    height: 25px;
-  }
-</style>
