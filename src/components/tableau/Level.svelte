@@ -159,14 +159,12 @@
     <Tableau>
       {#each $tableau as lig}
         <tr class="ligne">
-        {#each lig as col}
-          <Case idCase={col} feature={direction} steps={foot} />
-        {/each}
+          {#each lig as col}
+            <Case idCase={col} feature={direction} steps={foot} />
+          {/each}
         </tr>
       {/each}
     </Tableau>
     <button on:click={parseFile} />
   </div>
 </div>
-
-
