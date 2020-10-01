@@ -14,7 +14,6 @@
 
 <style>
   .cel {
-<<<<<<< HEAD
     max-width: 50px;
     max-height: 50px;
 
@@ -22,12 +21,6 @@
     align-items: center;
     padding: 0;
     margin: 0;
-=======
-    width: 10px;
-    height: 10px;
-    border: 1px solid rgb(63, 61, 61);
-
->>>>>>> 62ab9dbe1becf7b14a1cd5ea4eb5c974156bc43a
   }
 </style>
 

@@ -11,18 +11,8 @@
   import { nbrLig } from '../StoreTable.js';
   import { ligHero } from '../StoreCharacters.js';
   import { colHero } from '../StoreCharacters.js';
-
-<<<<<<< HEAD
   import { step } from '../StoreCharacters.js';
   import { direction } from '../StoreCharacters.js';
-=======
-  import { tableau } from '../Store.js';
-  import { ligHero } from '../Store.js';
-  import { colHero } from '../Store.js';
-  import {nbrLig} from '../Store.js';
-  import {nbrCol} from '../Store.js';
-
->>>>>>> 62ab9dbe1becf7b14a1cd5ea4eb5c974156bc43a
 
   let down = false;
   let up = false;
@@ -50,11 +40,7 @@
     if (e.key === 'ArrowDown') {
       const interval = setInterval(stopFunction, 200);
       function stopFunction() {
-<<<<<<< HEAD
         if (down === false || $ligHero >= $nbrLig - 2) {
-=======
-        if (down === false  || $ligHero == $nbrLig) {
->>>>>>> 62ab9dbe1becf7b14a1cd5ea4eb5c974156bc43a
           clearInterval(interval);
         } else {
           $direction = 'down';
@@ -72,11 +58,7 @@
     if (e.key === 'ArrowUp') {
       const interval = setInterval(stopFunction, 200);
       function stopFunction() {
-<<<<<<< HEAD
         if (up === false || $ligHero <= 1) {
-=======
-        if (up === false || $ligHero ==0 ) {
->>>>>>> 62ab9dbe1becf7b14a1cd5ea4eb5c974156bc43a
           clearInterval(interval);
         } else {
           $direction = 'up';
@@ -94,11 +76,7 @@
     if (e.key === 'ArrowLeft') {
       const interval = setInterval(stopFunction, 200);
       function stopFunction() {
-<<<<<<< HEAD
         if (left === false || $colHero <= 1) {
-=======
-        if (left === false || $colHero == 0) {
->>>>>>> 62ab9dbe1becf7b14a1cd5ea4eb5c974156bc43a
           clearInterval(interval);
         } else {
           $direction = 'left';
@@ -116,11 +94,7 @@
     if (e.key === 'ArrowRight') {
       const interval = setInterval(stopFunction, 200);
       function stopFunction() {
-<<<<<<< HEAD
         if (right === false || $colHero >= $nbrCol - 1) {
-=======
-        if (right === false || $colHero == $nbrCol) {
->>>>>>> 62ab9dbe1becf7b14a1cd5ea4eb5c974156bc43a
           clearInterval(interval);
         } else {
           $direction = 'right';

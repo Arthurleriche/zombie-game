@@ -1,5 +1,3 @@
-
-
 # INSTALL PROJECT
 
 ```javascript
