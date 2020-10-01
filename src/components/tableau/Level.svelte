@@ -6,6 +6,9 @@
   import { tableau } from '../Store.js';
   import { ligHero } from '../Store.js';
   import { colHero } from '../Store.js';
+  import {nbrLig} from '../Store.js';
+  import {nbrCol} from '../Store.js';
+
 
   let down = false;
   let up = false;
@@ -36,7 +39,7 @@
     if (e.key === 'ArrowDown') {
       const interval = setInterval(stopFunction, 100);
       function stopFunction() {
-        if (down === false) {
+        if (down === false  || $ligHero == $nbrLig) {
           clearInterval(interval);
         } else {
           direction = 'down';
@@ -54,7 +57,7 @@
     if (e.key === 'ArrowUp') {
       const interval = setInterval(stopFunction, 100);
       function stopFunction() {
-        if (up === false) {
+        if (up === false || $ligHero ==0 ) {
           clearInterval(interval);
         } else {
           direction = 'up';
@@ -72,7 +75,7 @@
     if (e.key === 'ArrowLeft') {
       const interval = setInterval(stopFunction, 100);
       function stopFunction() {
-        if (left === false) {
+        if (left === false || $colHero == 0) {
           clearInterval(interval);
         } else {
           direction = 'left';
@@ -90,7 +93,7 @@
     if (e.key === 'ArrowRight') {
       const interval = setInterval(stopFunction, 100);
       function stopFunction() {
-        if (right === false) {
+        if (right === false || $colHero == $nbrCol) {
           clearInterval(interval);
         } else {
           direction = 'right';

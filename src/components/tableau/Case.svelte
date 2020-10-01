@@ -15,6 +15,8 @@
   .cel {
     width: 10px;
     height: 10px;
+    border: 1px solid rgb(63, 61, 61);
+
   }
 </style>
 

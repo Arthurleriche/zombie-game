@@ -1,7 +1,7 @@
 import {writable} from 'svelte/store';
 
-export const nbrLig = writable(23);
-export const nbrCol = writable(40);
+export const nbrLig = writable(52);
+export const nbrCol = writable(95);
 
 export const tableau = writable([])
 
