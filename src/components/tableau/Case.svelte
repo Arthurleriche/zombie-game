@@ -1,10 +1,11 @@
 <script>
   import { onMount } from 'svelte';
   import Hero from '../Hero.svelte';
+  import Fire from '../textures/Fire.svelte';
+  import Ship from '../textures/Ship.svelte';
+  import Empty from '../textures/Empty.svelte';
 
   export let idCase;
-  export let feature;
-  export let steps;
 
   onMount(async () => {
     console.log('dirMount case');
@@ -13,13 +14,24 @@
 
 <style>
   .cel {
-    width: 10px;
-    height: 10px;
+    max-width: 50px;
+    max-height: 50px;
+
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
   }
 </style>
 
-<td class="border cel {idCase} border-none">
+<td class="cel {idCase} ">
   {#if idCase === 'p'}
-    <Hero {feature} {steps} />
+    <Hero />
+  {/if}
+  {#if idCase === 'fire'}
+    <Fire />
+  {/if}
+  {#if idCase === 'ship'}
+    <Ship />
   {/if}
 </td>

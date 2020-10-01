@@ -1,19 +1,24 @@
 <script>
+  // components
   import Tableau from './Tableau.svelte';
   import Case from './Case.svelte';
-  import { onMount } from 'svelte';
 
-  import { tableau } from '../Store.js';
-  import { ligHero } from '../Store.js';
-  import { colHero } from '../Store.js';
+  // function svelte
+  import { onMount } from 'svelte';
+  // strore
+  import { tableau } from '../StoreTable.js';
+  import { nbrCol } from '../StoreTable.js';
+  import { nbrLig } from '../StoreTable.js';
+  import { ligHero } from '../StoreCharacters.js';
+  import { colHero } from '../StoreCharacters.js';
+
+  import { step } from '../StoreCharacters.js';
+  import { direction } from '../StoreCharacters.js';
 
   let down = false;
   let up = false;
   let right = false;
   let left = false;
-
-  let direction = 'down';
-  let foot = 1;
 
   onMount(async () => {
     console.log('didMount Level');
@@ -34,73 +39,73 @@
   }
   const mooveHero = e => {
     if (e.key === 'ArrowDown') {
-      const interval = setInterval(stopFunction, 100);
+      const interval = setInterval(stopFunction, 200);
       function stopFunction() {
-        if (down === false) {
+        if (down === false || $ligHero >= $nbrLig - 2) {
           clearInterval(interval);
         } else {
-          direction = 'down';
+          $direction = 'down';
           $tableau[$ligHero][$colHero] = 0;
           $ligHero++;
           $tableau[$ligHero][$colHero] = 'p';
-          if (foot === 3) {
-            foot = 1;
+          if ($step === 3) {
+            $step = 1;
           } else {
-            foot++;
+            $step++;
           }
         }
       }
     }
     if (e.key === 'ArrowUp') {
-      const interval = setInterval(stopFunction, 100);
+      const interval = setInterval(stopFunction, 200);
       function stopFunction() {
-        if (up === false) {
+        if (up === false || $ligHero <= 1) {
           clearInterval(interval);
         } else {
-          direction = 'up';
+          $direction = 'up';
           $tableau[$ligHero][$colHero] = 0;
           $ligHero--;
           $tableau[$ligHero][$colHero] = 'p';
-          if (foot === 3) {
-            foot = 1;
+          if ($step === 3) {
+            $step = 1;
           } else {
-            foot++;
+            $step++;
           }
         }
       }
     }
     if (e.key === 'ArrowLeft') {
-      const interval = setInterval(stopFunction, 100);
+      const interval = setInterval(stopFunction, 200);
       function stopFunction() {
-        if (left === false) {
+        if (left === false || $colHero <= 1) {
           clearInterval(interval);
         } else {
-          direction = 'left';
+          $direction = 'left';
           $tableau[$ligHero][$colHero] = 0;
           $colHero--;
           $tableau[$ligHero][$colHero] = 'p';
-          if (foot === 3) {
-            foot = 1;
+          if ($step === 3) {
+            $step = 1;
           } else {
-            foot++;
+            $step++;
           }
         }
       }
     }
     if (e.key === 'ArrowRight') {
-      const interval = setInterval(stopFunction, 100);
+      const interval = setInterval(stopFunction, 200);
       function stopFunction() {
-        if (right === false) {
+        if (right === false || $colHero >= $nbrCol - 1) {
           clearInterval(interval);
         } else {
-          direction = 'right';
+          $direction = 'right';
           $tableau[$ligHero][$colHero] = 0;
           $colHero++;
           $tableau[$ligHero][$colHero] = 'p';
-          if (foot === 3) {
-            foot = 1;
+          if ($step === 3) {
+            $step = 1;
           } else {
-            foot++;
+            $step++;
           }
         }
       }
@@ -114,17 +119,14 @@
         case 'ArrowDown':
           if (down) return;
           down = true;
-
           break;
         case 'ArrowUp':
           if (up) return;
           up = true;
-
           break;
         case 'ArrowLeft':
           if (left) return;
           left = true;
-
           break;
         case 'ArrowRight':
           if (right) return;
@@ -140,36 +142,34 @@
     switch (event.key) {
       case 'ArrowDown':
         down = false;
-        foot = 1;
-
+        $step = 1;
         break;
       case 'ArrowUp':
         up = false;
-        foot = 1;
+        $step = 1;
         break;
       case 'ArrowLeft':
         left = false;
-        foot = 1;
+        $step = 1;
         break;
       case 'ArrowRight':
         right = false;
-        foot = 1;
+        $step = 1;
         break;
     }
   });
 </script>
 
 <div class="flex flex-col justify-around w-full">
-  <div class="gamefield border border-black">
+  <div class="gamefield">
     <Tableau>
       {#each $tableau as lig}
         <tr class="ligne">
           {#each lig as col}
-            <Case idCase={col} feature={direction} steps={foot} />
+            <Case idCase={col} />
           {/each}
         </tr>
       {/each}
     </Tableau>
-    <button on:click={parseFile} />
   </div>
 </div>

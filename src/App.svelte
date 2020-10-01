@@ -3,20 +3,22 @@
   import Accueil from './components/Accueil.svelte';
   import Level from './components/tableau/Level.svelte';
 
-  let newGame = true;
+  // store
+  import { sound } from './components/StoreOption.js';
+
+  let newGame = false;
   let src = './img/mute.svg';
-  let muted = true;
 
   function handleAudio() {
     var Player = document.getElementById('player');
-    if (muted == true) {
+    if ($sound == true) {
       Player.play();
       src = './img/volume.svg';
     } else {
       Player.pause();
       src = './img/mute.svg';
     }
-    muted = !muted;
+    $sound = !$sound;
   }
 </script>
 

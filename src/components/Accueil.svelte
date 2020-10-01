@@ -4,6 +4,12 @@
   import { createEventDispatcher } from 'svelte';
   const dispatch = createEventDispatcher();
   console.log(newGame);
+
+  import { sound } from './StoreOption.js';
+
+  function activateSound() {
+    $sound = !$sound;
+  }
 </script>
 
 <!-- COMPOSANT acc-ANIM -->
@@ -91,6 +97,7 @@
         <div class="animintro" >
           <img class="img3" src='./img/zombie4.svg' alt='zombie-4' width='200px'>
           <div class="button">OPTIONS</div>
+          <button on:click={activateSound}>activer le son</button>
         </div>
       </div>
     </div>

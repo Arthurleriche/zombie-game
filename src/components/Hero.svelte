@@ -1,20 +1,21 @@
 <script>
-  export let feature;
-  export let steps;
-
-  console.log(feature, steps);
+  import { step } from './StoreCharacters.js';
+  import { direction } from './StoreCharacters.js';
 </script>
 
 <style>
   .hero {
-    height: 50px;
-    width: 50px;
+    width: 48px;
+    height: 48px;
 
     overflow: hidden;
 
     position: relative;
   }
 
+  #hero {
+    padding: 0;
+  }
   img {
     max-width: 600px;
     height: 400px;
@@ -27,7 +28,7 @@
     position: absolute;
     left: -50px;
   }
-  .down3 {
+  .down2 {
     position: absolute;
     left: -100px;
   }
@@ -75,12 +76,12 @@
   }
 </style>
 
-<div class="hero ">
-  <img
-    class="{feature}{steps}"
-    id="hero"
-    src="./resources/space_hero.png"
-    alt="" />
+<div>
+  <div class="hero">
+    <img
+      class="{$direction}{$step}"
+      id="hero"
+      src="./resources/space_hero.png"
+      alt="" />
+  </div>
 </div>
-
-<!-- class="{feature}{steps}" -->
