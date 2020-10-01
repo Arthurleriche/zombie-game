@@ -538,7 +538,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (31:8) {#each array as square}
+    // (112:2) {#each array as square}
     function create_each_block(ctx) {
     	let div;
     	let img;
@@ -556,9 +556,9 @@ var app = (function () {
     			attr_dev(img, "alt", "grass");
     			attr_dev(img, "height", "100px");
     			attr_dev(img, "width", "120px");
-    			add_location(img, file, 32, 12, 1132);
-    			attr_dev(div, "class", div_class_value = "sq-grass " + /*square*/ ctx[4] + " svelte-yzrsm7");
-    			add_location(div, file, 31, 10, 1088);
+    			add_location(img, file, 113, 6, 2211);
+    			attr_dev(div, "class", div_class_value = "sq-grass " + /*square*/ ctx[4] + " svelte-p5oe7j");
+    			add_location(div, file, 112, 4, 2173);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -575,7 +575,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(31:8) {#each array as square}",
+    		source: "(112:2) {#each array as square}",
     		ctx
     	});
 
@@ -667,59 +667,59 @@ var app = (function () {
     			img6 = element("img");
     			t13 = space();
     			img7 = element("img");
-    			attr_dev(img0, "class", "img1 svelte-yzrsm7");
+    			attr_dev(img0, "class", "img1 svelte-p5oe7j");
     			if (img0.src !== (img0_src_value = "./img/zombie1.svg")) attr_dev(img0, "src", img0_src_value);
     			attr_dev(img0, "alt", "zombie-1");
     			attr_dev(img0, "width", "200px");
-    			add_location(img0, file, 13, 10, 391);
-    			attr_dev(div0, "class", "m-auto button  svelte-yzrsm7");
-    			add_location(div0, file, 14, 10, 473);
-    			attr_dev(div1, "class", "animintro svelte-yzrsm7");
-    			add_location(div1, file, 12, 8, 357);
-    			attr_dev(img1, "class", "img2 svelte-yzrsm7");
+    			add_location(img0, file, 94, 10, 1502);
+    			attr_dev(div0, "class", "m-auto button  svelte-p5oe7j");
+    			add_location(div0, file, 95, 10, 1584);
+    			attr_dev(div1, "class", "animintro svelte-p5oe7j");
+    			add_location(div1, file, 93, 8, 1468);
+    			attr_dev(img1, "class", "img2 svelte-p5oe7j");
     			if (img1.src !== (img1_src_value = "./img/zombie3.svg")) attr_dev(img1, "src", img1_src_value);
     			attr_dev(img1, "alt", "zombie-3");
     			attr_dev(img1, "width", "300px");
-    			add_location(img1, file, 17, 10, 574);
-    			attr_dev(div2, "class", "button svelte-yzrsm7");
-    			add_location(div2, file, 18, 10, 656);
-    			attr_dev(div3, "class", "animintro svelte-yzrsm7");
-    			add_location(div3, file, 16, 8, 540);
-    			attr_dev(img2, "class", "img3 svelte-yzrsm7");
+    			add_location(img1, file, 98, 10, 1685);
+    			attr_dev(div2, "class", "button svelte-p5oe7j");
+    			add_location(div2, file, 99, 10, 1767);
+    			attr_dev(div3, "class", "animintro svelte-p5oe7j");
+    			add_location(div3, file, 97, 8, 1651);
+    			attr_dev(img2, "class", "img3 svelte-p5oe7j");
     			if (img2.src !== (img2_src_value = "./img/zombie4.svg")) attr_dev(img2, "src", img2_src_value);
     			attr_dev(img2, "alt", "zombie-4");
     			attr_dev(img2, "width", "200px");
-    			add_location(img2, file, 21, 10, 794);
-    			attr_dev(div4, "class", "button svelte-yzrsm7");
-    			add_location(div4, file, 22, 10, 876);
-    			attr_dev(div5, "class", "animintro svelte-yzrsm7");
-    			add_location(div5, file, 20, 8, 759);
-    			attr_dev(div6, "class", "trio flex justify-center w-3/5 my-8 mx-auto svelte-yzrsm7");
-    			add_location(div6, file, 11, 6, 291);
+    			add_location(img2, file, 102, 10, 1905);
+    			attr_dev(div4, "class", "button svelte-p5oe7j");
+    			add_location(div4, file, 103, 10, 1987);
+    			attr_dev(div5, "class", "animintro svelte-p5oe7j");
+    			add_location(div5, file, 101, 8, 1870);
+    			attr_dev(div6, "class", "trio flex justify-center w-3/5 my-8 mx-auto svelte-p5oe7j");
+    			add_location(div6, file, 92, 6, 1402);
     			attr_dev(div7, "class", "manette m-auto w-5/6");
-    			add_location(div7, file, 10, 4, 249);
+    			add_location(div7, file, 91, 0, 1360);
     			attr_dev(div8, "class", "flex floor");
-    			add_location(div8, file, 29, 6, 1021);
+    			add_location(div8, file, 110, 0, 2118);
     			if (img3.src !== (img3_src_value = "./img/deadtree.svg")) attr_dev(img3, "src", img3_src_value);
     			attr_dev(img3, "alt", "deadtree");
     			attr_dev(img3, "class", "deadtree");
-    			add_location(img3, file, 40, 6, 1341);
+    			add_location(img3, file, 125, 0, 2418);
     			if (img4.src !== (img4_src_value = "./img/soucoupe.svg")) attr_dev(img4, "src", img4_src_value);
     			attr_dev(img4, "alt", "bullet2");
     			attr_dev(img4, "class", "soucoupe");
-    			add_location(img4, file, 41, 6, 1410);
+    			add_location(img4, file, 126, 0, 2483);
     			if (img5.src !== (img5_src_value = "./img/ufo.svg")) attr_dev(img5, "src", img5_src_value);
     			attr_dev(img5, "alt", "ufo");
     			attr_dev(img5, "class", "ufo");
-    			add_location(img5, file, 42, 6, 1478);
+    			add_location(img5, file, 127, 0, 2547);
     			if (img6.src !== (img6_src_value = "./img/bullet.svg")) attr_dev(img6, "src", img6_src_value);
     			attr_dev(img6, "alt", "bullet1");
     			attr_dev(img6, "class", "bullet1");
-    			add_location(img6, file, 43, 6, 1532);
+    			add_location(img6, file, 128, 0, 2597);
     			if (img7.src !== (img7_src_value = "./img/bullet.svg")) attr_dev(img7, "src", img7_src_value);
     			attr_dev(img7, "alt", "bullet1");
     			attr_dev(img7, "class", "bullet2");
-    			add_location(img7, file, 44, 6, 1597);
+    			add_location(img7, file, 129, 0, 2658);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1114,13 +1114,13 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			img = element("img");
-    			attr_dev(img, "class", img_class_value = "" + (/*feature*/ ctx[0] + /*steps*/ ctx[1] + " svelte-p06ago"));
+    			attr_dev(img, "class", img_class_value = "" + (/*feature*/ ctx[0] + /*steps*/ ctx[1] + " svelte-16apf1z"));
     			attr_dev(img, "id", "hero");
-    			if (img.src !== (img_src_value = "./img/Heroe.png")) attr_dev(img, "src", img_src_value);
+    			if (img.src !== (img_src_value = "./resources/space_hero.png")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "");
-    			add_location(img, file$2, 108, 2, 1174);
-    			attr_dev(div, "class", "hero svelte-p06ago");
-    			add_location(div, file$2, 107, 0, 1153);
+    			add_location(img, file$2, 85, 2, 922);
+    			attr_dev(div, "class", "hero  svelte-16apf1z");
+    			add_location(div, file$2, 84, 0, 900);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1130,7 +1130,7 @@ var app = (function () {
     			append_dev(div, img);
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*feature, steps*/ 3 && img_class_value !== (img_class_value = "" + (/*feature*/ ctx[0] + /*steps*/ ctx[1] + " svelte-p06ago"))) {
+    			if (dirty & /*feature, steps*/ 3 && img_class_value !== (img_class_value = "" + (/*feature*/ ctx[0] + /*steps*/ ctx[1] + " svelte-16apf1z"))) {
     				attr_dev(img, "class", img_class_value);
     			}
     		},
@@ -1466,7 +1466,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (162:8) {#each lig as col}
+    // (167:10) {#each lig as col}
     function create_each_block_1(ctx) {
     	let case_1;
     	let current;
@@ -1513,14 +1513,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(162:8) {#each lig as col}",
+    		source: "(167:10) {#each lig as col}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (160:6) {#each $tableau as lig}
+    // (165:6) {#each $tableau as lig}
     function create_each_block$1(ctx) {
     	let tr;
     	let t;
@@ -1547,7 +1547,7 @@ var app = (function () {
 
     			t = space();
     			attr_dev(tr, "class", "ligne");
-    			add_location(tr, file$4, 160, 8, 3712);
+    			add_location(tr, file$4, 165, 8, 3785);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, tr, anchor);
@@ -1616,14 +1616,14 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(160:6) {#each $tableau as lig}",
+    		source: "(165:6) {#each $tableau as lig}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (159:4) <Tableau>
+    // (164:4) <Tableau>
     function create_default_slot(ctx) {
     	let each_1_anchor;
     	let current;
@@ -1712,7 +1712,7 @@ var app = (function () {
     		block,
     		id: create_default_slot.name,
     		type: "slot",
-    		source: "(159:4) <Tableau>",
+    		source: "(164:4) <Tableau>",
     		ctx
     	});
 
@@ -1744,11 +1744,11 @@ var app = (function () {
     			create_component(tableau_1.$$.fragment);
     			t = space();
     			button = element("button");
-    			add_location(button, file$4, 167, 4, 3886);
+    			add_location(button, file$4, 172, 4, 3965);
     			attr_dev(div0, "class", "gamefield border border-black");
-    			add_location(div0, file$4, 157, 2, 3616);
+    			add_location(div0, file$4, 162, 2, 3689);
     			attr_dev(div1, "class", "flex flex-col justify-around w-full");
-    			add_location(div1, file$4, 156, 0, 3564);
+    			add_location(div1, file$4, 161, 0, 3637);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1854,7 +1854,7 @@ var app = (function () {
     					set_store_value(ligHero, $ligHero++, $ligHero);
     					set_store_value(tableau, $tableau[$ligHero][$colHero] = "p", $tableau);
 
-    					if (foot === 4) {
+    					if (foot === 3) {
     						$$invalidate(1, foot = 1);
     					} else {
     						$$invalidate(1, foot++, foot);
@@ -1875,7 +1875,7 @@ var app = (function () {
     					set_store_value(ligHero, $ligHero--, $ligHero);
     					set_store_value(tableau, $tableau[$ligHero][$colHero] = "p", $tableau);
 
-    					if (foot === 4) {
+    					if (foot === 3) {
     						$$invalidate(1, foot = 1);
     					} else {
     						$$invalidate(1, foot++, foot);
@@ -1896,7 +1896,7 @@ var app = (function () {
     					set_store_value(colHero, $colHero--, $colHero);
     					set_store_value(tableau, $tableau[$ligHero][$colHero] = "p", $tableau);
 
-    					if (foot === 4) {
+    					if (foot === 3) {
     						$$invalidate(1, foot = 1);
     					} else {
     						$$invalidate(1, foot++, foot);
@@ -1917,7 +1917,7 @@ var app = (function () {
     					set_store_value(colHero, $colHero++, $colHero);
     					set_store_value(tableau, $tableau[$ligHero][$colHero] = "p", $tableau);
 
-    					if (foot === 4) {
+    					if (foot === 3) {
     						$$invalidate(1, foot = 1);
     					} else {
     						$$invalidate(1, foot++, foot);
@@ -1958,15 +1958,19 @@ var app = (function () {
     		switch (event.key) {
     			case "ArrowDown":
     				down = false;
+    				$$invalidate(1, foot = 1);
     				break;
     			case "ArrowUp":
     				up = false;
+    				$$invalidate(1, foot = 1);
     				break;
     			case "ArrowLeft":
     				left = false;
+    				$$invalidate(1, foot = 1);
     				break;
     			case "ArrowRight":
     				right = false;
+    				$$invalidate(1, foot = 1);
     				break;
     		}
     	});
@@ -2035,7 +2039,7 @@ var app = (function () {
     /* src/App.svelte generated by Svelte v3.24.1 */
     const file$5 = "src/App.svelte";
 
-    // (39:0) {:else}
+    // (43:0) {:else}
     function create_else_block(ctx) {
     	let level;
     	let current;
@@ -2068,14 +2072,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(39:0) {:else}",
+    		source: "(43:0) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (37:0) {#if !newGame}
+    // (41:0) {#if !newGame}
     function create_if_block$1(ctx) {
     	let accueil;
     	let updating_newGame;
@@ -2131,7 +2135,7 @@ var app = (function () {
     		block,
     		id: create_if_block$1.name,
     		type: "if",
-    		source: "(37:0) {#if !newGame}",
+    		source: "(41:0) {#if !newGame}",
     		ctx
     	});
 
@@ -2186,22 +2190,22 @@ var app = (function () {
     			t4 = space();
     			if_block.c();
     			if_block_anchor = empty();
-    			attr_dev(p, "class", "title svelte-nyp6w2");
-    			add_location(p, file$5, 28, 76, 625);
-    			attr_dev(div0, "class", "title text-6xl text-center svelte-nyp6w2");
-    			add_location(div0, file$5, 28, 2, 551);
+    			attr_dev(p, "class", "title svelte-14cf9x0");
+    			add_location(p, file$5, 32, 76, 777);
+    			attr_dev(div0, "class", "title text-6xl text-center svelte-14cf9x0");
+    			add_location(div0, file$5, 32, 2, 703);
     			attr_dev(track, "kind", "captions");
-    			add_location(track, file$5, 30, 4, 711);
+    			add_location(track, file$5, 34, 4, 863);
     			attr_dev(audio, "id", "player");
     			if (audio.src !== (audio_src_value = "./audio/laylow.mp3")) attr_dev(audio, "src", audio_src_value);
-    			add_location(audio, file$5, 29, 2, 661);
+    			add_location(audio, file$5, 33, 2, 813);
     			attr_dev(img, "id", "mute");
     			attr_dev(img, "class", "h-16 w-16 absolute m-8 left-0 top-0");
     			if (img.src !== (img_src_value = /*src*/ ctx[1])) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "volume");
-    			add_location(img, file$5, 32, 2, 749);
+    			add_location(img, file$5, 36, 2, 901);
     			attr_dev(div1, "class", "header  relative w-full");
-    			add_location(div1, file$5, 27, 0, 511);
+    			add_location(div1, file$5, 31, 0, 663);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2295,7 +2299,7 @@ var app = (function () {
     }
 
     function instance$6($$self, $$props, $$invalidate) {
-    	let newGame = false;
+    	let newGame = true;
     	let src = "./img/mute.svg";
     	let muted = true;
 

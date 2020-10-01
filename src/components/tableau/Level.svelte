@@ -43,7 +43,7 @@
           $tableau[$ligHero][$colHero] = 0;
           $ligHero++;
           $tableau[$ligHero][$colHero] = 'p';
-          if (foot === 4) {
+          if (foot === 3) {
             foot = 1;
           } else {
             foot++;
@@ -61,7 +61,7 @@
           $tableau[$ligHero][$colHero] = 0;
           $ligHero--;
           $tableau[$ligHero][$colHero] = 'p';
-          if (foot === 4) {
+          if (foot === 3) {
             foot = 1;
           } else {
             foot++;
@@ -79,7 +79,7 @@
           $tableau[$ligHero][$colHero] = 0;
           $colHero--;
           $tableau[$ligHero][$colHero] = 'p';
-          if (foot === 4) {
+          if (foot === 3) {
             foot = 1;
           } else {
             foot++;
@@ -97,7 +97,7 @@
           $tableau[$ligHero][$colHero] = 0;
           $colHero++;
           $tableau[$ligHero][$colHero] = 'p';
-          if (foot === 4) {
+          if (foot === 3) {
             foot = 1;
           } else {
             foot++;
@@ -140,15 +140,20 @@
     switch (event.key) {
       case 'ArrowDown':
         down = false;
+        foot = 1;
+
         break;
       case 'ArrowUp':
         up = false;
+        foot = 1;
         break;
       case 'ArrowLeft':
         left = false;
+        foot = 1;
         break;
       case 'ArrowRight':
         right = false;
+        foot = 1;
         break;
     }
   });

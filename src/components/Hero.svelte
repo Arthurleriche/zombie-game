@@ -7,96 +7,80 @@
 
 <style>
   .hero {
-    height: 100px;
-    width: 100px;
+    height: 50px;
+    width: 50px;
+
     overflow: hidden;
 
     position: relative;
   }
 
   img {
-    max-width: 400px;
+    max-width: 600px;
     height: 400px;
   }
 
-  .down1 {
-    position: absolute;
-  }
   .down2 {
     position: absolute;
-    left: -100px;
+  }
+  .down1 {
+    position: absolute;
+    left: -50px;
   }
   .down3 {
     position: absolute;
-    left: -200px;
-  }
-  .down4 {
-    position: absolute;
-    left: -300px;
-  }
-
-  .up1 {
-    position: absolute;
-    top: -100px;
+    left: -100px;
   }
   .up2 {
     position: absolute;
-    top: -100px;
-    left: -100px;
+    top: -150px;
+  }
+  .up1 {
+    position: absolute;
+    top: -150px;
+    left: -50px;
   }
   .up3 {
     position: absolute;
-    top: -100px;
-    left: -200px;
-  }
-
-  .up4 {
-    position: absolute;
-    top: -100px;
-    left: -300px;
-  }
-
-  .left1 {
-    position: absolute;
-    top: -200px;
+    top: -150px;
     left: -100px;
   }
-  .left4 {
-    position: absolute;
-    top: -200px;
-  }
-  .left2 {
-    position: absolute;
-    top: -200px;
-    left: -200px;
-  }
-  .left3 {
-    position: absolute;
-    top: -200px;
-    left: -300px;
-  }
-
   .right1 {
     position: absolute;
-    top: -300px;
-    left: -100px;
-  }
-  .right4 {
-    position: absolute;
-    top: -300px;
+    top: -100px;
+    left: -50px;
   }
   .right2 {
     position: absolute;
-    top: -300px;
-    left: -200px;
+    top: -100px;
   }
   .right3 {
     position: absolute;
-    top: -300px;
-    left: -300px;
+    top: -100px;
+    left: -100px;
+  }
+  .left1 {
+    position: absolute;
+    top: -50px;
+    left: -50px;
+  }
+  .left2 {
+    position: absolute;
+    top: -50px;
+  }
+  .left3 {
+    position: absolute;
+    top: -50px;
+    left: -100px;
   }
 </style>
 
-<div class="hero">
-  <img class="{feature}{steps}" id="hero" src="./img/Heroe.png" alt="" />
+<div class="hero ">
+  <img
+    class="{feature}{steps}"
+    id="hero"
+    src="./resources/space_hero.png"
+    alt="" />
 </div>
+
+<!-- class="{feature}{steps}" -->

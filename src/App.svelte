@@ -1,28 +1,34 @@
-
-
 <script>
-import Tailwindcss from './Tailwindcss.svelte'
-import Accueil from './components/Accueil.svelte'
-import Level from './components/tableau/Level.svelte'
+  import Tailwindcss from './Tailwindcss.svelte';
+  import Accueil from './components/Accueil.svelte';
+  import Level from './components/tableau/Level.svelte';
 
-let newGame=false; 
-let src = './img/mute.svg'
-let muted = true ; 
+  let newGame = true;
+  let src = './img/mute.svg';
+  let muted = true;
 
-
-function handleAudio(){
-  var Player = document.getElementById('player')
-  if (muted == true ){
-    Player.play();
-    src = './img/volume.svg'
-  } else {
-    Player.pause();
-    src = './img/mute.svg'
+  function handleAudio() {
+    var Player = document.getElementById('player');
+    if (muted == true) {
+      Player.play();
+      src = './img/volume.svg';
+    } else {
+      Player.pause();
+      src = './img/mute.svg';
+    }
+    muted = !muted;
   }
-  muted = !muted; 
-}
 </script>
-<Tailwindcss/>
+
+<style>
+  .title {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: white;
+  }
+</style>
+
+<Tailwindcss />
 
 <!-- COMPOSANT header -->
 <div class="header  relative w-full">
@@ -39,30 +45,3 @@ function handleAudio(){
 {:else}
     <Level/>
 {/if}
-
-
-
-<style>
-  .title{
-    font-family:'Courier New', Courier, monospace;
-    font-weight: bold;
-    color:white; 
-  }
-</style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
