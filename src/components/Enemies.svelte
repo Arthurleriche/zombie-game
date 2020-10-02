@@ -1,11 +1,42 @@
+<script>
+  export let alienStep; 
+</script>
+
+<div class="alien1">
+  <img
+    class="right{alienStep}"
+    id="alien1"
+    src="./resources/alien1.png"
+    alt=''
+  />
+</div>
+
 <style>
-    #zombie2{
-    border-radius:10rem;
-    position : absolute; 
-    top :200px;
-    left:200px;
-  }
-</style>
-
-
-<img  id = "zombie2" class="border border-black rounded-lg" src = "./img/zombi2.svg" alt =  "zombie 2" width = "220px" />
+  .alien1{
+      width:50px; 
+      height:50px; 
+      overflow:hidden; 
+      position: relative; 
+    }
+    img{
+      position: absolute; 
+      height: 250px;
+      max-width:500px;
+      top:-10px;  
+    }
+    .right1{
+      position: absolute; 
+      top: -78px; 
+      left: -37px; 
+    }
+    .right2{
+      position: absolute; 
+      top:-80px; 
+      left:-75px;  
+    }
+    .right3{
+      position: absolute; 
+      top:-80px; 
+      left:3px;  
+    }
+  </style>

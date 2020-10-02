@@ -5,7 +5,7 @@
 
   // function svelte
   import { onMount } from 'svelte';
-  // strore
+  // stores
   import { tableau } from '../StoreTable.js';
   import { nbrCol } from '../StoreTable.js';
   import { nbrLig } from '../StoreTable.js';
@@ -17,12 +17,65 @@
   import { leftSide } from '../StoreCharacters.js';
   import { bottomSide } from '../StoreCharacters.js';
 
-  let down = false;
-  let up = false;
-  let right = false;
-  let left = false;
+  import { ligAlien } from '../StoreCharacters.js';
+  import { colAlien } from '../StoreCharacters.js';
 
+<<<<<<< HEAD
   onMount(async () => {});
+=======
+  // onMount 
+  onMount(async () => {
+    console.log('didMount Level');
+    // $tableau[$ligHero][$colHero] = 'p';
+  });
+
+
+
+
+  let gameOver = false; 
+  // -------------------- ALIEN -------------------------- //
+  const interval = setInterval(walkEnemy, 300)
+    let stp=2;
+    function walkEnemy(){
+      if($colAlien === 9 && $ligAlien<6){
+        $tableau[$ligAlien][$colAlien]=0; 
+        $ligAlien++; 
+        $tableau[$ligAlien][$colAlien]='z'; 
+      } 
+      else if($colAlien <= 9 && $colAlien > 4 && $ligAlien === 6){
+        $tableau[$ligAlien][$colAlien]=0; 
+        $colAlien--; 
+        $tableau[$ligAlien][$colAlien]='z'; 
+      }
+
+      else if($colAlien >= 4 && $ligAlien === 6){
+        $tableau[$ligAlien][$colAlien]=0; 
+        $ligAlien--; 
+        $tableau[$ligAlien][$colAlien]='z'; 
+      }
+      else if($colAlien === 4  && $ligAlien < 5 && $ligAlien > 1){
+        $tableau[$ligAlien][$colAlien]=0; 
+        $ligAlien--; 
+        $tableau[$ligAlien][$colAlien]='z'; 
+      }
+      else if($colAlien === $colHero && $ligAlien === $ligHero ){
+        gameOver=true; 
+      }
+      else {
+          $tableau[$ligAlien][$colAlien]=0; 
+          $colAlien++; 
+          $tableau[$ligAlien][$colAlien]='z'; 
+          if(stp===3){
+            stp=2;
+          }  else {
+          stp++;}
+      }
+    }
+  // -------------------- ALIEN  -------------------------- //   
+
+
+
+>>>>>>> 39b28bb24b53f0c0b7d9e35626d8126734209bac
   let level = [];
   function parseFile() {
     // let fileobj = event.target.files[0];
@@ -36,6 +89,14 @@
     console.log(index);
     console.log(hero);
   }
+
+
+
+  let down = false;
+  let up = false;
+  let right = false;
+  let left = false;
+  // -------------------- HERO -------------------------- //    
   const mooveHero = e => {
     if (e.key === 'ArrowDown') {
       $direction = 'step-down';
@@ -160,6 +221,7 @@
         break;
     }
   });
+  // -------------------- HERO -------------------------- // 
 </script>
 
 <div class="flex flex-col justify-around w-full">
@@ -168,10 +230,40 @@
       {#each $tableau as lig}
         <tr class="ligne">
           {#each lig as col}
-            <Case idCase={col} />
+            <Case idCase={col} alienStep={stp} />
           {/each}
         </tr>
       {/each}
+      {#if gameOver}
+        <div class=" gameover">GAMEOVER</div>
+        <button class="m-auto rounded-lg bg-black text-white retry h-16 w-40">RETRY</button>
+      {/if}
     </Tableau>
   </div>
 </div>
+
+
+<style>
+  .retry{
+    border:3px solid black; 
+    position: absolute;
+    left:50%; 
+    transform:translateX(-50%); 
+    bottom:13%;
+  }
+  .gameover {
+    width:11rem; 
+    height:5rem; 
+    margin-right:auto; 
+    margin-left:auto; 
+    margin-top:-50%; 
+    font-weight:bold; 
+    color:white; 
+    font-size:2rem;
+    animation : gameoverZoom 3s linear 1;  
+  }
+  @keyframes gameoverZoom {
+    from {transform: scale(1);  }
+    to {transform: scale(1.5); }
+  }
+</style>

@@ -4,6 +4,8 @@
   import Fire from '../textures/Fire.svelte';
   import Ship from '../textures/Ship.svelte';
   import Empty from '../textures/Empty.svelte';
+  import Enemies from '../Enemies.svelte';
+  export let alienStep; 
 
   export let idCase;
 
@@ -33,5 +35,9 @@
   {/if}
   {#if idCase === 'ship'}
     <Ship />
+  {/if}
+
+  {#if idCase == 'z'}
+  <Enemies {alienStep}/> 
   {/if}
 </td>

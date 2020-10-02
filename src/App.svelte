@@ -2,13 +2,13 @@
   import Tailwindcss from './Tailwindcss.svelte';
   import Accueil from './components/Accueil.svelte';
   import Level from './components/tableau/Level.svelte';
-
   // store
   import { sound } from './components/StoreOption.js';
 
   let newGame = false;
+  
+  // Player 
   let src = './img/mute.svg';
-
   function handleAudio() {
     var Player = document.getElementById('player');
     if ($sound == true) {
@@ -21,16 +21,8 @@
     $sound = !$sound;
   }
 </script>
-
-<style>
-  .title {
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-    color: white;
-  }
-</style>
-
 <Tailwindcss />
+
 
 <!-- COMPOSANT header -->
 <div class="header  relative w-full">
@@ -47,3 +39,13 @@
 {:else}
     <Level/>
 {/if}
+
+
+
+<style>
+  .title {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: white;
+  }
+</style>
