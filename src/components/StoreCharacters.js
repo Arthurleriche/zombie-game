@@ -4,3 +4,9 @@ export const  ligHero = writable(5);
 export const  colHero = writable(5);
 export const  step = writable(1);
 export const  direction = writable("down");
+
+
+export const ligAlien = writable(1);
+export const colAlien = writable(1);
+
+

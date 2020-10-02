@@ -5,6 +5,9 @@
   import { ligHero } from '../StoreCharacters.js';
   import { colHero } from '../StoreCharacters.js';
 
+  import { ligAlien } from '../StoreCharacters.js';
+  import { colAlien } from '../StoreCharacters.js';
+
   const createTab = (lig, col, car = 0) => {
     let tab = [];
     for (let i = 0; i <= lig; i++) {
@@ -18,6 +21,7 @@
   };
   $tableau = createTab($nbrLig, $nbrCol);
   $tableau[$ligHero][$colHero] = 'p';
+  $tableau[$ligAlien][$colAlien] = 'z';
   $tableau[10][1] = 'fire';
   $tableau[10][2] = 'fire';
   $tableau[10][3] = 'fire';
