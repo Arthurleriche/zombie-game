@@ -1353,6 +1353,7 @@ var app = (function () {
     			div1 = element("div");
     			div0 = element("div");
     			img = element("img");
+<<<<<<< HEAD
     			attr_dev(img, "class", img_class_value = "" + (/*$direction*/ ctx[2] + " moove-hero " + " svelte-uwxa8"));
     			attr_dev(img, "id", "hero1");
     			if (img.src !== (img_src_value = "./resources/space_hero.png")) attr_dev(img, "src", img_src_value);
@@ -1364,6 +1365,19 @@ var app = (function () {
     			add_location(div0, file$2, 59, 2, 950);
     			attr_dev(div1, "class", "divHero svelte-uwxa8");
     			add_location(div1, file$2, 58, 0, 926);
+=======
+    			attr_dev(img, "class", img_class_value = "" + (/*$direction*/ ctx[2] + " moove-hero " + " svelte-x2dqfg"));
+    			attr_dev(img, "id", "hero1");
+    			if (img.src !== (img_src_value = "./resources/space_hero.png")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "");
+    			add_location(img, file$2, 83, 4, 1259);
+    			attr_dev(div0, "class", "hero svelte-x2dqfg");
+    			set_style(div0, "bottom", /*$bottomSide*/ ctx[0] + "px");
+    			set_style(div0, "left", /*$leftSide*/ ctx[1] + "px");
+    			add_location(div0, file$2, 82, 2, 1185);
+    			attr_dev(div1, "class", "divHero svelte-x2dqfg");
+    			add_location(div1, file$2, 81, 0, 1161);
+>>>>>>> d93c1a972864e245caa6b1d7af223aa99f141654
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1374,7 +1388,11 @@ var app = (function () {
     			append_dev(div0, img);
     		},
     		p: function update(ctx, [dirty]) {
+<<<<<<< HEAD
     			if (dirty & /*$direction*/ 4 && img_class_value !== (img_class_value = "" + (/*$direction*/ ctx[2] + " moove-hero " + " svelte-uwxa8"))) {
+=======
+    			if (dirty & /*$direction*/ 4 && img_class_value !== (img_class_value = "" + (/*$direction*/ ctx[2] + " moove-hero " + " svelte-x2dqfg"))) {
+>>>>>>> d93c1a972864e245caa6b1d7af223aa99f141654
     				attr_dev(img, "class", img_class_value);
     			}
 
@@ -2223,7 +2241,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (248:10) {#each lig as col}
+    // (246:10) {#each lig as col}
     function create_each_block_1(ctx) {
     	let case_1;
     	let current;
@@ -2268,14 +2286,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(248:10) {#each lig as col}",
+    		source: "(246:10) {#each lig as col}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (246:6) {#each $tableau as lig}
+    // (244:6) {#each $tableau as lig}
     function create_each_block$1(ctx) {
     	let tr;
     	let current;
@@ -2300,7 +2318,7 @@ var app = (function () {
     			}
 
     			attr_dev(tr, "class", "ligne");
-    			add_location(tr, file$7, 246, 8, 6325);
+    			add_location(tr, file$7, 244, 8, 6296);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, tr, anchor);
@@ -2368,15 +2386,20 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(246:6) {#each $tableau as lig}",
+    		source: "(244:6) {#each $tableau as lig}",
     		ctx
     	});
 
     	return block;
     }
 
+<<<<<<< HEAD
     // (253:6) {#if gameOver}
     function create_if_block$2(ctx) {
+=======
+    // (251:6) {#if gameOver}
+    function create_if_block$1(ctx) {
+>>>>>>> d93c1a972864e245caa6b1d7af223aa99f141654
     	let div;
     	let t1;
     	let button;
@@ -2389,9 +2412,9 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "RETRY";
     			attr_dev(div, "class", " gameover svelte-1krn0ok");
-    			add_location(div, file$7, 253, 8, 6498);
+    			add_location(div, file$7, 251, 8, 6469);
     			attr_dev(button, "class", "m-auto rounded-lg bg-black text-white retry h-16 w-40 svelte-1krn0ok");
-    			add_location(button, file$7, 254, 8, 6544);
+    			add_location(button, file$7, 252, 8, 6515);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -2409,14 +2432,14 @@ var app = (function () {
     		block,
     		id: create_if_block$2.name,
     		type: "if",
-    		source: "(253:6) {#if gameOver}",
+    		source: "(251:6) {#if gameOver}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (245:4) <Tableau>
+    // (243:4) <Tableau>
     function create_default_slot(ctx) {
     	let t;
     	let if_block_anchor;
@@ -2525,7 +2548,7 @@ var app = (function () {
     		block,
     		id: create_default_slot.name,
     		type: "slot",
-    		source: "(245:4) <Tableau>",
+    		source: "(243:4) <Tableau>",
     		ctx
     	});
 
@@ -2552,9 +2575,9 @@ var app = (function () {
     			div0 = element("div");
     			create_component(tableau_1.$$.fragment);
     			attr_dev(div0, "class", "gamefield");
-    			add_location(div0, file$7, 243, 2, 6249);
+    			add_location(div0, file$7, 241, 2, 6220);
     			attr_dev(div1, "class", "flex flex-col justify-around w-full");
-    			add_location(div1, file$7, 242, 0, 6197);
+    			add_location(div1, file$7, 240, 0, 6168);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2644,7 +2667,7 @@ var app = (function () {
     	// onMount
     	onMount(async () => {
     		console.log("didMount Level");
-    	}); // $tableau[$ligHero][$colHero] = 'p';
+    	});
 
     	let gameOver = false;
     	const interval = setInterval(walkEnemy, 300);
@@ -2715,7 +2738,7 @@ var app = (function () {
     			function stopFunction() {
     				if (down === false || $ligHero >= $nbrLig - 2) {
     					clearInterval(interval);
-    					set_store_value(direction, $direction = "");
+    					set_store_value(direction, $direction = "down");
     				} else {
     					set_store_value(bottomSide, $bottomSide = $bottomSide - 1);
     					console.log($bottomSide);
@@ -2737,7 +2760,7 @@ var app = (function () {
     			function stopFunction() {
     				if (up === false || $ligHero <= 1) {
     					clearInterval(interval);
-    					set_store_value(direction, $direction = "");
+    					set_store_value(direction, $direction = "up");
     				} else {
     					set_store_value(bottomSide, $bottomSide = $bottomSide + 1);
 
@@ -2758,7 +2781,7 @@ var app = (function () {
     			function stopFunction() {
     				if (left === false || $colHero <= 1) {
     					clearInterval(interval);
-    					set_store_value(direction, $direction = "");
+    					set_store_value(direction, $direction = "left");
     				} else {
     					console.log($leftSide);
     					set_store_value(leftSide, $leftSide = $leftSide - 1);
@@ -2780,7 +2803,7 @@ var app = (function () {
     			function stopFunction() {
     				if (right === false || $colHero >= $nbrCol - 1) {
     					clearInterval(interval);
-    					set_store_value(direction, $direction = "");
+    					set_store_value(direction, $direction = "right");
     				} else {
     					console.log($leftSide);
     					set_store_value(leftSide, $leftSide = $leftSide + 1);

@@ -24,6 +24,26 @@
     height: 400px;
   }
 
+  .down {
+    position: absolute;
+    left: -50px;
+  }
+  .up {
+    position: absolute;
+    left: -50px;
+    top: -150px;
+  }
+  .left {
+    position: absolute;
+    left: -50px;
+    top: -50px;
+  }
+  .right {
+    position: absolute;
+    left: -50px;
+    top: -100px;
+  }
+
   .step-down {
     animation: moove 0.25s steps(2) infinite;
   }
