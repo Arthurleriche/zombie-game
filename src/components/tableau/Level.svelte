@@ -9,21 +9,20 @@
   import { tableau } from '../StoreTable.js';
   import { nbrCol } from '../StoreTable.js';
   import { nbrLig } from '../StoreTable.js';
+
   import { ligHero } from '../StoreCharacters.js';
   import { colHero } from '../StoreCharacters.js';
   import { step } from '../StoreCharacters.js';
   import { direction } from '../StoreCharacters.js';
+  import { leftSide } from '../StoreCharacters.js';
+  import { bottomSide } from '../StoreCharacters.js';
 
   let down = false;
   let up = false;
   let right = false;
   let left = false;
 
-  onMount(async () => {
-    console.log('didMount Level');
-    // $tableau[$ligHero][$colHero] = 'p';
-  });
-
+  onMount(async () => {});
   let level = [];
   function parseFile() {
     // let fileobj = event.target.files[0];
@@ -35,76 +34,80 @@
     };
     fr.readAsText(file);
     console.log(index);
+    console.log(hero);
   }
   const mooveHero = e => {
     if (e.key === 'ArrowDown') {
-      const interval = setInterval(stopFunction, 200);
+      $direction = 'step-down';
+      const interval = setInterval(stopFunction, 10);
       function stopFunction() {
         if (down === false || $ligHero >= $nbrLig - 2) {
           clearInterval(interval);
+          $direction = '';
         } else {
-          $direction = 'down';
+          $bottomSide = $bottomSide - 1;
+          console.log($bottomSide);
+        }
+        if ($bottomSide === 0) {
+          $bottomSide = 49;
           $tableau[$ligHero][$colHero] = 0;
           $ligHero++;
           $tableau[$ligHero][$colHero] = 'p';
-          if ($step === 3) {
-            $step = 1;
-          } else {
-            $step++;
-          }
         }
       }
     }
     if (e.key === 'ArrowUp') {
-      const interval = setInterval(stopFunction, 200);
+      $direction = 'step-up';
+      const interval = setInterval(stopFunction, 10);
       function stopFunction() {
         if (up === false || $ligHero <= 1) {
           clearInterval(interval);
+          $direction = '';
         } else {
-          $direction = 'up';
-          $tableau[$ligHero][$colHero] = 0;
-          $ligHero--;
-          $tableau[$ligHero][$colHero] = 'p';
-          if ($step === 3) {
-            $step = 1;
-          } else {
-            $step++;
+          $bottomSide = $bottomSide + 1;
+          if ($bottomSide === 50) {
+            $bottomSide = 1;
+            $tableau[$ligHero][$colHero] = 0;
+            $ligHero--;
+            $tableau[$ligHero][$colHero] = 'p';
           }
         }
       }
     }
     if (e.key === 'ArrowLeft') {
-      const interval = setInterval(stopFunction, 200);
+      $direction = 'step-left';
+      const interval = setInterval(stopFunction, 10);
       function stopFunction() {
         if (left === false || $colHero <= 1) {
           clearInterval(interval);
+          $direction = '';
         } else {
-          $direction = 'left';
-          $tableau[$ligHero][$colHero] = 0;
-          $colHero--;
-          $tableau[$ligHero][$colHero] = 'p';
-          if ($step === 3) {
-            $step = 1;
-          } else {
-            $step++;
+          console.log($leftSide);
+          $leftSide = $leftSide - 1;
+          if ($leftSide === 0) {
+            $leftSide = 49;
+            $tableau[$ligHero][$colHero] = 0;
+            $colHero--;
+            $tableau[$ligHero][$colHero] = 'p';
           }
         }
       }
     }
     if (e.key === 'ArrowRight') {
-      const interval = setInterval(stopFunction, 200);
+      $direction = 'step-right';
+      const interval = setInterval(stopFunction, 10);
       function stopFunction() {
         if (right === false || $colHero >= $nbrCol - 1) {
           clearInterval(interval);
+          $direction = '';
         } else {
-          $direction = 'right';
-          $tableau[$ligHero][$colHero] = 0;
-          $colHero++;
-          $tableau[$ligHero][$colHero] = 'p';
-          if ($step === 3) {
-            $step = 1;
-          } else {
-            $step++;
+          console.log($leftSide);
+          $leftSide = $leftSide + 1;
+          if ($leftSide === 50) {
+            $leftSide = 1;
+            $tableau[$ligHero][$colHero] = 0;
+            $colHero++;
+            $tableau[$ligHero][$colHero] = 'p';
           }
         }
       }

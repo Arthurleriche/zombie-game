@@ -7,10 +7,13 @@
 
   const createTab = (lig, col, car = 0) => {
     let tab = [];
+    let index = 0;
     for (let i = 0; i <= lig; i++) {
       const ligne = [];
       for (let y = 0; y <= col; y++) {
         ligne.push(car);
+        console.log(index);
+        index++;
       }
       tab.push(ligne);
     }
