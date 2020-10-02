@@ -16,7 +16,6 @@
   import { direction } from '../StoreCharacters.js';
   import { leftSide } from '../StoreCharacters.js';
   import { bottomSide } from '../StoreCharacters.js';
-
   import { ligAlien } from '../StoreCharacters.js';
   import { colAlien } from '../StoreCharacters.js';
 
@@ -25,7 +24,6 @@
   // onMount
   onMount(async () => {
     console.log('didMount Level');
-    // $tableau[$ligHero][$colHero] = 'p';
   });
 
   let gameOver = false;
@@ -90,7 +88,7 @@
       function stopFunction() {
         if (down === false || $ligHero >= $nbrLig - 2) {
           clearInterval(interval);
-          $direction = '';
+          $direction = 'down';
         } else {
           $bottomSide = $bottomSide - 1;
           console.log($bottomSide);
@@ -109,7 +107,7 @@
       function stopFunction() {
         if (up === false || $ligHero <= 1) {
           clearInterval(interval);
-          $direction = '';
+          $direction = 'up';
         } else {
           $bottomSide = $bottomSide + 1;
           if ($bottomSide === 50) {
@@ -127,7 +125,7 @@
       function stopFunction() {
         if (left === false || $colHero <= 1) {
           clearInterval(interval);
-          $direction = '';
+          $direction = 'left';
         } else {
           console.log($leftSide);
           $leftSide = $leftSide - 1;
@@ -146,7 +144,7 @@
       function stopFunction() {
         if (right === false || $colHero >= $nbrCol - 1) {
           clearInterval(interval);
-          $direction = '';
+          $direction = 'right';
         } else {
           console.log($leftSide);
           $leftSide = $leftSide + 1;
