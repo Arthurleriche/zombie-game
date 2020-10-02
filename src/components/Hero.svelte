@@ -50,7 +50,7 @@
       transform: translate3d(0px, 0, 0);
     }
     to {
-      transform: translate3d(-200px, 0, 0);
+      transform: translate3d(-100px, 0, 0);
     }
   }
 </style>

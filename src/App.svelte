@@ -48,4 +48,7 @@
     font-weight: bold;
     color: white;
   }
+  #mute{
+    filter: drop-shadow(16px 16px 20px red) invert(75%); 
+  }
 </style>

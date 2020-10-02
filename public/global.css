@@ -4,7 +4,8 @@ html, body {
 }
 
 body{
-	background-image:url('./img/nasa.jpg');
+  /* background-image:url('./img/nasa.jpg'); */
+  background-image:url('./img/sky3.jpg');
   background-size:cover;
 }
 
@@ -13,6 +14,7 @@ body{
   width:100%;
   bottom:0px; 
   border-bottom:24px solid black; 
+  
 }
 
 a:hover {
@@ -52,9 +54,7 @@ input, button, select, textarea {
 	color: #ccc;
 } */
 
-button:hover{
-	background-color: rgb(41, 42, 43)
-}
+
 
 button {
 	color: #333;
@@ -92,7 +92,8 @@ button:not(:disabled):active {
     /* bottom:4.5%; 
     left:2%; */
     opacity:0.6; 
-    animation:treeMove 2s linear infinite; 
+    animation:treeMove 2s linear infinite;
+    filter: drop-shadow(16px 16px 20px red) invert(75%); 
   }
 
 @keyframes soucoupeDiag{
@@ -171,7 +172,8 @@ button:not(:disabled):active {
 
 .grass{
   position : absolute;
-  bottom:-20px; 
+  bottom:-20px;
+  filter: drop-shadow(16px 16px 20px red) invert(75%);
 }
 
 /* ACCUEIL - DECOR  */
