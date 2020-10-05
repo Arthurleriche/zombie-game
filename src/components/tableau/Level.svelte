@@ -86,7 +86,9 @@
       $direction = 'step-down';
       const interval = setInterval(stopFunction, 10);
       function stopFunction() {
-        if (down === false || $ligHero >= $nbrLig - 2) {
+        if (down === false || ($ligHero >= $nbrLig - 2 && $bottomSide <= 5)) {
+          console.log("je m'arrete");
+
           clearInterval(interval);
           $direction = 'down';
         } else {
@@ -123,7 +125,7 @@
       $direction = 'step-left';
       const interval = setInterval(stopFunction, 10);
       function stopFunction() {
-        if (left === false || $colHero <= 1) {
+        if (left === false || ($colHero <= 1 && $leftSide <= 5)) {
           clearInterval(interval);
           $direction = 'left';
         } else {
