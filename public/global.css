@@ -4,10 +4,14 @@ html, body {
 }
 
 body{
-  /* background-image:url('./img/nasa.jpg'); */
   background-image:url('./img/sky3.jpg');
+  /* background-image:url('./img/sky3.jpg'); */
+  /* background-color:green;  */
   background-size:cover;
+
+  
 }
+
 
 .floor{
   position:absolute; 
