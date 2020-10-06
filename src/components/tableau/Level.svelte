@@ -27,7 +27,7 @@
   });
 
   let gameOver = false;
-
+// -------------------- ALIEN  -------------------------- //
   const interval = setInterval(walkEnemy, 300);
   let stp = 2;
   function walkEnemy() {

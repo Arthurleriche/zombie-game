@@ -2477,7 +2477,7 @@ var app = (function () {
     			}
 
     			attr_dev(tr, "class", "ligne");
-    			add_location(tr, file$8, 246, 8, 6377);
+    			add_location(tr, file$8, 246, 8, 6437);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, tr, anchor);
@@ -2566,9 +2566,9 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "RETRY";
     			attr_dev(div, "class", " gameover svelte-1krn0ok");
-    			add_location(div, file$8, 253, 8, 6550);
+    			add_location(div, file$8, 253, 8, 6610);
     			attr_dev(button, "class", "m-auto rounded-lg bg-black text-white retry h-16 w-40 svelte-1krn0ok");
-    			add_location(button, file$8, 254, 8, 6596);
+    			add_location(button, file$8, 254, 8, 6656);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -2729,9 +2729,9 @@ var app = (function () {
     			div0 = element("div");
     			create_component(tableau_1.$$.fragment);
     			attr_dev(div0, "class", "gamefield");
-    			add_location(div0, file$8, 243, 2, 6301);
+    			add_location(div0, file$8, 243, 2, 6361);
     			attr_dev(div1, "class", "flex flex-col justify-around w-full");
-    			add_location(div1, file$8, 242, 0, 6249);
+    			add_location(div1, file$8, 242, 0, 6309);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2824,7 +2824,10 @@ var app = (function () {
     	});
 
     	let gameOver = false;
+
+    	// -------------------- ALIEN  -------------------------- //
     	const interval = setInterval(walkEnemy, 300);
+
     	let stp = 2;
 
     	function walkEnemy() {
