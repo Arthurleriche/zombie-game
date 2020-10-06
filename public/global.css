@@ -5,11 +5,14 @@ html, body {
 
 body{
   background-image:url('./img/sky3.jpg');
-  /* background-image:url('./img/sky3.jpg'); */
-  /* background-color:green;  */
-  background-size:cover;
-
-  
+  background-size:60%;
+  transition: all; 
+  transition-duration:0.5s; 
+  animation: bg-move 45s ease-in infinite; 
+}
+@keyframes bg-move {
+  50%{background-size:45%;} 
+  100%{background-size:60%}
 }
 
 
@@ -18,7 +21,7 @@ body{
   width:100%;
   bottom:0px; 
   border-bottom:24px solid black; 
-  
+  z-index:-1;
 }
 
 a:hover {
@@ -50,14 +53,7 @@ input, button, select, textarea {
 	padding: 0.4em;
 	margin: 0 0 0.5em 0;
 	box-sizing: border-box;
-	/* border: 1px solid #ccc; */
-	/* border-radius: 2px; */
 }
-
-/* input:disabled {
-	color: #ccc;
-} */
-
 
 
 button {
@@ -73,11 +69,6 @@ button:disabled {
 button:not(:disabled):active {
 	background-color: #ddd;
 }
-
-/* button:focus {
-	border-color:transparent; 
-} */
-
 
 
 
@@ -180,19 +171,13 @@ button:not(:disabled):active {
   filter: drop-shadow(16px 16px 20px red) invert(75%);
 }
 
-/* ACCUEIL - DECOR  */
-
-
-/* GAMEFIELD */
 /* .gamefield{
   width:1000px;
   height:600px;
   margin:auto;
-  
 } */
 
 .tableau{
-  
   background-size: cover;
   display: flex;
   justify-content: center; 
