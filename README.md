@@ -41,37 +41,47 @@ Du coup le personnage est beaucoup moins fluide mais on a par contre une petite 
 
 ## ROLLUP 
 
-### Rollup <span style="color:green;font-style:italic; font-size:15px">up to date
+### Rollup 
+
+<span style="color:green;font-style:italic; font-size:15px">up to date
 <span style="color:green;">
 Current : ^2.3.4 <br>
 Last : 2.29.0
 
 ### Rollup-plugin-terser  
+
 <span style="color:green;font-style:italic;font-size:15px">2 bugs
 <span style="color:green;">
 Current : ^7.0.0 <br>
 Last : 7.0.2 
 
 ### Rollup-plugin svelte 
+
 <span style="color:green;font-style:italic;font-size:15px">1 bug</span>
 <span style="color:green;">
 Current : ^6.0.0 <br>
 Last : 6.0.1
 </span>
 
-### Rollup-plugin livereload <span style="color:green;font-style:italic;font-size:15px">up to date</span>
+### Rollup-plugin livereload 
+
+<span style="color:green;font-style:italic;font-size:15px">up to date</span>
 <span style="color:green;">
 Current : ^2.0.0 <br>
 Last : 2.0.0
 </span>
 
-### Rollup/plugin-commonjs  <span style="color:red;font-style:italic;font-size:15px">break</span>
+### Rollup/plugin-commonjs  
+
+<span style="color:red;font-style:italic;font-size:15px">break</span>
 <span style="color:red;">
 Current : ^14.0.0 <br>
 Last : ^15.1.0
 </span>
 
-### Rollup/plugin-node-resolve <span style="color:red;font-style:italic;font-size:15px"> break</span>
+### Rollup/plugin-node-resolve 
+
+<span style="color:red;font-style:italic;font-size:15px"> break</span>
 <span style="color:red;">
 Current : ^8.0.0 <br>
 Last : 9.0.0 
@@ -80,52 +90,66 @@ Last : 9.0.0
 
 ## POSTCSS 
 
-### Fullhuman/postcss-purgecss <span style="color:red;font-style:italic;font-size:15px">break</span>
+### Fullhuman/postcss-purgecss 
+
+<span style="color:red;font-style:italic;font-size:15px">break</span>
 <span style="color:red;">
-Current ^2.3.0 <br>
-Last ^3.0.0 (3weeks)
+Current : ^2.3.0 <br>
+Last : ^3.0.0 (3weeks)
 </span>
 
-### Postcss <span style="color:red;font-style:italic;font-size:15px"> break</span>
+### Postcss 
+
+<span style="color:red;font-style:italic;font-size:15px"> break</span>
 <span style="color:red;">
 Current ^7.0.32 <br>
-Last 8.1.1 
+Last : 8.1.1 
 </span>
 
-### Postcss-load-config <span style="color:red;font-style:italic;font-size:15px">break</span>
+### Postcss-load-config 
+
+<span style="color:red;font-style:italic;font-size:15px">break</span>
 <span style="color:red;">
-Current ^2.1.0 <br>
-Last 3.0.0 
+Current : ^2.1.0 <br>
+Last : 3.0.0 
 </span>
 
 ## SVELTE
 
-### Svelte <span style="color:orange;font-style:italic;font-size:15px"> 29 new features</span>
+### Svelte 
+
+<span style="color:orange;font-style:italic;font-size:15px"> 29 new features</span>
 <span style="color:orange;">
-Current ^3.0.0 <br>
-Last 3.29.0 
+Current : ^3.0.0 <br>
+Last : 3.29.0 
 </span>
 
-### Svelte-preprocess <span style="color:orange;font-style:italic;font-size:15px"> 3 new features</span>
+### Svelte-preprocess 
+
+<span style="color:orange;font-style:italic;font-size:15px"> 3 new features</span>
 <span style="color:orange;">
-Current ^4.2.1 <br>
-Last ^4.5.1 
+Current : ^4.2.1 <br>
+Last : ^4.5.1 
 </span>
 
 ## TAILWINDCSS
 
-### Tailwindcss <span style="color:green;font-style:italic;font-size:15px">2 bugs</span>
+### Tailwindcss 
+
+<span style="color:green;font-style:italic;font-size:15px">2 bugs</span>
 <span style="color:green;">
-Current ^1.8.10 <br>
-Last 1.8.12
+Current : ^1.8.10 <br>
+Last : 1.8.12
 </span>
 
 ## SIRV-CLI
 
-### Sirv-cli <span style="color:green;font-style:italic;font-size:15px">6 bugs</span>
+### Sirv-cli 
+
+<span style="color:green;font-style:italic;font-size:15px">6 bugs</span>
 <span style="color:green;">
-Current ^1.0.0 <br>
-Last 1.0.6 
+Current : ^1.0.0 <br>
+Last : 1.0.6 
 </span>
 
 
