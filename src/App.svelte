@@ -39,7 +39,7 @@
 
 <!-- COMPOSANT header -->
 <div class="header  relative w-full">
-  <div class="title text-6xl text-center"  ><p class='title'>ZOMBAV II</p> <p on:click={() => $newGame = false} on:click={initHero} id = "backToMenu" class=" opacity-0 text-white border w-40 text-sm absolute top-0 right-0">BacK to Menu</p></div>
+  <div class="title text-6xl text-center"  ><p class='title'>ZOMBAV VI</p> <p on:click={() => $newGame = false} on:click={initHero} id = "backToMenu" class=" opacity-0 text-white border w-40 text-sm absolute top-0 right-0">BacK to Menu</p></div>
   <audio id="player"  src="./audio/laylow.mp3">
     <track kind="captions">
   </audio> 

@@ -2429,7 +2429,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (281:10) {#each lig as col}
+    // (285:10) {#each lig as col}
     function create_each_block_1(ctx) {
     	let case_1;
     	let current;
@@ -2474,14 +2474,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(281:10) {#each lig as col}",
+    		source: "(285:10) {#each lig as col}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (279:6) {#each $tableau as lig}
+    // (283:6) {#each $tableau as lig}
     function create_each_block$1(ctx) {
     	let tr;
     	let current;
@@ -2506,7 +2506,7 @@ var app = (function () {
     			}
 
     			attr_dev(tr, "class", "ligne");
-    			add_location(tr, file$8, 279, 8, 7020);
+    			add_location(tr, file$8, 283, 8, 7114);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, tr, anchor);
@@ -2574,14 +2574,14 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(279:6) {#each $tableau as lig}",
+    		source: "(283:6) {#each $tableau as lig}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (286:6) {#if gameOver}
+    // (290:6) {#if gameOver}
     function create_if_block$1(ctx) {
     	let div;
     	let p;
@@ -2598,11 +2598,11 @@ var app = (function () {
     			t1 = space();
     			button = element("button");
     			button.textContent = "RETRY";
-    			add_location(p, file$8, 287, 10, 7227);
+    			add_location(p, file$8, 291, 10, 7321);
     			attr_dev(button, "class", "m-auto rounded-lg bg-black text-white retry h-16 w-40 svelte-1rjxde7");
-    			add_location(button, file$8, 288, 10, 7253);
+    			add_location(button, file$8, 292, 10, 7347);
     			attr_dev(div, "class", " gameover svelte-1rjxde7");
-    			add_location(div, file$8, 286, 8, 7193);
+    			add_location(div, file$8, 290, 8, 7287);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -2627,14 +2627,14 @@ var app = (function () {
     		block,
     		id: create_if_block$1.name,
     		type: "if",
-    		source: "(286:6) {#if gameOver}",
+    		source: "(290:6) {#if gameOver}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (278:4) <Tableau>
+    // (282:4) <Tableau>
     function create_default_slot(ctx) {
     	let t;
     	let if_block_anchor;
@@ -2745,7 +2745,7 @@ var app = (function () {
     		block,
     		id: create_default_slot.name,
     		type: "slot",
-    		source: "(278:4) <Tableau>",
+    		source: "(282:4) <Tableau>",
     		ctx
     	});
 
@@ -2772,9 +2772,9 @@ var app = (function () {
     			div0 = element("div");
     			create_component(tableau_1.$$.fragment);
     			attr_dev(div0, "class", "gamefield");
-    			add_location(div0, file$8, 276, 2, 6944);
+    			add_location(div0, file$8, 280, 2, 7038);
     			attr_dev(div1, "class", "flex flex-col justify-around h-auto w-full");
-    			add_location(div1, file$8, 275, 0, 6885);
+    			add_location(div1, file$8, 279, 0, 6979);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2905,6 +2905,7 @@ var app = (function () {
     			set_store_value(tableau, $tableau[$ligAlien][$colAlien] = "z", $tableau);
     		} else if ($colAlien === $colHero && $ligAlien === $ligHero) {
     			$$invalidate(0, gameOver = true);
+    			document.removeEventListener("keydown", event, false);
     		} else {
     			set_store_value(tableau, $tableau[$ligAlien][$colAlien] = 0, $tableau);
     			set_store_value(colAlien, $colAlien++, $colAlien);
@@ -3081,6 +3082,7 @@ var app = (function () {
     	});
 
     	function handleRetry() {
+    		$$invalidate(0, gameOver = false);
     		console.log("Retry");
     		console.log("retry" + $retry);
     		set_store_value(retry, $retry = !$retry);
@@ -3359,7 +3361,7 @@ var app = (function () {
     			div1 = element("div");
     			div0 = element("div");
     			p0 = element("p");
-    			p0.textContent = "ZOMBAV II";
+    			p0.textContent = "ZOMBAV VI";
     			t2 = space();
     			p1 = element("p");
     			p1.textContent = "BacK to Menu";

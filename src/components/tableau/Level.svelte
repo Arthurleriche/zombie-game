@@ -71,6 +71,8 @@
       $tableau[$ligAlien][$colAlien] = 'z';
     } else if ($colAlien === $colHero && $ligAlien === $ligHero) {
       gameOver = true;
+      document.removeEventListener('keydown', event, false)
+      
     } else {
       $tableau[$ligAlien][$colAlien] = 0;
       $colAlien++;
@@ -239,10 +241,12 @@
   import {retry} from '../Store.js'
 
   function handleRetry(){
+    gameOver =false; 
     console.log('Retry')
     console.log('retry' + $retry)
     $retry = !$retry 
     console.log($retry)
+    
 
   }
 </script>
