@@ -2,10 +2,11 @@
   import Tailwindcss from './Tailwindcss.svelte';
   import Accueil from './components/Accueil.svelte';
   import Level from './components/tableau/Level.svelte';
+  import { newGame } from './components/Store.js'
   // store
   import { sound } from './components/StoreOption.js';
 
-  let newGame = false;
+  // let newGame = false;
   
   // Player 
   let src = './img/mute.svg';
@@ -20,13 +21,25 @@
     }
     $sound = !$sound;
   }
+
+  import { ligHero } from './components/StoreCharacters.js';
+  import { colHero } from './components/StoreCharacters.js';
+
+
+  function initHero(){
+    $ligHero = 5
+    $colHero = 5
+    console.log('initHero')
+  }
+
+  import {retry} from './components/Store.js'
 </script>
 <Tailwindcss />
 
 
 <!-- COMPOSANT header -->
 <div class="header  relative w-full">
-  <div class="title text-6xl text-center"  on:click={() => newGame = false}><p class='title'>ZOMBAV</p></div>
+  <div class="title text-6xl text-center"  on:click={() => $newGame = false} on:click={initHero}><p class='title'>ZOMBAV II</p></div>
   <audio id="player"  src="./audio/laylow.mp3">
     <track kind="captions">
   </audio> 
@@ -34,8 +47,10 @@
 </div>
 <!-- COMPOSANT header -->
 
-{#if !newGame}
-<Accueil bind:newGame={newGame}/>
+{#if !$newGame}
+<Accueil bind:newGame={$newGame}/>
+{:else if $retry}
+    <Level/>
 {:else}
     <Level/>
 {/if}

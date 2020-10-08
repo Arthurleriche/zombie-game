@@ -1,5 +1,14 @@
 <script>
   export let alienStep; 
+  import {onDestroy, onMount} from 'svelte'
+
+  onMount(()=> {
+    console.log('Mount Enemy')
+  })
+
+  onDestroy(()=> {
+    console.log('Destroy Enemy')
+  })
 </script>
 
 <div class="alien1">

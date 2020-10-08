@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
   import Hero from '../Hero.svelte';
   import Fire from '../textures/Fire.svelte';
   import Ship from '../textures/Ship.svelte';
@@ -8,10 +8,14 @@
   export let alienStep; 
 
   export let idCase;
-
+  let i = 1 
   onMount(async () => {
     console.log('dirMount case');
   });
+
+  onDestroy(()=> {
+    // console.log('didDesrtoy case')
+  })
 </script>
 
 <style>

@@ -3,7 +3,32 @@
   import { direction } from './StoreCharacters.js';
   import { leftSide } from './StoreCharacters.js';
   import { bottomSide } from './StoreCharacters.js';
+  import {onMount, onDestroy} from 'svelte'
+  onMount (()=> {
+    console.log('Mount Hero')
+  })
+
+  onDestroy(()=> {
+    // let divhero = document.querySelector('.divHero')
+    // divhero = ''
+    console.log('Destroy Hero')
+  })
+  
 </script>
+
+
+
+
+<div class="divHero">
+  <div class="hero" style="bottom:{$bottomSide}px; left:{$leftSide}px">
+    <img
+      class="{$direction} moove-hero "
+      id="hero1"
+      src="./resources/space_hero.png"
+      alt="" />
+  </div>
+</div>
+
 
 <style>
   .divHero {
@@ -74,13 +99,3 @@
     }
   }
 </style>
-
-<div class="divHero">
-  <div class="hero" style="bottom:{$bottomSide}px; left:{$leftSide}px">
-    <img
-      class="{$direction} moove-hero "
-      id="hero1"
-      src="./resources/space_hero.png"
-      alt="" />
-  </div>
-</div>

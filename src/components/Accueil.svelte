@@ -13,6 +13,9 @@
     console.log(this.className); 
     this.style.height = 16+'rem'
   }
+
+  
+
 </script>
 
 <!-- COMPOSANT acc-MENU -->

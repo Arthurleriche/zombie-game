@@ -4,7 +4,7 @@
   import Case from './Case.svelte';
 
   // function svelte
-  import { onMount } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
   // stores
   import { tableau } from '../StoreTable.js';
   import { nbrCol } from '../StoreTable.js';
@@ -19,16 +19,34 @@
   import { ligAlien } from '../StoreCharacters.js';
   import { colAlien } from '../StoreCharacters.js';
 
-  onMount(async () => {});
-
   // onMount
   onMount(async () => {
-    console.log('didMount Level');
+    console.log('Mount Level');
   });
+  // onDestroy 
+  onDestroy(()=> clearInterval(interval2))
+  onDestroy(()=>{
+    console.log('Destroy Level')
+    $ligAlien = 1
+    $colAlien = 1
+    $bottomSide=1
+    $leftSide=1
+    document.removeEventListener(
+    'keydown',
+    event,
+    false
+  );
+  })
+  // onDestroy(()=> clearInterval(interval))
+
+
+
+
+
 
   let gameOver = false;
 // -------------------- ALIEN  -------------------------- //
-  const interval = setInterval(walkEnemy, 300);
+  let interval2 = setInterval(walkEnemy, 300);
   let stp = 2;
   function walkEnemy() {
     if ($colAlien === 9 && $ligAlien < 6) {
@@ -141,6 +159,7 @@
       }
     }
     if (e.key === 'ArrowRight') {
+      console.log('appuyer droite')
       $direction = 'step-right';
       const interval = setInterval(stopFunction, 10);
       function stopFunction() {
@@ -161,33 +180,36 @@
     }
   };
 
-  document.addEventListener(
+  function event(event){
+    switch (event.key) {
+      case 'ArrowDown':
+        if (down) return;
+        down = true;
+        break;
+      case 'ArrowUp':
+        if (up) return;
+        up = true;
+        break;
+      case 'ArrowLeft':
+        if (left) return;
+        left = true;
+        break;
+      case 'ArrowRight':
+        if (right) return;
+        right = true;
+        break;
+    }
+    mooveHero(event);
+  }
+
+
+   document.addEventListener(
     'keydown',
-    event => {
-      switch (event.key) {
-        case 'ArrowDown':
-          if (down) return;
-          down = true;
-          break;
-        case 'ArrowUp':
-          if (up) return;
-          up = true;
-          break;
-        case 'ArrowLeft':
-          if (left) return;
-          left = true;
-          break;
-        case 'ArrowRight':
-          if (right) return;
-          right = true;
-          break;
-      }
-      mooveHero(event);
-    },
+    event,
     false
   );
 
-  document.addEventListener('keyup', event => {
+   document.addEventListener('keyup', event => {
     switch (event.key) {
       case 'ArrowDown':
         down = false;
@@ -208,6 +230,17 @@
     }
   });
   // -------------------- HERO -------------------------- //
+
+  // import {newGame} from '../Store.js'
+  import {retry} from '../Store.js'
+
+  function handleRetry(){
+    console.log('Retry')
+    console.log('retry' + $retry)
+    $retry = !$retry 
+    console.log($retry)
+
+  }
 </script>
 
 <style>
@@ -251,7 +284,7 @@
       {/each}
       {#if gameOver}
         <div class=" gameover">GAMEOVER</div>
-        <button
+        <button on:click={handleRetry}
           class="m-auto rounded-lg bg-black text-white retry h-16 w-40">RETRY</button>
       {/if}
     </Tableau>
