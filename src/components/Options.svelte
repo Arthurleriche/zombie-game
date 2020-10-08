@@ -71,6 +71,13 @@
     white-space:nowrap;
     transform: translateY(50%);
   }
+
+  #previous:active, #next:active{
+      filter: blur(1px);
+
+  }
+
+
   .opt-button {
     color: white;
     opacity: 0.7;

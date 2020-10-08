@@ -83,8 +83,8 @@
   // createShip();
 </script>
 
-<p class="text-white">Utlisez les touches directionnelles</p>
-<div class="tableau">
+<p class="text-center text-green-300">Utlisez les touches directionnelles</p>
+<div class="tableau ">
   <div id="tableau">
     <slot />
   </div>

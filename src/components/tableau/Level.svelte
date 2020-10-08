@@ -22,10 +22,14 @@
   // onMount
   onMount(async () => {
     console.log('Mount Level');
+    
+    document.getElementById('backToMenu').style.opacity = 1
+    
   });
   // onDestroy 
   onDestroy(()=> clearInterval(interval2))
   onDestroy(()=>{
+    document.getElementById('backToMenu').style.opacity = 0
     console.log('Destroy Level')
     $ligAlien = 1
     $colAlien = 1
@@ -40,14 +44,14 @@
   // onDestroy(()=> clearInterval(interval))
 
 
-
-
+  
+  
 
 
   let gameOver = false;
 // -------------------- ALIEN  -------------------------- //
   let interval2 = setInterval(walkEnemy, 300);
-  let stp = 2;
+  let stp =2;
   function walkEnemy() {
     if ($colAlien === 9 && $ligAlien < 6) {
       $tableau[$ligAlien][$colAlien] = 0;
@@ -246,10 +250,6 @@
 <style>
   .retry {
     border: 3px solid black;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 13%;
   }
   .gameover {
     width: 11rem;
@@ -272,7 +272,7 @@
   }
 </style>
 
-<div class="flex flex-col justify-around w-full">
+<div class="flex flex-col justify-around h-auto w-full">
   <div class="gamefield">
     <Tableau>
       {#each $tableau as lig}
@@ -283,9 +283,12 @@
         </tr>
       {/each}
       {#if gameOver}
-        <div class=" gameover">GAMEOVER</div>
-        <button on:click={handleRetry}
+        <div class=" gameover">
+          <p>GAMEOVER</p>
+          <button on:click={handleRetry}
           class="m-auto rounded-lg bg-black text-white retry h-16 w-40">RETRY</button>
+        </div>
+        
       {/if}
     </Tableau>
   </div>

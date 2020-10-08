@@ -64,8 +64,8 @@
 
 <!-- COMPOSANT acc-ANIM -->
 <img src="./img/deadtree.svg" alt="deadtree" class="deadtree" />
-<img src="./img/soucoupe.svg" alt="bullet2" class="soucoupe" />
-<img src="./img/ufo.svg" alt="ufo" class="ufo" />
+<!-- <img src="./img/soucoupe.svg" alt="bullet2" class="soucoupe" /> -->
+<!-- <img src="./img/ufo.svg" alt="ufo" class="ufo" /> -->
 <img src="./img/bullet.svg" alt="bullet1" class="bullet1" />
 <img src="./img/bullet.svg" alt="bullet1" class="bullet2" />
 

@@ -103,7 +103,7 @@ button:not(:disabled):active {
   animation-duration:15s;
   animation-delay:1s;
   animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
+  animation-iteration-count: 1;
   transform:translate(-40px,-400px);
 }
 
@@ -127,7 +127,8 @@ button:not(:disabled):active {
   top:85%;
   width:10%;
   animation:ufoMove 7s; 
-  animation-delay:2s
+  animation-delay:2s;
+  animation-iteration-count:1; 
 }
 
 
@@ -143,7 +144,7 @@ button:not(:disabled):active {
   position:absolute; 
   animation-name:bulletRight;
   animation-duration:4s;
-  animation-delay:1s;
+  animation-delay:3s;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
   transform:translate(-130px);
@@ -178,11 +179,22 @@ button:not(:disabled):active {
 } */
 
 .tableau{
-  background-size: cover;
+  height:auto; 
+  /* background-size: cover; */
   display: flex;
   justify-content: center; 
-  justify-content: center
+  /* justify-content: center; */
+  /* position:absolute; 
+  left:30%; 
+  bottom: -30%;  
+  animation: spaceShip 3s ease-out 1;  */
+  
 }
+/* 
+@keyframes spaceShip{
+  from {bottom : -30%}
+  to {bottom : 6%}
+} */
 
 td{
   background-image: url('./resources/blood.png')

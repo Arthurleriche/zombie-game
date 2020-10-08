@@ -662,20 +662,20 @@ var app = (function () {
     			if (img0.src !== (img0_src_value = "./img/previous.png")) attr_dev(img0, "src", img0_src_value);
     			attr_dev(img0, "alt", "");
     			attr_dev(img0, "id", "previous");
-    			attr_dev(img0, "class", "svelte-soyqe0");
+    			attr_dev(img0, "class", "svelte-61h052");
     			add_location(img0, file, 59, 8, 1625);
     			attr_dev(p2, "class", "display-block align-middle");
     			add_location(p2, file, 60, 8, 1711);
     			if (img1.src !== (img1_src_value = "./img/next.png")) attr_dev(img1, "src", img1_src_value);
     			attr_dev(img1, "alt", "");
     			attr_dev(img1, "id", "next");
-    			attr_dev(img1, "class", "svelte-soyqe0");
+    			attr_dev(img1, "class", "svelte-61h052");
     			add_location(img1, file, 61, 8, 1769);
     			attr_dev(div1, "class", "flex  space-x-3 justify-center ");
     			add_location(div1, file, 58, 4, 1571);
     			add_location(div2, file, 63, 4, 1863);
     			attr_dev(div3, "id", "options-button");
-    			attr_dev(div3, "class", "opt-button svelte-soyqe0");
+    			attr_dev(div3, "class", "opt-button svelte-61h052");
     			add_location(div3, file, 56, 0, 1380);
     		},
     		l: function claim(nodes) {
@@ -943,12 +943,6 @@ var app = (function () {
     	let t25;
     	let img5;
     	let img5_src_value;
-    	let t26;
-    	let img6;
-    	let img6_src_value;
-    	let t27;
-    	let img7;
-    	let img7_src_value;
     	let current;
     	let mounted;
     	let dispose;
@@ -1017,10 +1011,6 @@ var app = (function () {
     			img4 = element("img");
     			t25 = space();
     			img5 = element("img");
-    			t26 = space();
-    			img6 = element("img");
-    			t27 = space();
-    			img7 = element("img");
     			attr_dev(img0, "class", "img1 svelte-1wc4bn0");
     			if (img0.src !== (img0_src_value = "./img/ET3.png")) attr_dev(img0, "src", img0_src_value);
     			attr_dev(img0, "alt", "ET1");
@@ -1064,22 +1054,14 @@ var app = (function () {
     			attr_dev(img3, "alt", "deadtree");
     			attr_dev(img3, "class", "deadtree");
     			add_location(img3, file$1, 65, 0, 1838);
-    			if (img4.src !== (img4_src_value = "./img/soucoupe.svg")) attr_dev(img4, "src", img4_src_value);
-    			attr_dev(img4, "alt", "bullet2");
-    			attr_dev(img4, "class", "soucoupe");
-    			add_location(img4, file$1, 66, 0, 1903);
-    			if (img5.src !== (img5_src_value = "./img/ufo.svg")) attr_dev(img5, "src", img5_src_value);
-    			attr_dev(img5, "alt", "ufo");
-    			attr_dev(img5, "class", "ufo");
-    			add_location(img5, file$1, 67, 0, 1967);
-    			if (img6.src !== (img6_src_value = "./img/bullet.svg")) attr_dev(img6, "src", img6_src_value);
-    			attr_dev(img6, "alt", "bullet1");
-    			attr_dev(img6, "class", "bullet1");
-    			add_location(img6, file$1, 68, 0, 2017);
-    			if (img7.src !== (img7_src_value = "./img/bullet.svg")) attr_dev(img7, "src", img7_src_value);
-    			attr_dev(img7, "alt", "bullet1");
-    			attr_dev(img7, "class", "bullet2");
-    			add_location(img7, file$1, 69, 0, 2078);
+    			if (img4.src !== (img4_src_value = "./img/bullet.svg")) attr_dev(img4, "src", img4_src_value);
+    			attr_dev(img4, "alt", "bullet1");
+    			attr_dev(img4, "class", "bullet1");
+    			add_location(img4, file$1, 68, 0, 2035);
+    			if (img5.src !== (img5_src_value = "./img/bullet.svg")) attr_dev(img5, "src", img5_src_value);
+    			attr_dev(img5, "alt", "bullet1");
+    			attr_dev(img5, "class", "bullet2");
+    			add_location(img5, file$1, 69, 0, 2096);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1130,10 +1112,6 @@ var app = (function () {
     			insert_dev(target, img4, anchor);
     			insert_dev(target, t25, anchor);
     			insert_dev(target, img5, anchor);
-    			insert_dev(target, t26, anchor);
-    			insert_dev(target, img6, anchor);
-    			insert_dev(target, t27, anchor);
-    			insert_dev(target, img7, anchor);
     			current = true;
 
     			if (!mounted) {
@@ -1192,10 +1170,6 @@ var app = (function () {
     			if (detaching) detach_dev(img4);
     			if (detaching) detach_dev(t25);
     			if (detaching) detach_dev(img5);
-    			if (detaching) detach_dev(t26);
-    			if (detaching) detach_dev(img6);
-    			if (detaching) detach_dev(t27);
-    			if (detaching) detach_dev(img7);
     			mounted = false;
     			run_all(dispose);
     		}
@@ -1332,12 +1306,12 @@ var app = (function () {
     			div1 = element("div");
     			div0 = element("div");
     			if (default_slot) default_slot.c();
-    			attr_dev(p, "class", "text-white");
+    			attr_dev(p, "class", "text-center text-green-300");
     			add_location(p, file$2, 85, 0, 1886);
     			attr_dev(div0, "id", "tableau");
-    			add_location(div0, file$2, 87, 2, 1972);
-    			attr_dev(div1, "class", "tableau");
-    			add_location(div1, file$2, 86, 0, 1948);
+    			add_location(div0, file$2, 87, 2, 1989);
+    			attr_dev(div1, "class", "tableau ");
+    			add_location(div1, file$2, 86, 0, 1964);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2532,7 +2506,7 @@ var app = (function () {
     			}
 
     			attr_dev(tr, "class", "ligne");
-    			add_location(tr, file$8, 279, 8, 6961);
+    			add_location(tr, file$8, 279, 8, 7020);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, tr, anchor);
@@ -2610,6 +2584,7 @@ var app = (function () {
     // (286:6) {#if gameOver}
     function create_if_block$1(ctx) {
     	let div;
+    	let p;
     	let t1;
     	let button;
     	let mounted;
@@ -2618,19 +2593,22 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			div = element("div");
-    			div.textContent = "GAMEOVER";
+    			p = element("p");
+    			p.textContent = "GAMEOVER";
     			t1 = space();
     			button = element("button");
     			button.textContent = "RETRY";
-    			attr_dev(div, "class", " gameover svelte-1krn0ok");
-    			add_location(div, file$8, 286, 8, 7134);
-    			attr_dev(button, "class", "m-auto rounded-lg bg-black text-white retry h-16 w-40 svelte-1krn0ok");
-    			add_location(button, file$8, 287, 8, 7180);
+    			add_location(p, file$8, 287, 10, 7227);
+    			attr_dev(button, "class", "m-auto rounded-lg bg-black text-white retry h-16 w-40 svelte-1rjxde7");
+    			add_location(button, file$8, 288, 10, 7253);
+    			attr_dev(div, "class", " gameover svelte-1rjxde7");
+    			add_location(div, file$8, 286, 8, 7193);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
-    			insert_dev(target, t1, anchor);
-    			insert_dev(target, button, anchor);
+    			append_dev(div, p);
+    			append_dev(div, t1);
+    			append_dev(div, button);
 
     			if (!mounted) {
     				dispose = listen_dev(button, "click", /*handleRetry*/ ctx[3], false, false, false);
@@ -2640,8 +2618,6 @@ var app = (function () {
     		p: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div);
-    			if (detaching) detach_dev(t1);
-    			if (detaching) detach_dev(button);
     			mounted = false;
     			dispose();
     		}
@@ -2796,9 +2772,9 @@ var app = (function () {
     			div0 = element("div");
     			create_component(tableau_1.$$.fragment);
     			attr_dev(div0, "class", "gamefield");
-    			add_location(div0, file$8, 276, 2, 6885);
-    			attr_dev(div1, "class", "flex flex-col justify-around w-full");
-    			add_location(div1, file$8, 275, 0, 6833);
+    			add_location(div0, file$8, 276, 2, 6944);
+    			attr_dev(div1, "class", "flex flex-col justify-around h-auto w-full");
+    			add_location(div1, file$8, 275, 0, 6885);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2886,12 +2862,14 @@ var app = (function () {
 
     	onMount(async () => {
     		console.log("Mount Level");
+    		document.getElementById("backToMenu").style.opacity = 1;
     	});
 
     	// onDestroy 
     	onDestroy(() => clearInterval(interval2));
 
     	onDestroy(() => {
+    		document.getElementById("backToMenu").style.opacity = 0;
     		console.log("Destroy Level");
     		set_store_value(ligAlien, $ligAlien = 1);
     		set_store_value(colAlien, $colAlien = 1);
@@ -3344,15 +3322,17 @@ var app = (function () {
     	let t0;
     	let div1;
     	let div0;
-    	let p;
+    	let p0;
     	let t2;
+    	let p1;
+    	let t4;
     	let audio;
     	let track;
     	let audio_src_value;
-    	let t3;
+    	let t5;
     	let img;
     	let img_src_value;
-    	let t4;
+    	let t6;
     	let current_block_type_index;
     	let if_block;
     	let if_block_anchor;
@@ -3378,30 +3358,36 @@ var app = (function () {
     			t0 = space();
     			div1 = element("div");
     			div0 = element("div");
-    			p = element("p");
-    			p.textContent = "ZOMBAV II";
+    			p0 = element("p");
+    			p0.textContent = "ZOMBAV II";
     			t2 = space();
+    			p1 = element("p");
+    			p1.textContent = "BacK to Menu";
+    			t4 = space();
     			audio = element("audio");
     			track = element("track");
-    			t3 = space();
+    			t5 = space();
     			img = element("img");
-    			t4 = space();
+    			t6 = space();
     			if_block.c();
     			if_block_anchor = empty();
-    			attr_dev(p, "class", "title svelte-ai7997");
-    			add_location(p, file$9, 41, 97, 1063);
+    			attr_dev(p0, "class", "title svelte-ai7997");
+    			add_location(p0, file$9, 41, 44, 1010);
+    			attr_dev(p1, "id", "backToMenu");
+    			attr_dev(p1, "class", " opacity-0 text-white border w-40 text-sm absolute top-0 right-0");
+    			add_location(p1, file$9, 41, 75, 1041);
     			attr_dev(div0, "class", "title text-6xl text-center svelte-ai7997");
     			add_location(div0, file$9, 41, 2, 968);
     			attr_dev(track, "kind", "captions");
-    			add_location(track, file$9, 43, 4, 1152);
+    			add_location(track, file$9, 43, 4, 1264);
     			attr_dev(audio, "id", "player");
     			if (audio.src !== (audio_src_value = "./audio/laylow.mp3")) attr_dev(audio, "src", audio_src_value);
-    			add_location(audio, file$9, 42, 2, 1102);
+    			add_location(audio, file$9, 42, 2, 1214);
     			attr_dev(img, "id", "mute");
     			attr_dev(img, "class", "h-16 w-16 absolute m-8 left-0 top-0 svelte-ai7997");
     			if (img.src !== (img_src_value = /*src*/ ctx[0])) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "volume");
-    			add_location(img, file$9, 45, 2, 1190);
+    			add_location(img, file$9, 45, 2, 1302);
     			attr_dev(div1, "class", "header  relative w-full");
     			add_location(div1, file$9, 40, 0, 928);
     		},
@@ -3413,21 +3399,23 @@ var app = (function () {
     			insert_dev(target, t0, anchor);
     			insert_dev(target, div1, anchor);
     			append_dev(div1, div0);
-    			append_dev(div0, p);
-    			append_dev(div1, t2);
+    			append_dev(div0, p0);
+    			append_dev(div0, t2);
+    			append_dev(div0, p1);
+    			append_dev(div1, t4);
     			append_dev(div1, audio);
     			append_dev(audio, track);
-    			append_dev(div1, t3);
+    			append_dev(div1, t5);
     			append_dev(div1, img);
-    			insert_dev(target, t4, anchor);
+    			insert_dev(target, t6, anchor);
     			if_blocks[current_block_type_index].m(target, anchor);
     			insert_dev(target, if_block_anchor, anchor);
     			current = true;
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(div0, "click", /*click_handler*/ ctx[5], false, false, false),
-    					listen_dev(div0, "click", /*initHero*/ ctx[4], false, false, false),
+    					listen_dev(p1, "click", /*click_handler*/ ctx[5], false, false, false),
+    					listen_dev(p1, "click", /*initHero*/ ctx[4], false, false, false),
     					listen_dev(img, "click", /*handleAudio*/ ctx[3], false, false, false)
     				];
 
@@ -3478,7 +3466,7 @@ var app = (function () {
     			destroy_component(tailwindcss, detaching);
     			if (detaching) detach_dev(t0);
     			if (detaching) detach_dev(div1);
-    			if (detaching) detach_dev(t4);
+    			if (detaching) detach_dev(t6);
     			if_blocks[current_block_type_index].d(detaching);
     			if (detaching) detach_dev(if_block_anchor);
     			mounted = false;
