@@ -1,14 +1,18 @@
 <script>
-  export let alienStep; 
+  // svelte 
   import {onDestroy, onMount} from 'svelte'
-
+  // stores
+  import {tableau} from './StoreTable.js'
+  // onMount
   onMount(()=> {
     console.log('Mount Enemy')
   })
-
+  // onDestroy
   onDestroy(()=> {
     console.log('Destroy Enemy')
   })
+  // props
+  export let alienStep; 
 </script>
 
 <div class="alien1">

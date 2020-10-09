@@ -1,23 +1,20 @@
 <script>
+  // stores
   import { step } from './StoreCharacters.js';
   import { direction } from './StoreCharacters.js';
   import { leftSide } from './StoreCharacters.js';
   import { bottomSide } from './StoreCharacters.js';
+  // svelte
   import {onMount, onDestroy} from 'svelte'
+  // onMount
   onMount (()=> {
     console.log('Mount Hero')
   })
-
+  // onDestroy
   onDestroy(()=> {
-    // let divhero = document.querySelector('.divHero')
-    // divhero = ''
     console.log('Destroy Hero')
   })
-  
 </script>
-
-
-
 
 <div class="divHero">
   <div class="hero" style="bottom:{$bottomSide}px; left:{$leftSide}px">
@@ -28,7 +25,6 @@
       alt="" />
   </div>
 </div>
-
 
 <style>
   .divHero {
@@ -43,12 +39,10 @@
     overflow: hidden;
     position: absolute;
   }
-
   img {
     max-width: 600px;
     height: 400px;
   }
-
   .down {
     position: absolute;
     left: -50px;
@@ -68,23 +62,19 @@
     left: -50px;
     top: -100px;
   }
-
   .step-down {
     animation: moove 0.25s steps(2) infinite;
   }
-
   .step-up {
     position: absolute;
     animation: moove 0.25s steps(2) infinite;
     top: -150px;
   }
-
   .step-left {
     position: absolute;
     animation: moove 0.25s steps(2) infinite;
     top: -50px;
   }
-
   .step-right {
     position: absolute;
     animation: moove 0.25s steps(2) infinite;

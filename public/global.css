@@ -14,8 +14,6 @@ body{
   50%{background-size:45%;} 
   100%{background-size:60%}
 }
-
-
 .floor{
   position:absolute; 
   width:100%;
@@ -23,16 +21,9 @@ body{
   border-bottom:24px solid black; 
   z-index:-1;
 }
-
 a:hover {
 	text-decoration: underline;
 }
-
-/* #hero{
-    overflow: hidden;
-    animation: mooveHero 1s steps(4) infinite
-} */
-
 @keyframes mooveHero{
     from{
         transform: translate3d(0%, 0, 0)
@@ -41,11 +32,9 @@ a:hover {
         transform: translate3d(-100%, 0, 0)
     }
 }
-
 label {
 	display: block;
 }
-
 input, button, select, textarea {
 	font-family: inherit;
 	font-size: inherit;
@@ -54,25 +43,17 @@ input, button, select, textarea {
 	margin: 0 0 0.5em 0;
 	box-sizing: border-box;
 }
-
-
 button {
 	color: #333;
 	background-color: #f4f4f4;
 	outline: none;
 }
-
 button:disabled {
 	color: #999;
 }
-
 button:not(:disabled):active {
 	background-color: #ddd;
 }
-
-
-
-/* ACCUEIL - ANIM  */
 
 @keyframes treeMove{
     30% {transform:skew(1deg)}
@@ -80,64 +61,18 @@ button:not(:disabled):active {
     90% {transform:skew(-1deg)}
   }
 .deadtree{
-    height:40%;
+  height:40%;
 	width:auto; 
 	position:absolute;
 	bottom:0; 
-    /* bottom:4.5%; 
-    left:2%; */
-    opacity:0.6; 
-    animation:treeMove 2s linear infinite;
-    filter: drop-shadow(16px 16px 20px red) invert(75%); 
-  }
-
-@keyframes soucoupeDiag{
-  from {transform: translate(-40px,-400px)}
-  to {transform: translate(751px,200px)}
+  opacity:0.6; 
+  animation:treeMove 2s linear infinite;
+  filter: drop-shadow(16px 16px 20px red) invert(75%); 
 }
-.soucoupe{
-  z-index:-10;
-  width:15%;
-  height:10%;
-  animation-name:soucoupeDiag;
-  animation-duration:15s;
-  animation-delay:1s;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: 1;
-  transform:translate(-40px,-400px);
-}
-
-@keyframes ufoMove{
-  20%{top:54%;left:45%;opacity:1}
-  30% {top:57%;left:45%;}
-  40%{top:54%;left:45%;transform:scale(1)}
-  50% {top:57%;left:45%;transform:scale(1);opacity:1}
-  60%{top:54%;left:45%;transform:scale(1)}
-  70% {top:57%;left:45%;transform:scale(1);opacity:1}
-  80%{top:54%;left:45%;transform:scale(1)}
-  90% {top:57%;left:45%;transform:scale(1);opacity:1}
-  100%{top:0%;left:90%; transform:scale(0)} 
-}
-
-.ufo{
-  z-index:-10;
-  position:absolute; 
-  opacity:0;
-  left:45%;
-  top:85%;
-  width:10%;
-  animation:ufoMove 7s; 
-  animation-delay:2s;
-  animation-iteration-count:1; 
-}
-
-
-
 @keyframes bulletRight{
   from {transform: translate(-40px,0)}
   to {transform: translate(1440px,0)}
 }
-
 .bullet1{
   width:4%;
   height:2%;
@@ -149,12 +84,10 @@ button:not(:disabled):active {
   animation-iteration-count: infinite;
   transform:translate(-130px);
 }
-
 @keyframes bulletDiag{
   from{top:0; left:-5%; }
   to{top:100%; left :80%; }
 }
-
 .bullet2{
   z-index:-10; 
   width:4%;
@@ -165,45 +98,27 @@ button:not(:disabled):active {
   top:0; 
   animation: bulletDiag 5s ease-in-out 4; 
 }
-
 .grass{
   position : absolute;
   bottom:-20px;
   filter: drop-shadow(16px 16px 20px red) invert(75%);
 }
-
-/* .gamefield{
-  width:1000px;
-  height:600px;
-  margin:auto;
-} */
-
 .tableau{
   height:auto; 
-  /* background-size: cover; */
   display: flex;
   justify-content: center; 
-  /* justify-content: center; */
-  /* position:absolute; 
-  left:30%; 
-  bottom: -30%;  
-  animation: spaceShip 3s ease-out 1;  */
-  
 }
 /* 
 @keyframes spaceShip{
   from {bottom : -30%}
   to {bottom : 6%}
 } */
-
 td{
   background-image: url('./resources/blood.png')
 }
-
 tt{
   background-color: transparent;
 }
-
 .fire{
   background: transparent;
 }

@@ -1,10 +1,14 @@
 <script>
+  //svelte 
+  import { createEventDispatcher } from 'svelte';
+  const dispatch = createEventDispatcher();
+  // components
+  import Options from './Options.svelte';
+  // stores
+  import { sound } from './StoreOption.js';
+  // variables
   let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   export let newGame;
-  import { createEventDispatcher } from 'svelte';
-  import Options from './Options.svelte';
-  const dispatch = createEventDispatcher();
-  import { sound } from './StoreOption.js';
 
   function activateSound() {
     $sound = !$sound;
@@ -13,9 +17,7 @@
     console.log(this.className); 
     this.style.height = 16+'rem'
   }
-
   
-
 </script>
 
 <!-- COMPOSANT acc-MENU -->
@@ -64,16 +66,12 @@
 
 <!-- COMPOSANT acc-ANIM -->
 <img src="./img/deadtree.svg" alt="deadtree" class="deadtree" />
-<!-- <img src="./img/soucoupe.svg" alt="bullet2" class="soucoupe" /> -->
-<!-- <img src="./img/ufo.svg" alt="ufo" class="ufo" /> -->
 <img src="./img/bullet.svg" alt="bullet1" class="bullet1" />
 <img src="./img/bullet.svg" alt="bullet1" class="bullet2" />
-
-
-
 <!-- COMPOSANT acc-ANIM -->
+
+
 <style>
-  
   .header {
     height: 20%;
   }
@@ -138,17 +136,11 @@
     z-index:200; 
     overflow:scroll; 
   }
-
   .newg-button:hover, .hiscores-button:hover {
     background-color:#21ffb5;
     color:#111; 
     box-shadow: 0 0 50px #21ffb5;
   }
-
-  /* .button:nth-child(3){
-        filter:hue-rotate(125deg);
-    } */
-
   .sq-grass {
     width: 10%;
     height: 100%;

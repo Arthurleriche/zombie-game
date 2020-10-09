@@ -2,14 +2,12 @@
   // components
   import Tableau from './Tableau.svelte';
   import Case from './Case.svelte';
-
-  // function svelte
+  // svelte
   import { onDestroy, onMount } from 'svelte';
   // stores
   import { tableau } from '../StoreTable.js';
   import { nbrCol } from '../StoreTable.js';
   import { nbrLig } from '../StoreTable.js';
-
   import { ligHero } from '../StoreCharacters.js';
   import { colHero } from '../StoreCharacters.js';
   import { step } from '../StoreCharacters.js';
@@ -18,13 +16,11 @@
   import { bottomSide } from '../StoreCharacters.js';
   import { ligAlien } from '../StoreCharacters.js';
   import { colAlien } from '../StoreCharacters.js';
-
+  import {retry} from '../Store.js'
   // onMount
   onMount(async () => {
     console.log('Mount Level');
-    
     document.getElementById('backToMenu').style.opacity = 1
-    
   });
   // onDestroy 
   onDestroy(()=> clearInterval(interval2))
@@ -41,17 +37,17 @@
     false
   );
   })
-  // onDestroy(()=> clearInterval(interval))
+  // variables 
+  let gameOver = false
+  let stp =2
+  let down = false;
+  let up = false;
+  let right = false;
+  let left = false;
 
-
-  
-  
-
-
-  let gameOver = false;
 // -------------------- ALIEN  -------------------------- //
-  let interval2 = setInterval(walkEnemy, 300);
-  let stp =2;
+  let interval2 = setInterval(walkEnemy,500);
+  
   function walkEnemy() {
     if ($colAlien === 9 && $ligAlien < 6) {
       $tableau[$ligAlien][$colAlien] = 0;
@@ -72,7 +68,6 @@
     } else if ($colAlien === $colHero && $ligAlien === $ligHero) {
       gameOver = true;
       document.removeEventListener('keydown', event, false)
-      
     } else {
       $tableau[$ligAlien][$colAlien] = 0;
       $colAlien++;
@@ -99,11 +94,7 @@
     console.log(index);
     console.log(hero);
   }
-
-  let down = false;
-  let up = false;
-  let right = false;
-  let left = false;
+  
   // -------------------- HERO -------------------------- //
   const mooveHero = e => {
     if (e.key === 'ArrowDown') {
@@ -123,6 +114,9 @@
           $bottomSide = 49;
           $tableau[$ligHero][$colHero] = 0;
           $ligHero++;
+          if($tableau[$ligHero][$colHero] === 'z'){
+            console.log("+++++++++++1")
+          }
           $tableau[$ligHero][$colHero] = 'p';
         }
       }
@@ -208,14 +202,12 @@
     mooveHero(event);
   }
 
-
-   document.addEventListener(
+  document.addEventListener(
     'keydown',
     event,
     false
   );
-
-   document.addEventListener('keyup', event => {
+  document.addEventListener('keyup', event => {
     switch (event.key) {
       case 'ArrowDown':
         down = false;
@@ -236,20 +228,38 @@
     }
   });
   // -------------------- HERO -------------------------- //
-
-  // import {newGame} from '../Store.js'
-  import {retry} from '../Store.js'
-
+  
   function handleRetry(){
     gameOver =false; 
     console.log('Retry')
     console.log('retry' + $retry)
     $retry = !$retry 
     console.log($retry)
-    
-
   }
 </script>
+
+<div class="flex flex-col justify-around h-auto w-full">
+  <div class="gamefield">
+    <Tableau>
+      {#each $tableau as lig}
+        <tr class="ligne">
+          {#each lig as col}
+            <Case idCase={col} alienStep={stp} />
+          {/each}
+        </tr>
+      {/each}
+      {#if gameOver}
+        <div class=" gameover">
+          <p>GAMEOVER</p>
+          <button on:click={handleRetry}
+          class="m-auto rounded-lg bg-black text-white retry h-16 w-40">RETRY</button>
+        </div>
+      {/if}
+    </Tableau>
+  </div>
+</div>
+
+
 
 <style>
   .retry {
@@ -275,25 +285,3 @@
     }
   }
 </style>
-
-<div class="flex flex-col justify-around h-auto w-full">
-  <div class="gamefield">
-    <Tableau>
-      {#each $tableau as lig}
-        <tr class="ligne">
-          {#each lig as col}
-            <Case idCase={col} alienStep={stp} />
-          {/each}
-        </tr>
-      {/each}
-      {#if gameOver}
-        <div class=" gameover">
-          <p>GAMEOVER</p>
-          <button on:click={handleRetry}
-          class="m-auto rounded-lg bg-black text-white retry h-16 w-40">RETRY</button>
-        </div>
-        
-      {/if}
-    </Tableau>
-  </div>
-</div>

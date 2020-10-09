@@ -1,9 +1,10 @@
 <script>
+    // stores
     import { sound } from './StoreOption.js';
-
+    // variables 
     var options = false
     let i = 3
-
+    
     function showOptions(){
         if(!options){
             let optbutton = document.querySelector('#options-button')
@@ -48,60 +49,52 @@
             $sound = !$sound
             this.innerHTML ='ON'
         }
-        // handleAudio(); 
     }
 </script>
-
-
-
-<div id="options-button" class="opt-button" > <p on:click|preventDefault={showOptions}>OPTIONS</p>
-    <div><p> Sound : <span id="soundstate" on:click={handleSound}>OFF</span> </p></div>
-    <div class="flex  space-x-3 justify-center ">
-        <img on:click|self={handleBg} src="./img/previous.png" alt="" id="previous"> 
-        <p class="display-block align-middle">Sky {i}</p>
-        <img on:click|preventDefault={handleBg} src="./img/next.png" alt="" id="next">
-    </div>
-    <div on:click|self={unshowOptions}>^</div>
-  </div> 
+    <div id="options-button" class="opt-button" > <p on:click|preventDefault={showOptions}>OPTIONS</p>
+        <div><p> Sound : <span id="soundstate" on:click={handleSound}>OFF</span> </p></div>
+        <div class="flex  space-x-3 justify-center ">
+            <img on:click|self={handleBg} src="./img/previous.png" alt="" id="previous"> 
+            <p class="display-block align-middle">Sky {i}</p>
+            <img on:click|preventDefault={handleBg} src="./img/next.png" alt="" id="next">
+        </div>
+        <div on:click|self={unshowOptions}>^</div>
+    </div> 
 
   <style>
     #previous, #next{
-    height:2rem; 
-    width:2rem; 
-    white-space:nowrap;
-    transform: translateY(50%);
-  }
-
-  #previous:active, #next:active{
+        height:2rem; 
+        width:2rem; 
+        white-space:nowrap;
+        transform: translateY(50%);
+    }
+    #previous:active, #next:active{
       filter: blur(1px);
-
-  }
-
-
-  .opt-button {
-    color: white;
-    opacity: 0.7;
-    background-color: rgb(8, 8, 8, 0.8);
-    margin: auto;
-    margin-top: 2rem;
-    height: 5rem;
-    width: 15rem;
-    text-align: center;
-    line-height: 4rem;
-    border: 6px solid black;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-    font-size: 1.2rem;
-    cursor: pointer;
-    letter-spacing: 2px;
-    transition:1s;
-    overflow:hidden; 
-    z-index:200; 
-    overflow:scroll; 
-  }
-  .opt-button:hover {
-    background-color:#21ffb5;
-    color:#111; 
-    box-shadow: 0 0 50px #21ffb5;
-  }
+    }
+    .opt-button {
+        color: white;
+        opacity: 0.7;
+        background-color: rgb(8, 8, 8, 0.8);
+        margin: auto;
+        margin-top: 2rem;
+        height: 5rem;
+        width: 15rem;
+        text-align: center;
+        line-height: 4rem;
+        border: 6px solid black;
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: bold;
+        font-size: 1.2rem;
+        cursor: pointer;
+        letter-spacing: 2px;
+        transition:1s;
+        overflow:hidden; 
+        z-index:200; 
+        overflow:scroll; 
+    }
+    .opt-button:hover {
+        background-color:#21ffb5;
+        color:#111; 
+        box-shadow: 0 0 50px #21ffb5;
+    }
   </style>
