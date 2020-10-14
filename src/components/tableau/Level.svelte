@@ -10,44 +10,42 @@
   import { nbrLig } from '../StoreTable.js';
   import { ligHero } from '../StoreCharacters.js';
   import { colHero } from '../StoreCharacters.js';
+  import { previousLigHero } from '../StoreCharacters.js';
+  import { previousColHero } from '../StoreCharacters.js';
   import { step } from '../StoreCharacters.js';
   import { direction } from '../StoreCharacters.js';
   import { leftSide } from '../StoreCharacters.js';
   import { bottomSide } from '../StoreCharacters.js';
   import { ligAlien } from '../StoreCharacters.js';
   import { colAlien } from '../StoreCharacters.js';
-  import {retry} from '../Store.js'
+  import { retry } from '../Store.js';
   // onMount
   onMount(async () => {
     console.log('Mount Level');
-    document.getElementById('backToMenu').style.opacity = 1
+    document.getElementById('backToMenu').style.opacity = 1;
   });
-  // onDestroy 
-  onDestroy(()=> clearInterval(interval2))
-  onDestroy(()=>{
-    document.getElementById('backToMenu').style.opacity = 0
-    console.log('Destroy Level')
-    $ligAlien = 1
-    $colAlien = 1
-    $bottomSide=1
-    $leftSide=1
-    document.removeEventListener(
-    'keydown',
-    event,
-    false
-  );
-  })
-  // variables 
-  let gameOver = false
-  let stp =2
+  // onDestroy
+  onDestroy(() => clearInterval(interval2));
+  onDestroy(() => {
+    document.getElementById('backToMenu').style.opacity = 0;
+    console.log('Destroy Level');
+    $ligAlien = 1;
+    $colAlien = 1;
+    $bottomSide = 1;
+    $leftSide = 1;
+    document.removeEventListener('keydown', event, false);
+  });
+  // variables
+  let gameOver = false;
+  let stp = 2;
   let down = false;
   let up = false;
   let right = false;
   let left = false;
 
-// -------------------- ALIEN  -------------------------- //
-  let interval2 = setInterval(walkEnemy,500);
-  
+  // -------------------- ALIEN  -------------------------- //
+  let interval2 = setInterval(walkEnemy, 500);
+
   function walkEnemy() {
     if ($colAlien === 9 && $ligAlien < 6) {
       $tableau[$ligAlien][$colAlien] = 0;
@@ -67,7 +65,7 @@
       $tableau[$ligAlien][$colAlien] = 'z';
     } else if ($colAlien === $colHero && $ligAlien === $ligHero) {
       gameOver = true;
-      document.removeEventListener('keydown', event, false)
+      document.removeEventListener('keydown', event, false);
     } else {
       $tableau[$ligAlien][$colAlien] = 0;
       $colAlien++;
@@ -94,119 +92,106 @@
     console.log(index);
     console.log(hero);
   }
-  
-  // -------------------- HERO -------------------------- //
-  const mooveHero = e => {
-    if (e.key === 'ArrowDown') {
-      $direction = 'step-down';
-      const interval = setInterval(stopFunction, 10);
-      function stopFunction() {
-        if (down === false || ($ligHero >= $nbrLig - 2 && $bottomSide <= 5)) {
-          console.log("je m'arrete");
 
-          clearInterval(interval);
+  // -------------------- HERO -------------------------- //
+  const updateMoveHero = () => {
+    $previousLigHero = $ligHero;
+    $previousColHero = $colHero;
+    switch (true) {
+      case down:
+        $direction = 'step-down';
+        if ($ligHero >= $nbrLig - 2 && $bottomSide <= 5) {
           $direction = 'down';
         } else {
           $bottomSide = $bottomSide - 1;
-          console.log($bottomSide);
         }
         if ($bottomSide === 0) {
-          $bottomSide = 49;
-          $tableau[$ligHero][$colHero] = 0;
           $ligHero++;
-          if($tableau[$ligHero][$colHero] === 'z'){
-            console.log("+++++++++++1")
-          }
-          $tableau[$ligHero][$colHero] = 'p';
+          $bottomSide = 49;
         }
-      }
-    }
-    if (e.key === 'ArrowUp') {
-      $direction = 'step-up';
-      const interval = setInterval(stopFunction, 10);
-      function stopFunction() {
-        if (up === false || $ligHero <= 1) {
-          clearInterval(interval);
+        break;
+      case up:
+        $direction = 'step-up';
+        if ($ligHero <= 1) {
           $direction = 'up';
         } else {
           $bottomSide = $bottomSide + 1;
           if ($bottomSide === 50) {
-            $bottomSide = 1;
-            $tableau[$ligHero][$colHero] = 0;
             $ligHero--;
-            $tableau[$ligHero][$colHero] = 'p';
+            $bottomSide = 1;
           }
         }
-      }
-    }
-    if (e.key === 'ArrowLeft') {
-      $direction = 'step-left';
-      const interval = setInterval(stopFunction, 10);
-      function stopFunction() {
-        if (left === false || ($colHero <= 1 && $leftSide <= 5)) {
-          clearInterval(interval);
+        break;
+      case left:
+        $direction = 'step-left';
+        if ($colHero <= 1 && $leftSide <= 5) {
           $direction = 'left';
         } else {
-          console.log($leftSide);
           $leftSide = $leftSide - 1;
           if ($leftSide === 0) {
-            $leftSide = 49;
-            $tableau[$ligHero][$colHero] = 0;
             $colHero--;
-            $tableau[$ligHero][$colHero] = 'p';
+            $leftSide = 49;
           }
         }
-      }
-    }
-    if (e.key === 'ArrowRight') {
-      console.log('appuyer droite')
-      $direction = 'step-right';
-      const interval = setInterval(stopFunction, 10);
-      function stopFunction() {
-        if (right === false || $colHero >= $nbrCol - 1) {
-          clearInterval(interval);
+        break;
+      case right:
+        $direction = 'step-right';
+        if ($colHero >= $nbrCol - 1) {
           $direction = 'right';
         } else {
-          console.log($leftSide);
           $leftSide = $leftSide + 1;
           if ($leftSide === 50) {
-            $leftSide = 1;
-            $tableau[$ligHero][$colHero] = 0;
             $colHero++;
-            $tableau[$ligHero][$colHero] = 'p';
+            $leftSide = 1;
           }
         }
-      }
+        break;
+    }
+    if (!down && !up && !left && !right) {
+      $direction = 'down';
     }
   };
 
-  function event(event){
+  const drawMoveHero = () => {
+    $tableau[$previousLigHero][$previousColHero] = 0;
+    $tableau[$ligHero][$colHero] = 'p';
+  };
+
+  function event(event) {
     switch (event.key) {
       case 'ArrowDown':
         if (down) return;
         down = true;
+        left = false;
+        up = false;
+        right = false;
         break;
       case 'ArrowUp':
         if (up) return;
+        down = false;
+        left = false;
         up = true;
+        right = false;
         break;
       case 'ArrowLeft':
         if (left) return;
+        down = false;
         left = true;
+        up = false;
+        right = false;
         break;
       case 'ArrowRight':
         if (right) return;
+        down = false;
+        left = false;
+        up = false;
         right = true;
         break;
     }
     mooveHero(event);
   }
 
-  document.addEventListener(
-    'keydown',
-    event,
-    false
-  );
+  document.addEventListener('keydown', event, false);
   document.addEventListener('keyup', event => {
     switch (event.key) {
       case 'ArrowDown':
@@ -228,38 +213,31 @@
     }
   });
   // -------------------- HERO -------------------------- //
-  
-  function handleRetry(){
-    gameOver =false; 
-    console.log('Retry')
-    console.log('retry' + $retry)
-    $retry = !$retry 
-    console.log($retry)
+  // -------------------- GAMELOOP -------------------------- //
+  const update = () => {
+    updateMoveHero();
+  };
+
+  const daw = () => {
+    drawMoveHero();
+  };
+
+  const gameLoop = () => {
+    update();
+    drawMoveHero();
+    requestAnimationFrame(gameLoop);
+  };
+  window.requestAnimationFrame(gameLoop);
+  // -------------------- GAMELOOP -------------------------- //
+
+  function handleRetry() {
+    gameOver = false;
+    console.log('Retry');
+    console.log('retry' + $retry);
+    $retry = !$retry;
+    console.log($retry);
   }
 </script>
-
-<div class="flex flex-col justify-around h-auto w-full">
-  <div class="gamefield">
-    <Tableau>
-      {#each $tableau as lig}
-        <tr class="ligne">
-          {#each lig as col}
-            <Case idCase={col} alienStep={stp} />
-          {/each}
-        </tr>
-      {/each}
-      {#if gameOver}
-        <div class=" gameover">
-          <p>GAMEOVER</p>
-          <button on:click={handleRetry}
-          class="m-auto rounded-lg bg-black text-white retry h-16 w-40">RETRY</button>
-        </div>
-      {/if}
-    </Tableau>
-  </div>
-</div>
-
-
 
 <style>
   .retry {
@@ -285,3 +263,25 @@
     }
   }
 </style>
+
+<div class="flex flex-col justify-around h-auto w-full">
+  <div class="gamefield">
+    <Tableau>
+      {#each $tableau as lig}
+        <tr class="ligne">
+          {#each lig as col}
+            <Case idCase={col} alienStep={stp} />
+          {/each}
+        </tr>
+      {/each}
+      {#if gameOver}
+        <div class=" gameover">
+          <p>GAMEOVER</p>
+          <button
+            on:click={handleRetry}
+            class="m-auto rounded-lg bg-black text-white retry h-16 w-40">RETRY</button>
+        </div>
+      {/if}
+    </Tableau>
+  </div>
+</div>
