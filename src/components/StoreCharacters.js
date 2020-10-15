@@ -25,3 +25,4 @@ export const previousLigAlien = writable(1)
 export const previousColAlien = writable(1)
 export const leftAlien = writable(0); 
 export const topAlien = writable(0); 
+export const directionAlien = writable("down");

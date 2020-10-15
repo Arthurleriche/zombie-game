@@ -1,57 +1,89 @@
 <script>
-  // svelte 
-  import {onDestroy, onMount} from 'svelte'
+  // svelte
+  import { onDestroy, onMount } from 'svelte';
   // stores
-  import {tableau} from './StoreTable.js'
-  import {leftAlien} from './StoreCharacters.js'
-  import {topAlien} from './StoreCharacters.js'
+  import { tableau } from './StoreTable.js';
+  import { leftAlien } from './StoreCharacters.js';
+  import { topAlien } from './StoreCharacters.js';
+  import { directionAlien } from './StoreCharacters.js';
   // onMount
-  onMount(()=> {
-    console.log('Mount Enemy')
-  })
+  onMount(() => {
+    console.log('Mount Enemy');
+  });
   // onDestroy
-  onDestroy(()=> {
-    console.log('Destroy Enemy')
-  })
+  onDestroy(() => {
+    console.log('Destroy Enemy');
+  });
   // props
-  export let alienStep; 
+  export let alienStep;
 </script>
 
-<div class="alien1" style="left:{$leftAlien}px; top:{$topAlien}px">
-  <img
-    class="right{alienStep}"
-    id="alien1"
-    src="./resources/alien1.png"
-    alt=''
-  />
-</div>
-
 <style>
-  .alien1{
-      width:50px; 
-      height:50px; 
-      overflow:hidden; 
-      position: relative; 
+  .alien1 {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    position: relative;
+  }
+  img {
+    max-width: 600px;
+    height: 400px;
+  }
+  .down {
+    position: absolute;
+    left: -500px;
+    top: -200px;
+  }
+  .left {
+    position: absolute;
+    left: -500px;
+    top: -250px;
+  }
+  .right {
+    position: absolute;
+    left: -500px;
+    top: -300px;
+  }
+  .up {
+    position: absolute;
+    left: -500px;
+    top: -350px;
+  }
+
+  .step-down {
+    position: absolute;
+    left: -450px;
+    animation: moove 0.25s steps(3) infinite;
+    top: -200px;
+  }
+  .step-up {
+    animation: moove 0.25s steps(3) infinite;
+    position: absolute;
+    left: -450px;
+    top: -350px;
+  }
+  .step-left {
+    position: absolute;
+    animation: moove 0.25s steps(3) infinite;
+    top: -250px;
+    left: -450px;
+  }
+  .step-right {
+    animation: moove 0.25s steps(3) infinite;
+    position: absolute;
+    left: -450px;
+    top: -300px;
+  }
+  @keyframes moove {
+    from {
+      transform: translate3d(0px, 0, 0);
     }
-    img{
-      position: absolute; 
-      height: 250px;
-      max-width:500px;
-      /* top:-10px;   */
+    to {
+      transform: translate3d(-150px, 0, 0);
     }
-    .right1{
-      position: absolute; 
-      top: -78px; 
-      left: -37px; 
-    }
-    .right2{
-      position: absolute; 
-      top:-80px; 
-      left:-75px;  
-    }
-    .right3{
-      position: absolute; 
-      top:-80px; 
-      left:3px;  
-    }
-  </style>
+  }
+</style>
+
+<div class="alien1" style="left:{$leftAlien}px; top:{$topAlien}px">
+  <img class={$directionAlien} id="alien1" src="./resources/enemy.png" alt="" />
+</div>

@@ -22,6 +22,7 @@
   import { leftAlien } from '../StoreCharacters.js';
   import { topAlien } from '../StoreCharacters.js';
   import { retry } from '../Store.js';
+  import { directionAlien } from '../StoreCharacters.js';
   // onMount
   onMount(async () => {
     console.log('Mount Level');
@@ -59,6 +60,7 @@
 
           $colAlien++;
         } else {
+          $directionAlien = 'step-right';
           $leftAlien += this.speed;
         }
       } else if ($colAlien === 9 && $ligAlien < 5) {
@@ -68,6 +70,7 @@
 
           $ligAlien++;
         } else {
+          $directionAlien = 'step-down';
           $topAlien += this.speed;
         }
         console.log('DESCEND' + $ligAlien + $colAlien);
@@ -78,6 +81,7 @@
 
           $colAlien--;
         } else {
+          $directionAlien = 'step-left';
           $leftAlien -= this.speed;
         }
         console.log('GAUCHE' + $ligAlien + $colAlien);
@@ -89,6 +93,7 @@
 
           $ligAlien--;
         } else {
+          $directionAlien = 'step-up';
           $topAlien -= this.speed;
         }
       }
@@ -232,14 +237,33 @@
     }
   });
   // -------------------- HERO -------------------------- //
+
+  function handleRetry() {
+    gameOver = false;
+    console.log('Retry');
+    console.log('retry' + $retry);
+    $retry = !$retry;
+    console.log($retry);
+  }
+
+  // -------------------- CHECK COLLISION -------------------------- //
+  var collision = false;
+  function checkCollision() {
+    if ($ligAlien === $ligHero && $colAlien === $colHero) {
+      collision = true;
+    }
+  }
+
+  // -------------------- CHECK COLLISION -------------------------- //
   // -------------------- GAMELOOP -------------------------- //
 
-  var iti = new alien(5); //ajouter les coordonnées x et y en argument !
+  var iti = new alien(1); //ajouter les coordonnées x et y en argument !
   const update = () => {
     updateMoveHero();
 
     if (collision === true) {
       collision = false;
+      $directionAlien = 'down';
     } else {
       iti.advance();
     }
@@ -259,25 +283,6 @@
   };
   MyRequest = window.requestAnimationFrame(gameLoop);
   // -------------------- GAMELOOP -------------------------- //
-
-  function handleRetry() {
-    gameOver = false;
-    console.log('Retry');
-    console.log('retry' + $retry);
-    $retry = !$retry;
-    console.log($retry);
-  }
-
-  // -------------------- CHECK COLLISION -------------------------- //
-  var collision = false;
-  function checkCollision() {
-    if ($ligAlien === $ligHero && $colAlien === $colHero) {
-      console.log('COLLISION');
-      collision = true;
-    }
-  }
-
-  // -------------------- CHECK COLLISION -------------------------- //
 </script>
 
 <style>
