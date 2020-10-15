@@ -34,6 +34,7 @@
     $bottomSide = 1;
     $leftSide = 1;
     document.removeEventListener('keydown', event, false);
+    window.cancelAnimationFrame(MyRequest); 
   });
   // variables
   let gameOver = false;
@@ -188,7 +189,7 @@
         right = true;
         break;
     }
-    mooveHero(event);
+    // mooveHero(event);
   }
 
   document.addEventListener('keydown', event, false);
@@ -218,14 +219,16 @@
     updateMoveHero();
   };
 
-  const daw = () => {
+  const draw = () => {
     drawMoveHero();
   };
 
+  var MyRequest; 
   const gameLoop = () => {
     update();
-    drawMoveHero();
-    requestAnimationFrame(gameLoop);
+    draw();
+    console.log('RAFFFFF')
+    MyRequest = requestAnimationFrame(gameLoop);
   };
   window.requestAnimationFrame(gameLoop);
   // -------------------- GAMELOOP -------------------------- //
