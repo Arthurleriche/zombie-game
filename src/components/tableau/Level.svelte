@@ -25,14 +25,12 @@
   import { directionAlien } from '../StoreCharacters.js';
   // onMount
   onMount(async () => {
-    console.log('Mount Level');
     document.getElementById('backToMenu').style.opacity = 1;
   });
   // onDestroy
   // onDestroy(() => clearInterval(interval2));
   onDestroy(() => {
     document.getElementById('backToMenu').style.opacity = 0;
-    console.log('Destroy Level');
     $ligAlien = 1;
     $colAlien = 1;
     $bottomSide = 1;
@@ -73,7 +71,6 @@
           $directionAlien = 'step-down';
           $topAlien += this.speed;
         }
-        console.log('DESCEND' + $ligAlien + $colAlien);
       } else if ($ligAlien === 5 && $colAlien > 1) {
         $topAlien = 0;
         if ($leftAlien === -50) {
@@ -84,9 +81,7 @@
           $directionAlien = 'step-left';
           $leftAlien -= this.speed;
         }
-        console.log('GAUCHE' + $ligAlien + $colAlien);
       } else if ($colAlien === 1 && $ligAlien > 1) {
-        console.log('HAUT' + $ligAlien + $colAlien);
         $leftAlien = 0;
         if ($topAlien === -50) {
           $topAlien = 0;
@@ -106,20 +101,6 @@
   };
 
   // -------------------- ALIEN  -------------------------- //
-
-  let level = [];
-  function parseFile() {
-    // let fileobj = event.target.files[0];
-    let file = new File(['level1.text'], './level1.txt');
-    console.log(file);
-    let fr = new FileReader();
-    fr.onload = function (event) {
-      level.push(fr.result);
-    };
-    fr.readAsText(file);
-    console.log(index);
-    console.log(hero);
-  }
 
   // -------------------- HERO -------------------------- //
   const updateMoveHero = () => {
@@ -240,10 +221,7 @@
 
   function handleRetry() {
     gameOver = false;
-    console.log('Retry');
-    console.log('retry' + $retry);
     $retry = !$retry;
-    console.log($retry);
   }
 
   // -------------------- CHECK COLLISION -------------------------- //
