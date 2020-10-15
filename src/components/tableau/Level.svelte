@@ -12,14 +12,15 @@
   import { colHero } from '../StoreCharacters.js';
   import { previousLigHero } from '../StoreCharacters.js';
   import { previousColHero } from '../StoreCharacters.js';
-  import { step } from '../StoreCharacters.js';
   import { direction } from '../StoreCharacters.js';
   import { leftSide } from '../StoreCharacters.js';
   import { bottomSide } from '../StoreCharacters.js';
   import { ligAlien } from '../StoreCharacters.js';
   import { colAlien } from '../StoreCharacters.js';
-  import {leftAlien} from '../StoreCharacters.js'; 
-  import {topAlien} from '../StoreCharacters.js'; 
+  import { previousLigAlien } from '../StoreCharacters.js';
+  import { previousColAlien } from '../StoreCharacters.js';
+  import { leftAlien } from '../StoreCharacters.js';
+  import { topAlien } from '../StoreCharacters.js';
   import { retry } from '../Store.js';
   // onMount
   onMount(async () => {
@@ -36,7 +37,7 @@
     $bottomSide = 1;
     $leftSide = 1;
     document.removeEventListener('keydown', event, false);
-    window.cancelAnimationFrame(MyRequest); 
+    window.cancelAnimationFrame(MyRequest);
   });
   // variables
   let gameOver = false;
@@ -47,62 +48,58 @@
   let left = false;
 
   // -------------------- ALIEN  -------------------------- //
-  function alien(speed){
+  function alien(speed) {
+    this.speed = speed;
+    this.advance = function () {
+      $previousLigAlien = $ligAlien;
+      $previousColAlien = $colAlien;
+      if ($colAlien < 9 && $ligAlien === 1) {
+        if ($leftAlien === 50) {
+          $leftAlien = 0;
 
-    this.speed = speed ;
-
-    this.advance = function(){
-      if($colAlien < 9 && $ligAlien ===1){
-      if($leftAlien === 50){
-        $leftAlien = 0
-        $tableau[$ligAlien][$colAlien]=0
-        $colAlien++
-        $tableau[$ligAlien][$colAlien]='z'
-        console.log($colAlien)
-      } else {
-        $leftAlien += this.speed; 
-      }
-      console.log('DROITE'+ $ligAlien + $colAlien)
-    } else if ($colAlien ===9 && $ligAlien < 5) {
-      $leftAlien = 0
-      if($topAlien===50){
-        $topAlien = 0
-        $tableau[$ligAlien][$colAlien]=0
-        $ligAlien++
-        $tableau[$ligAlien][$colAlien]='z'
-      } else {
-        $topAlien += this.speed; 
-      }
-      console.log('DESCEND'+ $ligAlien + $colAlien)
-
-    } else if ($ligAlien === 5 && $colAlien >1){
-      $topAlien = 0
-      if($leftAlien===-50){
-        $leftAlien = 0
-        $tableau[$ligAlien][$colAlien]=0
-        $colAlien--
-        $tableau[$ligAlien][$colAlien]='z'
-      } else {
-        $leftAlien -= this.speed; 
-      }
-      console.log('GAUCHE'+ $ligAlien + $colAlien)
-
-    } else if ($colAlien === 1 && $ligAlien > 1  ) {
-      console.log('HAUT'+ $ligAlien + $colAlien)
-        $leftAlien = 0
-        if($topAlien===-50){
-          $topAlien = 0
-          $tableau[$ligAlien][$colAlien]=0
-          $ligAlien--
-          $tableau[$ligAlien][$colAlien]='z'
+          $colAlien++;
         } else {
-          $topAlien -= this.speed; 
+          $leftAlien += this.speed;
         }
-        console.log('HAUT'+ $ligAlien + $colAlien)
-    }
-  }; 
-}
-    
+      } else if ($colAlien === 9 && $ligAlien < 5) {
+        $leftAlien = 0;
+        if ($topAlien === 50) {
+          $topAlien = 0;
+
+          $ligAlien++;
+        } else {
+          $topAlien += this.speed;
+        }
+        console.log('DESCEND' + $ligAlien + $colAlien);
+      } else if ($ligAlien === 5 && $colAlien > 1) {
+        $topAlien = 0;
+        if ($leftAlien === -50) {
+          $leftAlien = 0;
+
+          $colAlien--;
+        } else {
+          $leftAlien -= this.speed;
+        }
+        console.log('GAUCHE' + $ligAlien + $colAlien);
+      } else if ($colAlien === 1 && $ligAlien > 1) {
+        console.log('HAUT' + $ligAlien + $colAlien);
+        $leftAlien = 0;
+        if ($topAlien === -50) {
+          $topAlien = 0;
+
+          $ligAlien--;
+        } else {
+          $topAlien -= this.speed;
+        }
+      }
+    };
+  }
+
+  const drawMoveAlien = () => {
+    $tableau[$previousLigAlien][$previousColAlien] = 0;
+    $tableau[$ligAlien][$colAlien] = 'z';
+  };
+
   // -------------------- ALIEN  -------------------------- //
 
   let level = [];
@@ -173,9 +170,6 @@
         }
         break;
     }
-    if (!down && !up && !left && !right) {
-      $direction = 'down';
-    }
   };
 
   const drawMoveHero = () => {
@@ -214,55 +208,53 @@
         right = true;
         break;
     }
-    // mooveHero(event);
   }
 
   document.addEventListener('keydown', event, false);
   document.addEventListener('keyup', event => {
     switch (event.key) {
       case 'ArrowDown':
-        console.log('DEDEDEWN')
         down = false;
-        $step = 1;
+        $direction = 'down';
         break;
       case 'ArrowUp':
         up = false;
-        $step = 1;
+        $direction = 'up';
         break;
       case 'ArrowLeft':
         left = false;
-        $step = 1;
+        $direction = 'left';
         break;
       case 'ArrowRight':
         right = false;
-        $step = 1;
+        $direction = 'right';
         break;
     }
   });
   // -------------------- HERO -------------------------- //
   // -------------------- GAMELOOP -------------------------- //
 
-  var iti = new alien(5); //ajouter les coordonnées x et y en argument ! 
+  var iti = new alien(5); //ajouter les coordonnées x et y en argument !
   const update = () => {
     updateMoveHero();
 
-    if(collision===true){
-      collision=false; 
+    if (collision === true) {
+      collision = false;
     } else {
-      iti.advance(); 
+      iti.advance();
     }
-    checkCollision(); 
+    checkCollision();
   };
 
   const draw = () => {
     drawMoveHero();
+    drawMoveAlien();
   };
 
-  var MyRequest; 
+  var MyRequest;
   const gameLoop = () => {
     update();
     draw();
-    console.log('RAFFFFF')
     MyRequest = requestAnimationFrame(gameLoop);
   };
   MyRequest = window.requestAnimationFrame(gameLoop);
@@ -277,43 +269,16 @@
   }
 
   // -------------------- CHECK COLLISION -------------------------- //
-  var collision = false; 
-  function checkCollision(){
-    if($ligAlien === $ligHero && $colAlien === $colHero){
-      console.log('COLLISION')
-      collision = true; 
-
+  var collision = false;
+  function checkCollision() {
+    if ($ligAlien === $ligHero && $colAlien === $colHero) {
+      console.log('COLLISION');
+      collision = true;
     }
   }
 
-
-
   // -------------------- CHECK COLLISION -------------------------- //
 </script>
-
-
-<div class="flex flex-col justify-around h-auto w-full">
-  <div class="gamefield">
-    <Tableau>
-      {#each $tableau as lig}
-        <tr class="ligne">
-          {#each lig as col}
-            <Case idCase={col} alienStep={stp} />
-          {/each}
-        </tr>
-      {/each}
-      {#if gameOver}
-        <div class=" gameover">
-          <p>GAMEOVER</p>
-          <button
-            on:click={handleRetry}
-            class="m-auto rounded-lg bg-black text-white retry h-16 w-40">RETRY</button>
-        </div>
-      {/if}
-    </Tableau>
-  </div>
-</div>
-
 
 <style>
   .retry {
@@ -339,3 +304,25 @@
     }
   }
 </style>
+
+<div class="flex flex-col justify-around h-auto w-full">
+  <div class="gamefield">
+    <Tableau>
+      {#each $tableau as lig}
+        <tr class="ligne">
+          {#each lig as col}
+            <Case idCase={col} alienStep={stp} />
+          {/each}
+        </tr>
+      {/each}
+      {#if gameOver}
+        <div class=" gameover">
+          <p>GAMEOVER</p>
+          <button
+            on:click={handleRetry}
+            class="m-auto rounded-lg bg-black text-white retry h-16 w-40">RETRY</button>
+        </div>
+      {/if}
+    </Tableau>
+  </div>
+</div>
