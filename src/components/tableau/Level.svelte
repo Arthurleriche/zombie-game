@@ -18,6 +18,8 @@
   import { bottomSide } from '../StoreCharacters.js';
   import { ligAlien } from '../StoreCharacters.js';
   import { colAlien } from '../StoreCharacters.js';
+  import {leftAlien} from '../StoreCharacters.js'; 
+  import {topAlien} from '../StoreCharacters.js'; 
   import { retry } from '../Store.js';
   // onMount
   onMount(async () => {
@@ -25,7 +27,7 @@
     document.getElementById('backToMenu').style.opacity = 1;
   });
   // onDestroy
-  onDestroy(() => clearInterval(interval2));
+  // onDestroy(() => clearInterval(interval2));
   onDestroy(() => {
     document.getElementById('backToMenu').style.opacity = 0;
     console.log('Destroy Level');
@@ -45,39 +47,62 @@
   let left = false;
 
   // -------------------- ALIEN  -------------------------- //
-  let interval2 = setInterval(walkEnemy, 500);
+  function alien(speed){
 
-  function walkEnemy() {
-    if ($colAlien === 9 && $ligAlien < 6) {
-      $tableau[$ligAlien][$colAlien] = 0;
-      $ligAlien++;
-      $tableau[$ligAlien][$colAlien] = 'z';
-    } else if ($colAlien <= 9 && $colAlien > 4 && $ligAlien === 6) {
-      $tableau[$ligAlien][$colAlien] = 0;
-      $colAlien--;
-      $tableau[$ligAlien][$colAlien] = 'z';
-    } else if ($colAlien >= 4 && $ligAlien === 6) {
-      $tableau[$ligAlien][$colAlien] = 0;
-      $ligAlien--;
-      $tableau[$ligAlien][$colAlien] = 'z';
-    } else if ($colAlien === 4 && $ligAlien < 5 && $ligAlien > 1) {
-      $tableau[$ligAlien][$colAlien] = 0;
-      $ligAlien--;
-      $tableau[$ligAlien][$colAlien] = 'z';
-    } else if ($colAlien === $colHero && $ligAlien === $ligHero) {
-      gameOver = true;
-      document.removeEventListener('keydown', event, false);
-    } else {
-      $tableau[$ligAlien][$colAlien] = 0;
-      $colAlien++;
-      $tableau[$ligAlien][$colAlien] = 'z';
-      if (stp === 3) {
-        stp = 2;
+    this.speed = speed ;
+
+    this.advance = function(){
+      if($colAlien < 9 && $ligAlien ===1){
+      if($leftAlien === 50){
+        $leftAlien = 0
+        $tableau[$ligAlien][$colAlien]=0
+        $colAlien++
+        $tableau[$ligAlien][$colAlien]='z'
+        console.log($colAlien)
       } else {
-        stp++;
+        $leftAlien += this.speed; 
       }
+      console.log('DROITE'+ $ligAlien + $colAlien)
+    } else if ($colAlien ===9 && $ligAlien < 5) {
+      $leftAlien = 0
+      if($topAlien===50){
+        $topAlien = 0
+        $tableau[$ligAlien][$colAlien]=0
+        $ligAlien++
+        $tableau[$ligAlien][$colAlien]='z'
+      } else {
+        $topAlien += this.speed; 
+      }
+      console.log('DESCEND'+ $ligAlien + $colAlien)
+
+    } else if ($ligAlien === 5 && $colAlien >1){
+      $topAlien = 0
+      if($leftAlien===-50){
+        $leftAlien = 0
+        $tableau[$ligAlien][$colAlien]=0
+        $colAlien--
+        $tableau[$ligAlien][$colAlien]='z'
+      } else {
+        $leftAlien -= this.speed; 
+      }
+      console.log('GAUCHE'+ $ligAlien + $colAlien)
+
+    } else if ($colAlien === 1 && $ligAlien > 1  ) {
+      console.log('HAUT'+ $ligAlien + $colAlien)
+        $leftAlien = 0
+        if($topAlien===-50){
+          $topAlien = 0
+          $tableau[$ligAlien][$colAlien]=0
+          $ligAlien--
+          $tableau[$ligAlien][$colAlien]='z'
+        } else {
+          $topAlien -= this.speed; 
+        }
+        console.log('HAUT'+ $ligAlien + $colAlien)
     }
-  }
+  }; 
+}
+    
   // -------------------- ALIEN  -------------------------- //
 
   let level = [];
@@ -196,6 +221,7 @@
   document.addEventListener('keyup', event => {
     switch (event.key) {
       case 'ArrowDown':
+        console.log('DEDEDEWN')
         down = false;
         $step = 1;
         break;
@@ -215,8 +241,17 @@
   });
   // -------------------- HERO -------------------------- //
   // -------------------- GAMELOOP -------------------------- //
+
+  var iti = new alien(5); //ajouter les coordonnées x et y en argument ! 
   const update = () => {
     updateMoveHero();
+
+    if(collision===true){
+      collision=false; 
+    } else {
+      iti.advance(); 
+    }
+    checkCollision(); 
   };
 
   const draw = () => {
@@ -230,7 +265,7 @@
     console.log('RAFFFFF')
     MyRequest = requestAnimationFrame(gameLoop);
   };
-  window.requestAnimationFrame(gameLoop);
+  MyRequest = window.requestAnimationFrame(gameLoop);
   // -------------------- GAMELOOP -------------------------- //
 
   function handleRetry() {
@@ -240,7 +275,45 @@
     $retry = !$retry;
     console.log($retry);
   }
+
+  // -------------------- CHECK COLLISION -------------------------- //
+  var collision = false; 
+  function checkCollision(){
+    if($ligAlien === $ligHero && $colAlien === $colHero){
+      console.log('COLLISION')
+      collision = true; 
+
+    }
+  }
+
+
+
+  // -------------------- CHECK COLLISION -------------------------- //
 </script>
+
+
+<div class="flex flex-col justify-around h-auto w-full">
+  <div class="gamefield">
+    <Tableau>
+      {#each $tableau as lig}
+        <tr class="ligne">
+          {#each lig as col}
+            <Case idCase={col} alienStep={stp} />
+          {/each}
+        </tr>
+      {/each}
+      {#if gameOver}
+        <div class=" gameover">
+          <p>GAMEOVER</p>
+          <button
+            on:click={handleRetry}
+            class="m-auto rounded-lg bg-black text-white retry h-16 w-40">RETRY</button>
+        </div>
+      {/if}
+    </Tableau>
+  </div>
+</div>
+
 
 <style>
   .retry {
@@ -266,25 +339,3 @@
     }
   }
 </style>
-
-<div class="flex flex-col justify-around h-auto w-full">
-  <div class="gamefield">
-    <Tableau>
-      {#each $tableau as lig}
-        <tr class="ligne">
-          {#each lig as col}
-            <Case idCase={col} alienStep={stp} />
-          {/each}
-        </tr>
-      {/each}
-      {#if gameOver}
-        <div class=" gameover">
-          <p>GAMEOVER</p>
-          <button
-            on:click={handleRetry}
-            class="m-auto rounded-lg bg-black text-white retry h-16 w-40">RETRY</button>
-        </div>
-      {/if}
-    </Tableau>
-  </div>
-</div>

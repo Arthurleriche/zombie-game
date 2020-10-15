@@ -3,6 +3,8 @@
   import {onDestroy, onMount} from 'svelte'
   // stores
   import {tableau} from './StoreTable.js'
+  import {leftAlien} from './StoreCharacters.js'
+  import {topAlien} from './StoreCharacters.js'
   // onMount
   onMount(()=> {
     console.log('Mount Enemy')
@@ -15,7 +17,7 @@
   export let alienStep; 
 </script>
 
-<div class="alien1">
+<div class="alien1" style="left:{$leftAlien}px; top:{$topAlien}px">
   <img
     class="right{alienStep}"
     id="alien1"
@@ -35,7 +37,7 @@
       position: absolute; 
       height: 250px;
       max-width:500px;
-      top:-10px;  
+      /* top:-10px;   */
     }
     .right1{
       position: absolute; 

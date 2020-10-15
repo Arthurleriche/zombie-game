@@ -15,3 +15,5 @@ export const bottomSide = writable(1)
 // ZOMBIE
 export const ligAlien = writable(1);
 export const colAlien = writable(1);
+export const leftAlien = writable(0); 
+export const topAlien = writable(0); 
