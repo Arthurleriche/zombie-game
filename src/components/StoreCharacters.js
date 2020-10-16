@@ -15,8 +15,7 @@ export const down = writable(false)
 export const up = writable(false)
 export const right = writable(false)
 export const left = writable(false)
-// Move HERO
-// HERO
+
 
 // ZOMBIE
 export const ligAlien = writable(1);

@@ -19,7 +19,7 @@
 <div class="divHero">
   <div class="hero" style="bottom:{$bottomSide}px; left:{$leftSide}px">
     <img
-      class="{$direction} moove-hero "
+      class="{$direction} moove-hero"
       id="hero1"
       src="./resources/space_hero.png"
       alt="" />
@@ -28,7 +28,7 @@
 
 <style>
   .divHero {
-    position: relative;
+    /* position: relative; */
     width: 50px;
     height: 50px;
   }
@@ -37,11 +37,13 @@
     width: 50px;
     height: 50px;
     overflow: hidden;
-    position: absolute;
+    position: relative;
+    
   }
   img {
     max-width: 600px;
     height: 400px;
+    
   }
   .down {
     position: absolute;

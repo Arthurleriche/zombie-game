@@ -2,7 +2,6 @@
   // svelte
   import { onDestroy, onMount } from 'svelte';
   // stores
-  import { tableau } from './StoreTable.js';
   import { leftAlien } from './StoreCharacters.js';
   import { topAlien } from './StoreCharacters.js';
   import { directionAlien } from './StoreCharacters.js';
@@ -14,9 +13,12 @@
   onDestroy(() => {
     console.log('Destroy Enemy');
   });
-  // props
-  export let alienStep;
 </script>
+
+<div class="alien1" style="left:{$leftAlien}px; top:{$topAlien}px">
+  <img class={$directionAlien} id="alien1" src="./resources/enemy.png" alt="" />
+</div>
+
 
 <style>
   .alien1 {
@@ -83,7 +85,3 @@
     }
   }
 </style>
-
-<div class="alien1" style="left:{$leftAlien}px; top:{$topAlien}px">
-  <img class={$directionAlien} id="alien1" src="./resources/enemy.png" alt="" />
-</div>

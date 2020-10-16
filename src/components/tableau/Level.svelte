@@ -28,7 +28,6 @@
     document.getElementById('backToMenu').style.opacity = 1;
   });
   // onDestroy
-  // onDestroy(() => clearInterval(interval2));
   onDestroy(() => {
     document.getElementById('backToMenu').style.opacity = 0;
     $ligAlien = 1;
@@ -40,11 +39,13 @@
   });
   // variables
   let gameOver = false;
-  let stp = 2;
   let down = false;
   let up = false;
   let right = false;
   let left = false;
+  let collision;
+  let alienSpeed = 2.5; 
+  let alienDamage = 10; 
 
   // -------------------- ALIEN  -------------------------- //
   function alien(speed) {
@@ -94,13 +95,13 @@
       }
     };
   }
-
   const drawMoveAlien = () => {
     $tableau[$previousLigAlien][$previousColAlien] = 0;
     $tableau[$ligAlien][$colAlien] = 'z';
   };
-
   // -------------------- ALIEN  -------------------------- //
+
+
 
   // -------------------- HERO -------------------------- //
   const updateMoveHero = () => {
@@ -219,33 +220,58 @@
   });
   // -------------------- HERO -------------------------- //
 
-  function handleRetry() {
-    gameOver = false;
-    $retry = !$retry;
-  }
+  
 
   // -------------------- CHECK COLLISION -------------------------- //
-  var collision = false;
   function checkCollision() {
-    if ($ligAlien === $ligHero && $colAlien === $colHero) {
+    if ($ligAlien === $ligHero && $colAlien === $colHero - 1){
       collision = true;
+    } else if($ligAlien + 1 === $ligHero && $colAlien === $colHero && $bottomSide > 3){
+      collision = true;
+    } else if($colAlien=== $colHero +1 && $ligAlien === $ligHero && $leftSide > 3 )
+    {
+      collision = true;
+    } else {
+      collision = false; 
     }
   }
-
   // -------------------- CHECK COLLISION -------------------------- //
-  // -------------------- GAMELOOP -------------------------- //
 
-  var iti = new alien(1); //ajouter les coordonnées x et y en argument !
+
+
+  // -------------------- COUNT SCORE -------------------------- //
+  let count=0
+  $: realCount = Math.floor(count/10)
+  $: pv = 70 - realCount*alienDamage
+  let life 
+
+    function Score(){
+      if(collision){
+      count = (count + 1); 
+      }
+
+      life = document.querySelector('.life')
+      life.style.width = pv + '%'
+
+      if(pv <= 0){
+        gameOver=true; 
+      } else if(pv > 0 && pv < 25){
+        life.style.backgroundColor='red'; 
+      } else if(pv > 24 && pv < 50){
+        life.style.backgroundColor='orange'; 
+      }
+    }
+  // -------------------- COUNT SCORE -------------------------- //
+
+
+
+
+  // -------------------- GAMELOOP -------------------------- //
+  var iti = new alien(alienSpeed); //ajouter les coordonnées x et y en argument !
+
   const update = () => {
     updateMoveHero();
-
-    if (collision === true) {
-      collision = false;
-      $directionAlien = 'down';
-    } else {
-      iti.advance();
-    }
-    checkCollision();
+    iti.advance(); 
   };
 
   const draw = () => {
@@ -255,13 +281,54 @@
 
   var MyRequest;
   const gameLoop = () => {
-    update();
-    draw();
-    MyRequest = requestAnimationFrame(gameLoop);
+    if(!gameOver){
+      update();
+      draw();
+      checkCollision();
+      Score(); 
+      MyRequest = requestAnimationFrame(gameLoop);
+    } else {
+      window.cancelAnimationFrame(MyRequest)
+    }
   };
   MyRequest = window.requestAnimationFrame(gameLoop);
   // -------------------- GAMELOOP -------------------------- //
+
+  function handleRetry() {
+    gameOver = false;
+    $retry = !$retry;
+    $ligHero = $colHero = 5; 
+  }
+
 </script>
+
+<div class="energybar flex justify-center">
+  <div class="bar rounded-lg h-12 w-1/5 bg-transparent border border-white">
+    <div class="life rounded-l-lg bg-green-300 "></div>
+  </div>
+</div>
+<div class="flex flex-col justify-around h-auto w-full">
+  <div class="gamefield">
+    <Tableau>
+      {#each $tableau as lig}
+        <tr class="ligne">
+          {#each lig as col}
+            <Case idCase={col}/>
+          {/each}
+        </tr>
+      {/each}
+      {#if gameOver}
+        <div class=" gameover">
+          <p>GAMEOVER</p>
+          <button
+            on:click={handleRetry}
+            class="m-auto rounded-lg bg-black text-white retry h-16 w-40">RETRY</button>
+        </div>
+      {/if}
+    </Tableau>
+  </div>
+</div>
+
 
 <style>
   .retry {
@@ -286,26 +353,9 @@
       transform: scale(1.5);
     }
   }
+  .life{
+    width : 50%;
+    height:100%; 
+    transition:0.5s; 
+  }
 </style>
-
-<div class="flex flex-col justify-around h-auto w-full">
-  <div class="gamefield">
-    <Tableau>
-      {#each $tableau as lig}
-        <tr class="ligne">
-          {#each lig as col}
-            <Case idCase={col} alienStep={stp} />
-          {/each}
-        </tr>
-      {/each}
-      {#if gameOver}
-        <div class=" gameover">
-          <p>GAMEOVER</p>
-          <button
-            on:click={handleRetry}
-            class="m-auto rounded-lg bg-black text-white retry h-16 w-40">RETRY</button>
-        </div>
-      {/if}
-    </Tableau>
-  </div>
-</div>

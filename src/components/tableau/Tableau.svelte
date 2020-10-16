@@ -76,36 +76,6 @@
     }
   }
   init();
-
-  // Aliens
-  // function getRandom(min, max) {
-  //   min = Math.ceil(min);
-  // 	max = Math.floor(max);
-  //   let randomNum = Math.floor(Math.random() * (max - min +1)) + min;
-  // 	return randomNum;
-  // }
-  // function createAlien(lig, col){
-  //   this.lig = lig
-  //   this.col = col
-  //   $tableau[lig][col] = 'z'
-  //   this.walk = function(){
-  //     if($tableau[lig][col]=== 'p'){
-  //       lig++
-  //     } else {
-  //       $tableau[lig][col]=0;
-  //       lig--
-  //       $tableau[lig][col]='z';
-  //       console.log('im walKINNNNG')
-  //     }
-  //   }
-  // }
-  // function randomizeAlien(){
-  //   var alien1 = new createAlien(getRandom(2,8),getRandom(2,8))
-  //   console.log(alien1.lig)
-  //   console.log(alien1.col)
-  //   alien1.walk()
-  // }
-  // let interval4 = setInterval(randomizeAlien, 2000)
 </script>
 
 <p class="text-center text-green-300">Utlisez les touches directionnelles</p>
