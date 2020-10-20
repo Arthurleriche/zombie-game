@@ -32,10 +32,10 @@ Le repo à été cleaner avec un nouveau dossier pour les ressources qui portent
 Les stores ont été déplacé dans des fichiers qui seront propres à chaque components *Options, Characters, Table*.
 
 #### Mehmet
-je ne savais pas quoi faire avec les SVG qui sont dans *img* je te les ai laissé pour qu'on voit ensemble ce qu'on en fera.
-
-J'ai avancé comme j'ai pu sur le la partie plateau avec le personnage en mouvement. Je galère a intégrer les éléments pour (texture obstacle etc). le probleme vient des tailles des cellules. Je suis chaud qu'on face un point ce vendredi sur ça. 
-Du coup le personnage est beaucoup moins fluide mais on a par contre une petite idée de map. 
+```javascript
+gco --track origin/dev
+git push -u origin dev
+```
 
 
 # DEPENDENCIES 
