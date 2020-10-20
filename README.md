@@ -6,6 +6,7 @@ cd zombie-game
 yarn || npm install
 npm run dev
 ```
+or follow the link to play the game : [https://alienux-game.herokuapp.com/](https://alienux-game.herokuapp.com/)
 
 ## Theme du jeu
 
