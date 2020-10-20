@@ -2,6 +2,7 @@
   // components
   import Tableau from './Tableau.svelte';
   import Case from './Case.svelte';
+  import Debug from '../debug_mode/debug.svelte';
   // svelte
   import { onDestroy, onMount } from 'svelte';
   // stores
@@ -44,8 +45,8 @@
   let right = false;
   let left = false;
   let collision;
-  let alienSpeed = 2.5; 
-  let alienDamage = 10; 
+  let alienSpeed = 2.5;
+  let alienDamage = 10;
 
   // -------------------- ALIEN  -------------------------- //
   function alien(speed) {
@@ -100,8 +101,6 @@
     $tableau[$ligAlien][$colAlien] = 'z';
   };
   // -------------------- ALIEN  -------------------------- //
-
-
 
   // -------------------- HERO -------------------------- //
   const updateMoveHero = () => {
@@ -220,58 +219,58 @@
   });
   // -------------------- HERO -------------------------- //
 
-  
-
   // -------------------- CHECK COLLISION -------------------------- //
   function checkCollision() {
-    if ($ligAlien === $ligHero && $colAlien === $colHero - 1){
+    if ($ligAlien === $ligHero && $colAlien === $colHero - 1) {
       collision = true;
-    } else if($ligAlien + 1 === $ligHero && $colAlien === $colHero && $bottomSide > 3){
+    } else if (
+      $ligAlien + 1 === $ligHero &&
+      $colAlien === $colHero &&
+      $bottomSide > 3
+    ) {
       collision = true;
-    } else if($colAlien=== $colHero +1 && $ligAlien === $ligHero && $leftSide > 3 )
-    {
+    } else if (
+      $colAlien === $colHero + 1 &&
+      $ligAlien === $ligHero &&
+      $leftSide > 3
+    ) {
       collision = true;
     } else {
-      collision = false; 
+      collision = false;
     }
   }
   // -------------------- CHECK COLLISION -------------------------- //
 
-
-
   // -------------------- COUNT SCORE -------------------------- //
-  let count=0
-  $: realCount = Math.floor(count/10)
-  $: pv = 70 - realCount*alienDamage
-  let life 
+  let count = 0;
+  $: realCount = Math.floor(count / 10);
+  $: pv = 70 - realCount * alienDamage;
+  let life;
 
-    function Score(){
-      if(collision){
-      count = (count + 1); 
-      }
-
-      life = document.querySelector('.life')
-      life.style.width = pv + '%'
-
-      if(pv <= 0){
-        gameOver=true; 
-      } else if(pv > 0 && pv < 25){
-        life.style.backgroundColor='red'; 
-      } else if(pv > 24 && pv < 50){
-        life.style.backgroundColor='orange'; 
-      }
+  function Score() {
+    if (collision) {
+      count = count + 1;
     }
+
+    life = document.querySelector('.life');
+    life.style.width = pv + '%';
+
+    if (pv <= 0) {
+      gameOver = true;
+    } else if (pv > 0 && pv < 25) {
+      life.style.backgroundColor = 'red';
+    } else if (pv > 24 && pv < 50) {
+      life.style.backgroundColor = 'orange';
+    }
+  }
   // -------------------- COUNT SCORE -------------------------- //
-
-
-
 
   // -------------------- GAMELOOP -------------------------- //
   var iti = new alien(alienSpeed); //ajouter les coordonnées x et y en argument !
 
   const update = () => {
     updateMoveHero();
-    iti.advance(); 
+    iti.advance();
   };
 
   const draw = () => {
@@ -281,14 +280,14 @@
 
   var MyRequest;
   const gameLoop = () => {
-    if(!gameOver){
+    if (!gameOver) {
       update();
       draw();
       checkCollision();
-      Score(); 
+      Score();
       MyRequest = requestAnimationFrame(gameLoop);
     } else {
-      window.cancelAnimationFrame(MyRequest)
+      window.cancelAnimationFrame(MyRequest);
     }
   };
   MyRequest = window.requestAnimationFrame(gameLoop);
@@ -297,38 +296,9 @@
   function handleRetry() {
     gameOver = false;
     $retry = !$retry;
-    $ligHero = $colHero = 5; 
+    $ligHero = $colHero = 5;
   }
-
 </script>
-
-<div class="energybar flex justify-center">
-  <div class="bar rounded-lg h-12 w-1/5 bg-transparent border border-white">
-    <div class="life rounded-l-lg bg-green-300 "></div>
-  </div>
-</div>
-<div class="flex flex-col justify-around h-auto w-full">
-  <div class="gamefield">
-    <Tableau>
-      {#each $tableau as lig}
-        <tr class="ligne">
-          {#each lig as col}
-            <Case idCase={col}/>
-          {/each}
-        </tr>
-      {/each}
-      {#if gameOver}
-        <div class=" gameover">
-          <p>GAMEOVER</p>
-          <button
-            on:click={handleRetry}
-            class="m-auto rounded-lg bg-black text-white retry h-16 w-40">RETRY</button>
-        </div>
-      {/if}
-    </Tableau>
-  </div>
-</div>
-
 
 <style>
   .retry {
@@ -353,9 +323,50 @@
       transform: scale(1.5);
     }
   }
-  .life{
-    width : 50%;
-    height:100%; 
-    transition:0.5s; 
+  .life {
+    width: 50%;
+    height: 100%;
+    transition: 0.5s;
+  }
+
+  .level {
+    position: relative;
+  }
+  .debug-mode {
+    position: absolute;
+    top: 125px;
+    left: 30px;
   }
 </style>
+
+<div class="level">
+  <div class="debug-mode">
+    <Debug />
+  </div>
+  <div class="energybar flex justify-center">
+    <div class="bar rounded-lg h-12 w-1/5 bg-transparent border border-white">
+      <div class="life rounded-l-lg bg-green-300 " />
+    </div>
+  </div>
+  <div class="flex flex-col justify-around h-auto w-full">
+    <div class="gamefield">
+      <Tableau>
+        {#each $tableau as lig}
+          <tr class="ligne">
+            {#each lig as col}
+              <Case idCase={col} />
+            {/each}
+          </tr>
+        {/each}
+        {#if gameOver}
+          <div class=" gameover">
+            <p>GAMEOVER</p>
+            <button
+              on:click={handleRetry}
+              class="m-auto rounded-lg bg-black text-white retry h-16 w-40">RETRY</button>
+          </div>
+        {/if}
+      </Tableau>
+    </div>
+  </div>
+</div>
