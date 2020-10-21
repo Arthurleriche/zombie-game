@@ -33,8 +33,9 @@ Les stores ont été déplacé dans des fichiers qui seront propres à chaque co
 
 #### Mehmet
 ```javascript
-gco --track origin/dev
-git push -u origin dev
+git fetch -a // pour avoir toutes les updates du repo
+git --track origin/dev // pour creer et synchro la branche dev github en local
+git push -u origin dev // git push par defaut sur origin/dev
 ```
 
 
