@@ -97,6 +97,3 @@
       alt="" />
   </div>
 </div>
-<div class="alien1" style="left:{$leftAlien}px; top:{$topAlien}px">
-  <img class={$directionAlien} id="alien1" src="./resources/enemy.png" alt="" />
-</div>

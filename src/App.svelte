@@ -31,32 +31,6 @@
     console.log('initHero');
   }
 </script>
-<<<<<<< HEAD
-=======
-<Tailwindcss />
-
-
-<!-- COMPOSANT header -->
-<div class="header  relative w-full">
-    <div class="title text-6xl text-center">
-      <p class='title'>ALIENUX IV</p>
-    </div> 
-    <p on:click={() => $newGame = false} on:click={initHero} id = "backToMenu" class=" text-center opacity-0 text-white border w-1/10 pl-2 pr-2 h-12 text-base absolute top-0 right-0">BacK to Menu</p>
-    <audio id="player"  src="./audio/laylow.mp3">
-    <track kind="captions">
-    </audio> 
-  <img id="mute" class="h-16 w-16 absolute m-8 left-0 top-0" {src} alt="volume"  on:click={handleAudio}/>
-</div>
-<!-- COMPOSANT header -->
-
-{#if !$newGame}
-  <Accueil bind:newGame={$newGame}/>
-{:else if $retry}
-  <Level/>
-{:else}
-  <Level/>
-{/if}
->>>>>>> 6c31f5d2d83c4c239ea4744f0f6a41881075fd9b
 
 <style>
   .title {
