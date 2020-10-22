@@ -24,6 +24,7 @@
   import { topAlien } from '../StoreCharacters.js';
   import { retry } from '../Store.js';
   import { directionAlien } from '../StoreCharacters.js';
+
   // onMount
   onMount(async () => {
     document.getElementById('backToMenu').style.opacity = 1;
@@ -40,6 +41,7 @@
   });
   // variables
   let gameOver = false;
+  let development = process.env.isDev;
   let down = false;
   let up = false;
   let right = false;
@@ -157,7 +159,7 @@
         break;
     }
   };
-
+  console.log(process.env.isDev);
   const drawMoveHero = () => {
     $tableau[$previousLigHero][$previousColHero] = 0;
     $tableau[$ligHero][$colHero] = 'p';
@@ -264,11 +266,27 @@
     }
   }
   // -------------------- COUNT SCORE -------------------------- //
+  // -------------------- BOOST -------------------------- //
+  // let compteur = 0;
+  // let compteurSecond = 0;
+  // const boostHero = () => {
+  //   compteur++;
+  //   if (compteur === 59) {
+  //     compteur = 0;
+  //     compteurBis++;
+  //   }
+  //   console.log(compteurBis);
+  //   if (compteurBis === 10) {
+  //   }
+  // };
+  // -------------------- BOOST -------------------------- //
 
   // -------------------- GAMELOOP -------------------------- //
   var iti = new alien(alienSpeed); //ajouter les coordonnées x et y en argument !
 
   const update = () => {
+    // boostHero();
+    // console.log(process.env.NODE_ENV);
     updateMoveHero();
     iti.advance();
   };
@@ -277,6 +295,11 @@
     drawMoveHero();
     drawMoveAlien();
   };
+  // if (process.env.NODE_ENV === 'production') {
+  //   console.log('je suis en prod');
+  // } else {
+  //   console.log('je suis sur le serve');
+  // }
 
   var MyRequest;
   const gameLoop = () => {
@@ -340,9 +363,11 @@
 </style>
 
 <div class="level">
-  <div class="debug-mode">
-    <Debug />
-  </div>
+  {#if development}
+    <div class="debug-mode">
+      <Debug />
+    </div>
+  {/if}
   <div class="energybar flex justify-center">
     <div class="bar rounded-lg h-12 w-1/5 bg-transparent border border-white">
       <div class="life rounded-l-lg bg-green-300 " />

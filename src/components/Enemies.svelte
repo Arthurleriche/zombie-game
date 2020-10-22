@@ -6,19 +6,10 @@
   import { topAlien } from './StoreCharacters.js';
   import { directionAlien } from './StoreCharacters.js';
   // onMount
-  onMount(() => {
-    console.log('Mount Enemy');
-  });
+  onMount(() => {});
   // onDestroy
-  onDestroy(() => {
-    console.log('Destroy Enemy');
-  });
+  onDestroy(() => {});
 </script>
-
-<div class="alien1" style="left:{$leftAlien}px; top:{$topAlien}px">
-  <img class={$directionAlien} id="alien1" src="./resources/enemy.png" alt="" />
-</div>
-
 
 <style>
   .alien1 {
@@ -85,3 +76,7 @@
     }
   }
 </style>
+
+<div class="alien1" style="left:{$leftAlien}px; top:{$topAlien}px">
+  <img class={$directionAlien} id="alien1" src="./resources/enemy.png" alt="" />
+</div>
