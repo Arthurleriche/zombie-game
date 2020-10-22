@@ -12,12 +12,9 @@
   //svelte
   import { onDestroy, onMount } from 'svelte';
   //onMount
-  onMount(() => {
-    console.log('Mount Tableau');
-  });
+  onMount(() => {});
   //onDestroy
   onDestroy(() => {
-    console.log('Destroy Tableau');
     // clearInterval(interval4);
   });
 
@@ -41,7 +38,7 @@
         const ligne = [];
         for (let y = 0; y <= col; y++) {
           ligne.push(car);
-          console.log(index);
+
           index++;
         }
         tab.push(ligne);
@@ -74,6 +71,7 @@
         $tableau[y][10] = 'ship';
       }
     }
+    $tableau[7][7] = 'b';
   }
   init();
 </script>

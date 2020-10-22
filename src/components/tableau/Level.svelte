@@ -2,7 +2,6 @@
   // components
   import Tableau from './Tableau.svelte';
   import Case from './Case.svelte';
-  import Debug from '../debug_mode/debug.svelte';
   // svelte
   import { onDestroy, onMount } from 'svelte';
   // stores
@@ -13,6 +12,7 @@
   import { colHero } from '../StoreCharacters.js';
   import { previousLigHero } from '../StoreCharacters.js';
   import { previousColHero } from '../StoreCharacters.js';
+  import { speedHero } from '../StoreCharacters.js';
   import { direction } from '../StoreCharacters.js';
   import { leftSide } from '../StoreCharacters.js';
   import { bottomSide } from '../StoreCharacters.js';
@@ -21,6 +21,7 @@
   import { previousLigAlien } from '../StoreCharacters.js';
   import { previousColAlien } from '../StoreCharacters.js';
   import { leftAlien } from '../StoreCharacters.js';
+  import { alienSpeed } from '../StoreCharacters.js';
   import { topAlien } from '../StoreCharacters.js';
   import { retry } from '../Store.js';
   import { directionAlien } from '../StoreCharacters.js';
@@ -45,7 +46,7 @@
   let right = false;
   let left = false;
   let collision;
-  let alienSpeed = 2.5;
+  // let alienSpeed = 2.5;
   let alienDamage = 10;
 
   // -------------------- ALIEN  -------------------------- //
@@ -103,6 +104,7 @@
   // -------------------- ALIEN  -------------------------- //
 
   // -------------------- HERO -------------------------- //
+  let last;
   const updateMoveHero = () => {
     $previousLigHero = $ligHero;
     $previousColHero = $colHero;
@@ -112,7 +114,7 @@
         if ($ligHero >= $nbrLig - 2 && $bottomSide <= 5) {
           $direction = 'down';
         } else {
-          $bottomSide = $bottomSide - 1;
+          $bottomSide = $bottomSide - $speedHero;
         }
         if ($bottomSide === 0) {
           $ligHero++;
@@ -124,7 +126,7 @@
         if ($ligHero <= 1) {
           $direction = 'up';
         } else {
-          $bottomSide = $bottomSide + 1;
+          $bottomSide = $bottomSide + $speedHero;
           if ($bottomSide === 50) {
             $ligHero--;
             $bottomSide = 1;
@@ -136,7 +138,7 @@
         if ($colHero <= 1 && $leftSide <= 5) {
           $direction = 'left';
         } else {
-          $leftSide = $leftSide - 1;
+          $leftSide = $leftSide - $speedHero;
           if ($leftSide === 0) {
             $colHero--;
             $leftSide = 49;
@@ -145,10 +147,10 @@
         break;
       case right:
         $direction = 'step-right';
-        if ($colHero >= $nbrCol - 1) {
+        if ($colHero >= $nbrCol - $speedHero) {
           $direction = 'right';
         } else {
-          $leftSide = $leftSide + 1;
+          $leftSide = $leftSide + $speedHero;
           if ($leftSide === 50) {
             $colHero++;
             $leftSide = 1;
@@ -264,9 +266,14 @@
     }
   }
   // -------------------- COUNT SCORE -------------------------- //
-
+  // -------------------- BOOST -------------------------- //
+  const boostObject = () => {
+    if (($boost = true)) {
+    }
+  };
+  // -------------------- BOOST -------------------------- //
   // -------------------- GAMELOOP -------------------------- //
-  var iti = new alien(alienSpeed); //ajouter les coordonnées x et y en argument !
+  var iti = new alien($alienSpeed); //ajouter les coordonnées x et y en argument !
 
   const update = () => {
     updateMoveHero();
@@ -340,9 +347,6 @@
 </style>
 
 <div class="level">
-  <div class="debug-mode">
-    <Debug />
-  </div>
   <div class="energybar flex justify-center">
     <div class="bar rounded-lg h-12 w-1/5 bg-transparent border border-white">
       <div class="life rounded-l-lg bg-green-300 " />
