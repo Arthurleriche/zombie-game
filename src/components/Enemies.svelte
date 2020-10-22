@@ -12,11 +12,19 @@
 </script>
 
 <style>
+  .divAlien {
+    width: 50px;
+    height: 50px;
+    border: 1px solid rgb(201, 114, 201);
+  }
+
   .alien1 {
     width: 50px;
     height: 50px;
     overflow: hidden;
     position: relative;
+    border: 1px solid yellow;
+    border-radius: 50px;
   }
   img {
     max-width: 600px;
@@ -77,6 +85,18 @@
   }
 </style>
 
+<div class="divAlien">
+  <div
+    id="alienDiv"
+    class="alien1"
+    style="left:{$leftAlien}px; top:{$topAlien}px">
+    <img
+      class={$directionAlien}
+      id="alien1"
+      src="./resources/enemy.png"
+      alt="" />
+  </div>
+</div>
 <div class="alien1" style="left:{$leftAlien}px; top:{$topAlien}px">
   <img class={$directionAlien} id="alien1" src="./resources/enemy.png" alt="" />
 </div>

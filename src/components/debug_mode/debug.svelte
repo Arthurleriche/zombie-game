@@ -93,7 +93,7 @@
 {#if activate}
   <div class="debug">
     <h1 class="titre">Debug-mode activé</h1>
-    <div class="hero-alien">
+    <div class="hero-alien flex flex-wrap">
       <div class="hero touch collision">
         <h2 id="titre">HERO</h2>
         <p class="lig-hero">Lig ======== <span>{$ligHero}</span></p>
@@ -110,6 +110,9 @@
         <p class="lig-alien"><span>{$leftAlien}</span> ======== Lig</p>
         <p class="col-alien"><span>{$topAlien}</span> ======== Col</p>
       </div>
+
+      <slot/> 
+
     </div>
   </div>
 {/if}

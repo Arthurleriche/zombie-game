@@ -1,6 +1,5 @@
 <script>
   // stores
-  import { step } from './StoreCharacters.js';
   import { direction } from './StoreCharacters.js';
   import { leftSide } from './StoreCharacters.js';
   import { bottomSide } from './StoreCharacters.js';
@@ -17,7 +16,7 @@
 </script>
 
 <div class="divHero">
-  <div class="hero" style="bottom:{$bottomSide}px; left:{$leftSide}px">
+  <div id="heroDiv" class="hero" style="bottom:{$bottomSide}px; left:{$leftSide}px">
     <img
       class="{$direction} moove-hero"
       id="hero1"
@@ -31,13 +30,16 @@
     /* position: relative; */
     width: 50px;
     height: 50px;
+    border: 2px solid rgb(0, 0, 0); 
   }
-  .hero {
+  #heroDiv {
     z-index: 1;
     width: 50px;
     height: 50px;
     overflow: hidden;
     position: relative;
+    border: 2px solid rgb(75, 209, 109); 
+    border-radius: 50px; 
     
   }
   img {

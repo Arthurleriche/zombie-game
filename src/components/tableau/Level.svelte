@@ -111,49 +111,73 @@
     switch (true) {
       case down:
         $direction = 'step-down';
-        if ($ligHero >= $nbrLig - 2 && $bottomSide <= 5) {
+        if (collision && $ligHero < $ligAlien && $colHero < $colAlien + 2) {
           $direction = 'down';
         } else {
-          $bottomSide = $bottomSide - 1;
-        }
-        if ($bottomSide === 0) {
-          $ligHero++;
-          $bottomSide = 49;
+          if ($ligHero >= $nbrLig - 2 && $bottomSide <= 5) {
+            $direction = 'down';
+          } else {
+            $bottomSide = $bottomSide - 1;
+          }
+          if ($bottomSide === -25) {
+            $ligHero++;
+            $bottomSide = 25;
+          }
         }
         break;
       case up:
         $direction = 'step-up';
-        if ($ligHero <= 1) {
+        if (collision && $ligHero > $ligAlien && $colHero < $colAlien + 2) {
           $direction = 'up';
         } else {
-          $bottomSide = $bottomSide + 1;
-          if ($bottomSide === 50) {
-            $ligHero--;
-            $bottomSide = 1;
+          if ($ligHero <= 1 && $bottomSide >= 5) {
+            $direction = 'up';
+          } else {
+            $bottomSide = $bottomSide + 1;
+            if ($bottomSide === 25) {
+              $ligHero--;
+              $bottomSide = -25;
+            }
           }
         }
         break;
       case left:
         $direction = 'step-left';
-        if ($colHero <= 1 && $leftSide <= 5) {
+        if (
+          collision &&
+          $ligAlien - 2 <= $ligHero &&
+          $ligHero <= $ligAlien + 2 &&
+          $colHero <= $colAlien + 2 &&
+          $colHero > $colAlien
+        ) {
           $direction = 'left';
         } else {
-          $leftSide = $leftSide - 1;
-          if ($leftSide === 0) {
-            $colHero--;
-            $leftSide = 49;
+          if ($colHero <= 1 && $leftSide <= 5) {
+            $direction = 'left';
+          } else {
+            $leftSide = $leftSide - 1;
+            if ($leftSide === -25) {
+              $colHero--;
+              $leftSide = 25;
+            }
           }
         }
         break;
       case right:
         $direction = 'step-right';
-        if ($colHero >= $nbrCol - 1) {
+        if (collision && $ligHero < $ligAlien + 2 && $colHero < $colAlien) {
           $direction = 'right';
+          console.log('OUI ARSENE - ENNEMI A DROITURE ');
         } else {
-          $leftSide = $leftSide + 1;
-          if ($leftSide === 50) {
-            $colHero++;
-            $leftSide = 1;
+          if ($colHero >= $nbrCol - 1 && $leftSide >= 5) {
+            $direction = 'right';
+          } else {
+            $leftSide = $leftSide + 1;
+
+            if ($leftSide === 25) {
+              $colHero++;
+              $leftSide = -25;
+            }
           }
         }
         break;
@@ -221,21 +245,49 @@
   });
   // -------------------- HERO -------------------------- //
 
+  // -------------------- RETRY  -------------------------//
+  function handleRetry() {
+    gameOver = false;
+    $retry = !$retry;
+    $ligHero = $colHero = 5;
+  }
+  // -------------------- RETRY  -------------------------//
+
+  // -------------------- CALCULATE POSITION -------------------------- //
+  let xHero;
+  let yHero;
+  let xAlien;
+  let yAlien;
+  var rectHero;
+  var rectAlien;
+  let dx2;
+  let dy2;
+  let distHeroAlien;
+  let heroDiv;
+  let alienDiv;
+
+  function elementPosition() {
+    // HERO
+    rectHero = heroDiv.getBoundingClientRect();
+    xHero = rectHero.left;
+    yHero = rectHero.top;
+    // ALIEN
+    rectAlien = alienDiv.getBoundingClientRect();
+    xAlien = rectAlien.left;
+    yAlien = rectAlien.top;
+    //DISTANCE
+    distance(xAlien, xHero, yAlien, yHero);
+  }
+
+  function distance(xa, xh, ya, yh) {
+    distHeroAlien = Math.sqrt((xa - xh) * (xa - xh) + (ya - yh) * (ya - yh));
+  }
+
+  // -------------------- CALCULATE POSITION -------------------------- //
+
   // -------------------- CHECK COLLISION -------------------------- //
   function checkCollision() {
-    if ($ligAlien === $ligHero && $colAlien === $colHero - 1) {
-      collision = true;
-    } else if (
-      $ligAlien + 1 === $ligHero &&
-      $colAlien === $colHero &&
-      $bottomSide > 3
-    ) {
-      collision = true;
-    } else if (
-      $colAlien === $colHero + 1 &&
-      $ligAlien === $ligHero &&
-      $leftSide > 3
-    ) {
+    if (distHeroAlien < 44) {
       collision = true;
     } else {
       collision = false;
@@ -288,12 +340,20 @@
     // boostHero();
     // console.log(process.env.NODE_ENV);
     updateMoveHero();
-    iti.advance();
+    if (!collision) {
+      iti.advance();
+    }
   };
 
   const draw = () => {
     drawMoveHero();
-    drawMoveAlien();
+    if (!collision) {
+      drawMoveAlien();
+    }
+    //We put those assignments here
+    //because heroDiv & alienDiv are MOUNTED juste after drawMove functions which changes value in $tableau by 'p' or 'z'
+    heroDiv = document.getElementById('heroDiv');
+    alienDiv = document.getElementById('alienDiv');
   };
   // if (process.env.NODE_ENV === 'production') {
   //   console.log('je suis en prod');
@@ -306,8 +366,9 @@
     if (!gameOver) {
       update();
       draw();
+      elementPosition();
       checkCollision();
-      Score();
+      // Score();
       MyRequest = requestAnimationFrame(gameLoop);
     } else {
       window.cancelAnimationFrame(MyRequest);
@@ -315,12 +376,6 @@
   };
   MyRequest = window.requestAnimationFrame(gameLoop);
   // -------------------- GAMELOOP -------------------------- //
-
-  function handleRetry() {
-    gameOver = false;
-    $retry = !$retry;
-    $ligHero = $colHero = 5;
-  }
 </script>
 
 <style>
@@ -365,7 +420,29 @@
 <div class="level">
   {#if development}
     <div class="debug-mode">
-      <Debug />
+      <Debug>
+        <div class="flex">
+          <div class="HeroPos h-auto w-40 border border-black bg-red-400">
+            <span class="bg-red-600">Hero</span>
+            <br />
+            x:
+            {xHero}
+            <br />
+            y:
+            {yHero}
+          </div>
+          <div class="AlienPos h-auto w-40 border border-black bg-orange-400">
+            <span class="bg-orange-600">Alien</span>
+            <br />
+            x:
+            {xAlien}
+            <br />
+            y:
+            {yAlien}
+          </div>
+        </div>
+        <div class="distance w-full ">Distance :{distHeroAlien}</div>
+      </Debug>
     </div>
   {/if}
   <div class="energybar flex justify-center">

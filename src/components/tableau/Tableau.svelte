@@ -7,11 +7,13 @@
   import { colHero } from '../StoreCharacters.js';
   import { ligAlien } from '../StoreCharacters.js';
   import { colAlien } from '../StoreCharacters.js';
+
   import { colObject } from '../StoreObjects.js';
   import { ligObject } from '../StoreObjects.js';
 
   import { leftAlien } from '../StoreCharacters.js';
   import { topAlien } from '../StoreCharacters.js';
+
   //svelte
   import { onDestroy, onMount } from 'svelte';
   //onMount
