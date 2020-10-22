@@ -37,7 +37,7 @@
 <!-- COMPOSANT header -->
 <div class="header  relative w-full">
     <div class="title text-6xl text-center">
-      <p class='title'>ZOMBAV IV</p>
+      <p class='title'>ALIENUX IV</p>
     </div> 
     <p on:click={() => $newGame = false} on:click={initHero} id = "backToMenu" class=" text-center opacity-0 text-white border w-1/10 pl-2 pr-2 h-12 text-base absolute top-0 right-0">BacK to Menu</p>
     <audio id="player"  src="./audio/laylow.mp3">
