@@ -1,6 +1,11 @@
 {
   "name": "svelte-app",
   "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/npm/npm.git"
+  },
+  "license": "ISC",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
