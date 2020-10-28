@@ -1,53 +1,20 @@
 <script>
-  // stores
-  import { direction } from './StoreCharacters.js';
-  import { leftSide } from './StoreCharacters.js';
-  import { bottomSide } from './StoreCharacters.js';
-  // svelte
-  import {onMount, onDestroy} from 'svelte'
-  // onMount
-  onMount (()=> {
-    console.log('Mount Hero')
-  })
-  // onDestroy
-  onDestroy(()=> {
-    console.log('Destroy Hero')
-  })
+  import { top, left } from '../game/hero';
+  import { x, y } from '../stores/StoreCharacters';
 </script>
 
-<div class="divHero">
-  <div id="heroDiv" class="hero" style="bottom:{$bottomSide}px; left:{$leftSide}px">
-    <img
-      class="{$direction} moove-hero"
-      id="hero1"
-      src="./resources/space_hero.png"
-      alt="" />
-  </div>
-</div>
-
 <style>
-  .divHero {
-    /* position: relative; */
+  .hero {
     width: 50px;
     height: 50px;
-    border: 2px solid rgb(0, 0, 0); 
+    background-color: green;
+    position: absolute;
   }
-  #heroDiv {
-    z-index: 1;
-    width: 50px;
-    height: 50px;
-    overflow: hidden;
-    position: relative;
-    border: 2px solid rgb(75, 209, 109); 
-    border-radius: 50px; 
-    
-  }
-  img {
-    max-width: 600px;
-    height: 400px;
-    
-  }
-  .down {
+</style>
+
+<div class="hero" style="top:{$x}px; left:{$y}px" />
+
+<!-- /* .down {
     position: absolute;
     left: -50px;
   }
@@ -83,13 +50,4 @@
     position: absolute;
     animation: moove 0.25s steps(2) infinite;
     top: -100px;
-  }
-  @keyframes moove {
-    from {
-      transform: translate3d(0px, 0, 0);
-    }
-    to {
-      transform: translate3d(-200px, 0, 0);
-    }
-  }
-</style>
+  } */ -->

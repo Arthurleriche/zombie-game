@@ -1,21 +1,12 @@
 <script>
-  // SVELTE 
-  import { createEventDispatcher } from 'svelte';
-  const dispatch = createEventDispatcher();
-  // COMPONENTS 
   import Button from './Buttons.svelte'
   import ButtonOpt from './ButtonOpt.svelte'
   import ButtonHi from './ButtonHi.svelte'
-  // STORES
-  import { sound } from './StoreOption.js';
-  // VARS
+  
   let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  // PROPS 
+  
   export let newGame;
-  // FUNCTIONS
-  function activateSound() {
-    $sound = !$sound;
-  }
+ 
 </script>
 
 
