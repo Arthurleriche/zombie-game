@@ -2,6 +2,7 @@ import { get } from 'svelte/store'
 
 import {enemyList} from '../stores/StoreCharacters'
 import {y, x} from '../stores/StoreCharacters'
+// import { distance } from './collision.js'
 
 let enemyId = 1
 
@@ -21,13 +22,18 @@ const generateEnemy = () => {
     // random()
     // console.log('sertt a rien')
     enemyList.update(a => [...a,{
+        
         top: random(557),
         left: random(890),
+        // distance: distance(a.left, a.top, x, y),
         id: generateId(), 
+        collision: false, 
         direction: direction
     }])
     console.log(get(enemyList))
 }
+
+
 
 export const createEnemy = () => {  
     setInterval(generateEnemy, 5000)

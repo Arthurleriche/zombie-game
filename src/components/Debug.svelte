@@ -4,6 +4,8 @@ import { get } from 'svelte/store';
 import {enemyList} from '../stores/StoreCharacters.js'
 import {x,y} from '../stores/StoreCharacters.js'
 
+import { distance } from '../game/collision.js'
+
 // const getInfos = () => {
 //     return get(enemyList)
 // }
@@ -14,6 +16,7 @@ import {x,y} from '../stores/StoreCharacters.js'
 const debug = () => {
    console.log($enemyList);
 //    newList = $enemyList
+    
 }
 debug(); 
 
@@ -27,10 +30,24 @@ debug();
 <div class="flex flex-col">
     <div class="debugEnemy flex flex-wrap  bg-transparent ">
         {#each $enemyList as enemy} 
+            {#if enemy.collision}
+            <div class=" ID text-white text-sm">
+                enemy:{enemy.id} <br>
+                <div class="coord bg-red-800 border border-white"> X: {enemy.left} </div> 
+                <div class="coord bg-red-800 border border-white"> Y:{enemy.top}  </div> 
+                <div class="coord bg-red-800 border border-white"> Distance:{distance(enemy.left,enemy.top, $x, $y)}  </div> 
+                <div class="coord bg-red-800 border border-white"> Collision: {enemy.collision} </div> 
+            </div>
+            {:else}
             <div class=" ID text-white text-sm">
                 enemy:{enemy.id} <br>
                 <div class="coord border border-white"> X: {enemy.left} </div> 
-                <div class="coord border border-white"> Y:{enemy.top}  </div>  </div>
+                <div class="coord border border-white"> Y:{enemy.top}  </div> 
+                <div class="coord border border-white"> Distance:{distance(enemy.left,enemy.top, $x, $y)}  </div> 
+                <div class="coord border border-white"> Collision: {enemy.collision} </div> 
+            </div>
+
+            {/if}
         {/each}
     </div>
 
