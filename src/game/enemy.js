@@ -19,7 +19,7 @@ const random = (num) => {
 
 const generateEnemy = () => {
     // random()
-    console.log('sertt a rien')
+    // console.log('sertt a rien')
     enemyList.update(a => [...a,{
         top: random(557),
         left: random(890),

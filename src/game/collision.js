@@ -25,6 +25,8 @@ export const checkCollision = () => {
     // if( distance(enemy.left, enemy.right, x, y) < 40 ){
     //     console.log('COLLISION')
     // }
-    console.log( get(enemyList)[0]) 
+    // console.log( get(enemyList)[0]) 
 }
+
+
 

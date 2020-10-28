@@ -3,6 +3,9 @@ import { moveEnemy } from './enemy.js'
 // import { checkCollision }  from './collision'
 import {distance} from './collision.js'
 import {checkCollision} from './collision.js'
+// import {debug} from '../components/Debug.svelte'
+
+
 
 function startLoop(steps) {
     window.requestAnimationFrame(() => {

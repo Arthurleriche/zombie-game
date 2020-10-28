@@ -1,13 +1,11 @@
 <script>
   export let enemy;
-  console.log(enemy);
+  // console.log(enemy);
 </script>
 
 <style>
   .enemy {
-    width: 30px;
-    height: 30px;
-    background-color: red;
+  
     position: absolute;
   }
 
