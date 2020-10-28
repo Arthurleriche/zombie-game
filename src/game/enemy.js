@@ -21,8 +21,8 @@ export const moveEnemy = () => {
         enemyList.update(enemyList =>
             enemyList.map(enemy => ({
                 ...enemy,
-                left: enemy.left + 0.1,
-                top: enemy.top + 0.1,
+                left: enemy.left + 1,
+                top: enemy.top + 1,
             })),
             );
     }

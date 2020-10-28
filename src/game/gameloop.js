@@ -1,5 +1,6 @@
 import {moveHero} from './hero.js'
 import { moveEnemy } from './enemy.js'
+import { checkCollision }  from './collision'
 
 function startLoop(steps) {
     window.requestAnimationFrame(() => {
@@ -12,5 +13,5 @@ function startLoop(steps) {
   }
 
   export const startGame = () => {   
-    startLoop([moveHero, moveEnemy]);
+    startLoop([moveHero, moveEnemy, checkCollision]);
   };
