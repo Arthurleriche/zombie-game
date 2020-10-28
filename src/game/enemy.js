@@ -22,21 +22,40 @@ const generateEnemy = () => {
     enemyList.update(a => [...a,{
         top: random(557),
         left: random(890),
-        id: generateId()
+        id: generateId(), 
+        direction: direction
     }])
     console.log(get(enemyList))
 }
 
 export const createEnemy = () => {  
-    setInterval(generateEnemy, 1000)
+    setInterval(generateEnemy, 5000)
  
 }
 
-const directionEnemy = (enemy, hero) => {
-    if(enemy > hero){
-        return enemy - 0.1
+let direction = "down"
+
+const directionEnemyX = (enemy, hero) => {
+    if(enemy > hero + 25){
+        direction = "step-left"
+        return enemy - 0.5
     } else {
-        return enemy + 0.1
+        direction = "step-right"
+        return enemy + 0.5
+    }
+}   
+const directionEnemyY = (enemyY, hero, enemyX) => {
+    if(enemyY > hero +25){
+        // if(enemyY - hero > enemyX - hero){
+        //     direction = "step-right"
+        // } else{
+            // }
+            
+        direction = "step-up"
+        return enemyY - 0.5
+    } else {
+        direction = "step-down"
+        return enemyY + 0.5
     }
 }   
 
@@ -45,8 +64,9 @@ export const moveEnemy = () => {
         enemyList.update(enemyList =>
             enemyList.map(enemy => ({
                 ...enemy,
-                left: directionEnemy(enemy.left, get(x)),
-                top: directionEnemy(enemy.top, get(y))
+                left: directionEnemyX(enemy.left, get(x)),
+                top: directionEnemyY(enemy.top, get(y), enemy.left),
+                direction: direction
             })),
         );
     }
