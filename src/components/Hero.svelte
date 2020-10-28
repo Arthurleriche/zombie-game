@@ -1,21 +1,20 @@
 <script>
   import { top, left } from '../game/hero';
+  import { x, y } from '../stores/StoreCharacters';
 </script>
 
 <style>
   .hero {
-      width: 50px;
-      height: 50px;
-      background-color: green;
-      position: relative;
-    }
-  
-  </style>
+    width: 50px;
+    height: 50px;
+    background-color: green;
+    position: absolute;
+  }
+</style>
 
-<div class="hero" style="top:{top}px; left:{left}px" />
+<div class="hero" style="top:{$x}px; left:{$y}px" />
 
-
-  <!-- /* .down {
+<!-- /* .down {
     position: absolute;
     left: -50px;
   }
@@ -52,4 +51,3 @@
     animation: moove 0.25s steps(2) infinite;
     top: -100px;
   } */ -->
- 

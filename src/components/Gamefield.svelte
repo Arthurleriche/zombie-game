@@ -7,18 +7,21 @@
   // } else {
   //   console.log('je suis sur le serve');
   // }
-// -----------------------------------------------------------
+  // -----------------------------------------------------------
+
+  import { createEnemy } from '../game/enemy';
+  createEnemy();
 </script>
 
-  <div class="gamefield m-auto">
-    <slot/>
-  </div>
-
 <style>
-   .gamefield{
-    height: 570px; 
-    width:900px;
-    border: 3px solid white; 
- 
+  .gamefield {
+    height: 570px;
+    width: 900px;
+    border: 3px solid white;
+    position: relative;
   }
 </style>
+
+<div class="gamefield m-auto">
+  <slot />
+</div>

@@ -3,6 +3,9 @@ let right = false
 let leftc = false
 let down = false
 
+import {x, y } from '../stores/StoreCharacters'
+import { get } from 'svelte/store'
+
 export let top = 0
 export let left = 0
 
@@ -19,6 +22,7 @@ document.addEventListener('keydown', (event) => {
     if(event.key === "ArrowRight"){
         right = true
     }
+
 })
 
 document.addEventListener('keyup', (event) => {
@@ -39,68 +43,68 @@ document.addEventListener('keyup', (event) => {
 
 
 export const moveHero = () => {
-    console.log('TOP : '+  top + '  |  LEFT : ' + left)
+    // console.log('TOP : '+  top + '  |  LEFT : ' + left)
     switch(true){
         case up && leftc:
-            if(top === 0){
+            if(get(x) === 0 || get(y) === 0){
             break
             } else {
-            top--
-            left--       
+                x.update(a => a - 1)
+                y.update(a => a - 1) 
             }
             break
         case up && right:
-            if(top === 0){
+            if(get(x) === 0 || get(y) === 480){
             break
             } else {
-            top--
-            left++        
+                x.update(a => a - 1)
+                y.update(a => a + 1)         
             }
             break
         case down && leftc:
-            if(top === 0){
+            if(get(x) === 0 || get(y) === 0){
                 break
             } else {
-            top++
-            left--       
+            x.update(a => a + 1)
+            y.update(a => a - 1)      
             }
             break
         case down && right:
-            if(top === 480){
+            if(get(x) === 480 || get(y) === 480){
             break
             } else {
-            top++
-            left++      
+            x.update(a => a + 1)
+            y.update(a => a + 1)
             }
             break
 
         case up:
-            if(top === 0){
+            if(get(x) === 0){
                 break
             } else {
-            top-- 
+            x.update(a => a - 1)
             }
             break
            
             case leftc: 
-            if(left === 0){
+            if(get(y) === 0){
             break
             } else {
-            left--
+                y.update(a => a - 1)
             }
             break
-        case down: 
-            if(top === 480){
-            break
+            case down: 
+            if(get(x) === 480){
+                break
             } else {
-            top++ 
-            break 
+                x.update(a => a + 1)
+                break 
             }
             case right: 
-            if(left === 480){
-            break
+            if(get(y) === 480){
+                break
             } else {
-            left++
+                y.update(a => a + 1)
             break
         }
         }
