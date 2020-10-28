@@ -56,7 +56,7 @@
 <!-- COMPOSANT header -->
 <div class="header  relative w-full">
   <div class="title text-6xl text-center">
-    <p class="title">ALIENUX I.O - motor</p>
+    <p class="title">ALIENUX I.O - MOTOR </p>
   </div>
   <p
     on:click={() => ($newGame = false)}
