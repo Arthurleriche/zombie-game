@@ -3,16 +3,21 @@ import { get } from 'svelte/store'
 import {enemyList} from '../stores/StoreCharacters'
 import {y, x} from '../stores/StoreCharacters'
 
-const generateEnemy = () => {
-    enemyList.update(a => [...a,{
-        top: Math.floor(Math.random() * 10),
-        left: Math.floor(Math.random() * 10)
-    }])
-    console.log(get(enemyList))
-
+const random = () => {
+    let randomNum 
+    randomNum = Math.floor(Math.random() * 480)
+    return randomNum
 }
 
-export const createEnemy = () => {
+const generateEnemy = () => {
+    random()
+    enemyList.update(a => [...a,{
+        top: random(),
+        left: random()
+    }])
+}
+
+export const createEnemy = () => {  
     setInterval(generateEnemy, 3000)
  
 }
