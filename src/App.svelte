@@ -10,6 +10,7 @@
   import Enemy from './components/Enemy.svelte';
   import { startGame } from './game/gameloop.js';
   import Gamefield from './components/Gamefield.svelte';
+  import Debug from './components/Debug.svelte'
 
   startGame();
 </script>
@@ -23,10 +24,15 @@
 {#if !$newGame}
   <Accueil bind:newGame={$newGame} />
 {:else}
+
+<div class="flex justify-around">
+  <Debug/> 
   <Gamefield>
     <Hero />
     {#each $enemyList as enemy}
       <Enemy {enemy} />
     {/each}
   </Gamefield>
+</div>
+  
 {/if}

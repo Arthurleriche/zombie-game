@@ -10,7 +10,8 @@ const random = () => {
 }
 
 const generateEnemy = () => {
-    random()
+    // random()
+    console.log('sertt a rien')
     enemyList.update(a => [...a,{
         top: random(),
         left: random()
@@ -19,7 +20,6 @@ const generateEnemy = () => {
 
 export const createEnemy = () => {  
     setInterval(generateEnemy, 3000)
- 
 }
 
 const directionEnemy = (enemy, hero) => {
@@ -32,6 +32,7 @@ const directionEnemy = (enemy, hero) => {
     
 
 export const moveEnemy = () => {
+    
     if(get(enemyList).length >= 1){
         enemyList.update(enemyList =>
             enemyList.map(enemy => ({

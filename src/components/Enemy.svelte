@@ -5,8 +5,8 @@
 
 <style>
   .enemy {
-    width: 10px;
-    height: 10px;
+    width: 30px;
+    height: 30px;
     background-color: red;
     position: absolute;
   }
