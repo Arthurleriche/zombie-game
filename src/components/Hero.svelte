@@ -1,5 +1,4 @@
 <script>
-  import { top, left } from '../game/hero';
   import { x, y, direction } from '../stores/StoreCharacters';
 </script>
 
@@ -79,7 +78,7 @@
   }
 </style>
 
-<div class="hero-div" style="top:{$x}px; left:{$y}px">
+<div class="hero-div" style="top:{$y}px; left:{$x}px">
   <div class="hero">
     <img
       class="{$direction} moove-hero "
