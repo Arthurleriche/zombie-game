@@ -3,33 +3,42 @@ import { get } from 'svelte/store'
 import {enemyList} from '../stores/StoreCharacters'
 import {y, x} from '../stores/StoreCharacters'
 
-const random = () => {
+let enemyId = 1
+
+const generateId = () => {
+    enemyId++
+    return enemyId
+}
+
+const random = (num) => {
     let randomNum 
-    randomNum = Math.floor(Math.random() * 480)
+    randomNum = Math.floor(Math.random() * num)
     return randomNum
 }
+
 
 const generateEnemy = () => {
     random()
     enemyList.update(a => [...a,{
-        top: random(),
-        left: random()
+        top: random(557),
+        left: random(890),
+        id: generateId()
     }])
+    console.log(get(enemyList))
 }
 
 export const createEnemy = () => {  
-    setInterval(generateEnemy, 3000)
+    setInterval(generateEnemy, 1000)
  
 }
 
 const directionEnemy = (enemy, hero) => {
     if(enemy > hero){
-        return enemy - 0.2
+        return enemy - 0.1
     } else {
-        return enemy + 0.2
+        return enemy + 0.1
     }
 }   
-    
 
 export const moveEnemy = () => {
     if(get(enemyList).length >= 1){
@@ -39,6 +48,6 @@ export const moveEnemy = () => {
                 left: directionEnemy(enemy.left, get(x)),
                 top: directionEnemy(enemy.top, get(y))
             })),
-            );
+        );
     }
 }   
