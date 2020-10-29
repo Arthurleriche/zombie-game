@@ -19,13 +19,11 @@ const random = (num) => {
 
 
 const generateEnemy = () => {
-    // random()
-    // console.log('sertt a rien')
-    enemyList.update(a => [...a,{
-        
-        top: random(557),
-        left: random(890),
-        // distance: distance(a.left, a.top, x, y),
+    enemyList.update(a => [...a,{         
+        // top: random(0),
+        // left: random(375),
+        top: 0,
+        left: 375,
         id: generateId(), 
         collision: false, 
         direction: direction

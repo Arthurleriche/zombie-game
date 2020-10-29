@@ -7,7 +7,7 @@ export const y = writable(50)
 export const directionAlien = writable("down");
 export const enemyId = writable(1)
 export const enemyList = writable([{
-    top: 30, 
-    left: 40,
+    top: -30, 
+    left: 400,
     id: 1
 }])

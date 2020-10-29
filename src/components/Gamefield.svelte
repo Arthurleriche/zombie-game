@@ -1,14 +1,4 @@
 <script>
-  // -----------------------------------------------------------
-  // let development = process.env.isDev;
-  // console.log(process.env.isDev);
-  // if (process.env.NODE_ENV === 'production') {
-  //   console.log('je suis en prod');
-  // } else {
-  //   console.log('je suis sur le serve');
-  // }
-  // -----------------------------------------------------------
-
   import { createEnemy } from '../game/enemy';
   import { startGame, playerAmbiance } from '../game/gameloop';
 
@@ -28,6 +18,8 @@
   p {
     color: white;
     text-align: center;
+    font-size: 40px;
+    margin-bottom: 30px;
   }
 </style>
 
