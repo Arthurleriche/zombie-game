@@ -10,7 +10,9 @@
   // -----------------------------------------------------------
 
   import { createEnemy } from '../game/enemy';
+  import { startGame } from '../game/gameloop';
   createEnemy();
+  startGame();
 </script>
 
 <style>

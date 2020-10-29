@@ -4,15 +4,14 @@
   import Accueil from './components/Accueil.svelte';
   import { newGame } from './stores/Store.js';
   import { enemyList } from './stores/StoreCharacters';
+  import { weaponActive, sabreY, sabreX } from './stores/StoreWeapon';
   // -----------------------------------------------------------
   import Header from './components/Header.svelte';
   import Hero from './components/Hero.svelte';
+  import Sabre from './components/weapons/Sabre.svelte';
   import Enemy from './components/Enemy.svelte';
-  import { startGame } from './game/gameloop.js';
   import Gamefield from './components/Gamefield.svelte';
-  import Debug from './components/Debug.svelte'
-
-  startGame();
+  import Debug from './components/Debug.svelte';
 </script>
 
 <style>
@@ -24,15 +23,16 @@
 {#if !$newGame}
   <Accueil bind:newGame={$newGame} />
 {:else}
-
-<div class="flex justify-around">
-  <Debug/> 
-  <Gamefield>
-    <Hero />
-    {#each $enemyList as enemy}
-      <Enemy {enemy} />
-    {/each}
-  </Gamefield>
-</div>
-  
+  <div class="flex justify-around">
+    <Debug />
+    <Gamefield>
+      <Hero />
+      {#if $weaponActive}
+        <Sabre sabreX={$sabreX} sabreY={$sabreY} />
+      {/if}
+      {#each $enemyList as enemy}
+        <Enemy {enemy} />
+      {/each}
+    </Gamefield>
+  </div>
 {/if}

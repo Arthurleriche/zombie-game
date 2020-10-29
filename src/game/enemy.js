@@ -36,8 +36,11 @@ const generateEnemy = () => {
 
 
 export const createEnemy = () => {  
-    setInterval(generateEnemy, 5000)
- 
+    for(let i = 0; i<9; i++){
+        setTimeout(() => {
+            generateEnemy()
+        }, i * 9000)
+    } 
 }
 
 let direction = "down"
