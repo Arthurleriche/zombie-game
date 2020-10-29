@@ -10,7 +10,9 @@
   // -----------------------------------------------------------
 
   import { createEnemy } from '../game/enemy';
-  import { startGame } from '../game/gameloop';
+  import { startGame, playerAmbiance } from '../game/gameloop';
+
+  playerAmbiance();
   createEnemy();
   startGame();
 </script>
@@ -19,11 +21,21 @@
   .gamefield {
     height: 570px;
     width: 900px;
+    background-size: cover;
     border: 3px solid white;
     position: relative;
   }
+  p {
+    color: white;
+    text-align: center;
+  }
 </style>
 
-<div class="gamefield m-auto">
-  <slot />
+<div>
+  <p>Touche directionnelles = mouvement, espace = weapon</p>
+  <div
+    class="gamefield m-auto"
+    style="background-image: url('./resources/background_1.png')">
+    <slot />
+  </div>
 </div>

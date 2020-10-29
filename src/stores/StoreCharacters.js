@@ -1,8 +1,8 @@
 import {writable} from 'svelte/store';
 // HERO
 export const direction = writable("down");
-export const x = writable(0)
-export const y = writable(0)
+export const x = writable(50)
+export const y = writable(50)
 // ZOMBIE
 export const directionAlien = writable("down");
 export const enemyId = writable(1)

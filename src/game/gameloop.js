@@ -1,13 +1,10 @@
 import {moveHero} from './hero.js'
 import { moveEnemy } from './enemy.js'
-// import { checkCollision }  from './collision'
-import {distance} from './collision.js'
+// import {distance} from './collision.js'
 import {checkCollision, checkCollisionWeapon} from './collision.js'
 import { updateWeapon } from './weapon.js'
 
 // import {debug} from '../components/Debug.svelte'
-
-
 
 function startLoop(steps) {
     window.requestAnimationFrame(() => {
@@ -19,7 +16,13 @@ function startLoop(steps) {
 
   }
 
+  export const playerAmbiance = () => {
+    const audio = new Audio("./resources/ambiance_1.mp3")
+    audio.play()
+  }
+
   export const startGame = () => {   
+
     startLoop([moveHero, moveEnemy, checkCollision, checkCollisionWeapon,  updateWeapon]);
   };
 

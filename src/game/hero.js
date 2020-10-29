@@ -46,7 +46,7 @@ document.addEventListener('keyup', (event) => {
 export const moveHero = () => {
     switch(true){
         case up && leftc:
-            if(get(x) === 0 || get(y) === 0){
+            if(get(x) === 45 || get(y) < 19){
             direction.update(a => "up")
             break
             } else {
@@ -56,7 +56,7 @@ export const moveHero = () => {
             }
             break
         case up && right:
-            if(get(y) === 0 || get(x) === 890){
+            if(get(y) <= 20 || get(x) === 800){
             direction.update(a => "up")
             break
             } else {
@@ -66,7 +66,7 @@ export const moveHero = () => {
             }
             break
         case down && leftc:
-            if(get(y) === 557 || get(x) === 0){
+            if(get(y) > 510 || get(x) < 45){
                 direction.update(a => "left")
                 break
             } else {
@@ -76,7 +76,7 @@ export const moveHero = () => {
             }
             break
         case down && right:
-            if(get(x) === 890 || get(y) === 557){
+            if(get(x) === 800 || get(y) >= 510){
             direction.update(a => "right")
             break
             } else {
@@ -87,7 +87,7 @@ export const moveHero = () => {
             break
 
         case up:
-            if(get(y) === 0){
+            if(get(y) <= 20){
                 direction.update(a => "up")
                 break
             } else {
@@ -97,7 +97,7 @@ export const moveHero = () => {
             break
            
             case leftc: 
-            if(get(x) === 0){
+            if(get(x) === 45){
                 direction.update(a => "left")
             break
             } else {
@@ -106,7 +106,7 @@ export const moveHero = () => {
             }
             break
             case down: 
-            if(get(y) === 557){
+            if(get(y) >= 510){
                 direction.update(a => "down")
                 break
             } else {
@@ -115,7 +115,7 @@ export const moveHero = () => {
                 break 
             }
             case right: 
-            if(get(x) === 890){
+            if(get(x) === 800){
                 direction.update(a => "right")
                 break
             } else {

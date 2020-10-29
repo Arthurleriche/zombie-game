@@ -30,7 +30,8 @@ const generateEnemy = () => {
         collision: false, 
         direction: direction
     }])
-    console.log(get(enemyList))
+    const audio = new Audio('./resources/ghost.wav')
+    audio.play()
 }
 
 

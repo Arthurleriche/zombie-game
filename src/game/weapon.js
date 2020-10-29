@@ -10,7 +10,7 @@ document.addEventListener('keyup', (event) => {
     }
     setTimeout(() => {
         weaponActive.update(a=>false)
-    }, 1000)
+    }, 300)
 })
 
  

@@ -8,9 +8,10 @@
   .sabre {
     height: 50px;
     width: 50px;
-    background-color: yellow;
     position: absolute;
   }
 </style>
 
-<div class="sabre" style="top:{sabreY}px; left:{sabreX}px" />
+<div class="sabre" style="top:{sabreY}px; left:{sabreX}px">
+  <img src="./resources/lightsaber.png" alt="" />
+</div>
