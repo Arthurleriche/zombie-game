@@ -22,7 +22,7 @@ const heartHero = () => {
     setTimeout(() => {
         heartOnMap.update(a => false)
     }, 5000)
-
+    console.log('HEART APPEARS')
 }
 
 const coinAppears = () => {
@@ -32,7 +32,7 @@ const coinAppears = () => {
     setTimeout(() => {
         coinOnMap.update(a => false)
     }, 8000)
-    console.log('DATE: '+ Date.now())
+    console.log('COIN APPEARS');
 }
 
 let boosthero
@@ -49,6 +49,8 @@ export const boost = () => {
     coinappears = setInterval(()=> {
         coinAppears()
     }, 9000)
+    console.log('BOOST APPEARS');
+    
 }
 
 export const stopBoost = () => {

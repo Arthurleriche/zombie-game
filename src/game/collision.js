@@ -34,7 +34,7 @@ export const checkCollision = () => {
     newlist = get(enemyList).filter(enemy => enemy.collision === true)
     if(newlist.length > 0){
         document.querySelector('.hero').style.backgroundColor= 'rgba(219, 33, 33,0.5)'
-    } else if(newlist.length === 0 ){
+    } else if(newlist.length === 0 && document.querySelector('.hero') !== null ){
         document.querySelector('.hero').style.backgroundColor= ''
     }
 

@@ -25,6 +25,11 @@ function startLoop(steps) {
     audio.play()
   }
 
+  // export const playerPopsmoke = () => {
+  //   const audio2 = new Audio("./audio/laylow.mp3")
+  //   audio2.play()
+  // }
+
   export const startGame = () => {   
     isPlaying.update(a => true)
     x.update(a => 50)
@@ -38,6 +43,14 @@ function startLoop(steps) {
     boost() 
     startLoop([moveHero, moveEnemy, checkCollision, checkCollisionWeapon,  updateWeapon, checkCollisionBooste,checkCollisionCoin, isDead]);
   };
+
+
+  export const stopGame = () => {
+    isPlaying.update(a => false)
+    stopBoost(); 
+  }
+
+  
 
 
 
