@@ -22,13 +22,11 @@ export const updateWeapon = () => {
                 sabreY.update(a => get(y) + 45)
                 sabreX.update(a => get(x) + 5)
                 classProp.update(a => 'down')
-                console.log('DOWN SKU');
                 break
             case "step-down":
                 sabreY.update(a => get(y) + 45)
                 sabreX.update(a => get(x) + 5)
                 classProp.update(a => 'down')
-                console.log('STEPDOWN SKU');
                 break
             case "up":
                 sabreY.update(a => get(y) - 20)

@@ -1,11 +1,11 @@
-import { newGame } from '../stores/Store.js';
-import { each } from 'svelte/internal'
-import { get, readable } from 'svelte/store'
+import { get} from 'svelte/store'
+import {stopGame} from './gameloop'
 import { speed, x, y, lastTouch, pv, earnedCoins } from '../stores/StoreCharacters'
 import { enemyList } from '../stores/StoreCharacters'
 import {sabreX, sabreY} from '../stores/StoreWeapon'
 import {weaponActive} from '../stores/StoreWeapon'
 import {boostY, boostX, boostOnMap, heartY, heartX, heartOnMap, coinX, coinY, coinOnMap} from '../stores/StoreBonus'
+import {gameOver} from '../stores/Store'
 
 const scream = ["./resources/goblin_1.wav", "./resources/goblin_2.wav", "./resources/goblin_3.wav"]
 let newlist 
@@ -31,7 +31,7 @@ export const checkCollision = () => {
     newlist = get(enemyList).filter(enemy => enemy.collision === true)
     if(newlist.length > 0){
         document.querySelector('.hero').style.backgroundColor= 'rgba(219, 33, 33,0.5)'
-    } else {
+    } else if(newlist.length === 0 ){
         document.querySelector('.hero').style.backgroundColor= ''
     }
 
@@ -42,7 +42,11 @@ const audio = new Audio('./resources/wilhelm.wav')
 export const isDead = () => {
     if(get(pv) <= 0){
         audio.play()
-        newGame.update(a => false) //----------------------- fin du jeu !! 
+        
+        // newGame.update(a => false) 
+        stopGame()
+        gameOver.update (a => true) 
+        console.log('GAMEOVER:  ' + get(gameOver)); 
         pv.update(a => 100)
 
     }
@@ -69,9 +73,6 @@ export const checkCollisionBoost = () => {
         heartOnMap.update(a => false)
      }
 }
-
-
-
 
 export const checkCollisionCoin = () => {
     if(distance(get(x), get(y), get(coinX), get(coinY)) < 40 && get(coinOnMap)){

@@ -35,14 +35,25 @@ const coinAppears = () => {
     console.log('DATE: '+ Date.now())
 }
 
+let boosthero
+let hearthero
+let coinappears
 export const boost = () => {
-    setInterval(() => {
+    console.log('BOOST ON')
+    boosthero = setInterval(() => {
         boostHero()
     },14000)
-    setInterval(() => {
+    hearthero = setInterval(() => {
         heartHero()
     }, 22000)
-    setInterval(()=> {
+    coinappears = setInterval(()=> {
         coinAppears()
     }, 9000)
+}
+
+export const stopBoost = () => {
+    console.log('BOOST OFF')
+    clearInterval(boosthero)
+    clearInterval(hearthero)
+    clearInterval(coinappears)
 }

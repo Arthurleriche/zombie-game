@@ -1,7 +1,7 @@
 <script>
   // -----------------------------------------------------------
   import Tailwindcss from './Tailwindcss.svelte';
-  import { newGame } from './stores/Store.js';
+  import { isPlaying, newGame } from './stores/Store.js';
   import { enemyList } from './stores/StoreCharacters';
   import { boostOnMap, heartOnMap, coinOnMap } from './stores/StoreBonus';
   import { weaponActive, sabreY, sabreX } from './stores/StoreWeapon';
