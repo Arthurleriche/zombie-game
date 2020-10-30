@@ -10,29 +10,24 @@
     width: 45px;
     position: absolute;
   }
-
   .right{
      animation-name: sabreRight ;
     animation-duration: 0.05s; 
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
   } 
-
   .up{
     animation-name: sabreUp ;
     animation-duration: 0.05s; 
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
   }
-
-
   .down{
     animation-name: sabreDown ;
     animation-duration: 0.05s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
   }
-
   .left{
     transform: rotate(270deg);
     animation-name: sabreLeft ;
@@ -41,7 +36,6 @@
     transform: rotate(270deg);
     animation-fill-mode: forwards;
   }
-
   @keyframes sabreRight{
     from {transform:rotate(0deg)}
     to {transform: rotate(45deg)}
@@ -58,7 +52,6 @@
     from {transform:rotate(90deg)}
     to {transform: rotate(120deg)}
   }
-
 </style>
 
 <div id="" class="sabre {$classProp}" style="top:{sabreY}px; left:{sabreX}px">

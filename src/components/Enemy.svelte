@@ -1,14 +1,11 @@
 <script>
   export let enemy;
-  // console.log(enemy);
 </script>
 
 <style>
   .enemy {
-  
     position: absolute;
   }
-
   .alien1 {
     width: 50px;
     height: 50px;

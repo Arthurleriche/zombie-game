@@ -2,7 +2,6 @@ import { get } from 'svelte/store'
 
 import {enemyList} from '../stores/StoreCharacters'
 import {y, x} from '../stores/StoreCharacters'
-// import { distance } from './collision.js'
 
 let enemyId = 1
 

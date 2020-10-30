@@ -1,11 +1,11 @@
 <script>
   // -----------------------------------------------------------
   import Tailwindcss from './Tailwindcss.svelte';
-  import Accueil from './components/Accueil.svelte';
   import { newGame } from './stores/Store.js';
   import { enemyList } from './stores/StoreCharacters';
   import { weaponActive, sabreY, sabreX } from './stores/StoreWeapon';
   // -----------------------------------------------------------
+  import Accueil from './components/Accueil.svelte';
   import Header from './components/Header.svelte';
   import Hero from './components/Hero.svelte';
   import Sabre from './components/weapons/Sabre.svelte';
@@ -23,7 +23,7 @@
 {#if !$newGame}
   <Accueil bind:newGame={$newGame} />
 {:else}
-  <div class="flex justify-around">
+  <div class="flex space-x-0 justify-around">
     <Debug />
     <Gamefield>
       <Hero />

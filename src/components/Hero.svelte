@@ -20,6 +20,7 @@
     height: 50px;
     overflow: hidden;
     position: absolute;
+    background-color:transparent; 
   }
 
   img {
