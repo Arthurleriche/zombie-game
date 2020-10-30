@@ -1,11 +1,14 @@
 import { get} from 'svelte/store'
-import {stopGame} from './gameloop'
+// import {stopGame} from './gameloop'
+
 import { speed, x, y, lastTouch, pv, earnedCoins } from '../stores/StoreCharacters'
 import { enemyList } from '../stores/StoreCharacters'
 import {sabreX, sabreY} from '../stores/StoreWeapon'
 import {weaponActive} from '../stores/StoreWeapon'
 import {boostY, boostX, boostOnMap, heartY, heartX, heartOnMap, coinX, coinY, coinOnMap} from '../stores/StoreBonus'
 import {gameOver} from '../stores/Store'
+import { isPlaying } from '../stores/Store.js';
+import {stopBoost } from './bonus.js';
 
 const scream = ["./resources/goblin_1.wav", "./resources/goblin_2.wav", "./resources/goblin_3.wav"]
 let newlist 
@@ -43,8 +46,11 @@ export const isDead = () => {
     if(get(pv) <= 0){
         audio.play()
         
-        // newGame.update(a => false) 
-        stopGame()
+        // stopGame 
+        console.log('STOP GAMEZZ');
+        stopBoost()
+        isPlaying.update(a => false)
+
         gameOver.update (a => true) 
         console.log('GAMEOVER:  ' + get(gameOver)); 
         pv.update(a => 100)
@@ -60,7 +66,7 @@ export const checkCollisionWeapon = () => {
     })
 }
 
-export const checkCollisionBoost = () => {
+export const checkCollisionBooste = () => {
     if(distance(get(x),get(y), get(boostX), get(boostY)) < 45 && get(boostOnMap)){
        speed.update(a => 2)
        boostOnMap.update(a => false)
