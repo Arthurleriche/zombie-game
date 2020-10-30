@@ -1,5 +1,7 @@
 <script>
+
   export let enemy;
+
 </script>
 
 <style>
@@ -78,4 +80,3 @@
       src="./resources/enemy.png"
       alt="" />
   </div>
-</div>
