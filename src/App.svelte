@@ -1,75 +1,55 @@
 <script>
-  // tailwindcss
+  // -----------------------------------------------------------
   import Tailwindcss from './Tailwindcss.svelte';
-  // components
+  import { isPlaying, newGame } from './stores/Store.js';
+  import { enemyList } from './stores/StoreCharacters';
+  import { boostOnMap, heartOnMap, coinOnMap } from './stores/StoreBonus';
+  import { weaponActive, sabreY, sabreX } from './stores/StoreWeapon';
+  // -----------------------------------------------------------
   import Accueil from './components/Accueil.svelte';
-  import Level from './components/tableau/Level.svelte';
-  // stores 
-  import { newGame } from './components/Store.js'
-  import { sound } from './components/StoreOption.js';
-  import { ligHero } from './components/StoreCharacters.js';
-  import { colHero } from './components/StoreCharacters.js';
-  import {retry} from './components/Store.js'
-  // variables
-  let src = './img/mute.svg';
+  import Header from './components/Header.svelte';
+  import Hero from './components/Hero.svelte';
+  import Sabre from './components/weapons/Sabre.svelte';
+  import Enemy from './components/Enemy.svelte';
+  import BoostHero from './components/boosts/BoostHero.svelte';
+  import Medic from './components/boosts/Medic.svelte';
+  import Coin from './components/boosts/Coin.svelte';
+  import Gamefield from './components/Gamefield.svelte';
+  import Debug from './components/Debug.svelte';
 
-  function handleAudio() {
-    var Player = document.getElementById('player');
-    if ($sound == true) {
-      Player.play();
-      src = './img/volume.svg';
-    } else {
-      Player.pause();
-      src = './img/mute.svg';
-    }
-    $sound = !$sound;
-  }
-  function initHero(){
-    $ligHero = 5
-    $colHero = 5
-    console.log('initHero')
-  }
-  
+  let dev = process.env.isDev;
 </script>
-<Tailwindcss />
-
-
-<!-- COMPOSANT header -->
-<div class="header  relative w-full">
-    <div class="title text-6xl text-center">
-      <p class='title'>ZOMBAV IV</p>
-    </div> 
-    <p on:click={() => $newGame = false} on:click={initHero} id = "backToMenu" class=" text-center opacity-0 text-white border w-1/10 pl-2 pr-2 h-12 text-base absolute top-0 right-0">BacK to Menu</p>
-    <audio id="player"  src="./audio/laylow.mp3">
-    <track kind="captions">
-    </audio> 
-  <img id="mute" class="h-16 w-16 absolute m-8 left-0 top-0" {src} alt="volume"  on:click={handleAudio}/>
-</div>
-<!-- COMPOSANT header -->
-
-{#if !$newGame}
-  <Accueil bind:newGame={$newGame}/>
-{:else if $retry}
-  <Level/>
-{:else}
-  <Level/>
-{/if}
 
 <style>
-  .title {
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
-    color: white;
-    -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: rgb(64, 131, 78);
-  }
-  #mute{
-    filter: drop-shadow(16px 16px 20px red) invert(75%); 
-  }
-  #backToMenu{
-    line-height: 2.5rem; 
-    margin:15px; 
-    -webkit-text-stroke-width: 0.5px;
-  -webkit-text-stroke-color: rgb(64, 131, 78);
-  }
 </style>
+
+<Tailwindcss />
+
+<Header />
+{#if !$newGame}
+  <Accueil bind:newGame={$newGame} />
+{:else}
+  <div class="flex space-x-0 justify-around">
+    {#if dev}
+      <Debug />
+    {/if}
+    <Gamefield>
+      <Hero />
+      {#if $boostOnMap}
+        <BoostHero />
+      {/if}
+      {#if $heartOnMap}
+        <Medic />
+      {/if}
+      {#if $coinOnMap}
+        <Coin />
+      {/if}
+      {#if $weaponActive}
+        <Sabre sabreX={$sabreX} sabreY={$sabreY} />
+      {/if}
+      {#each $enemyList as enemy}
+        <Enemy {enemy} />
+      {/each}
+    </Gamefield>
+  </div>
+{/if}

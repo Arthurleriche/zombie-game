@@ -55,20 +55,6 @@ button:not(:disabled):active {
 	background-color: #ddd;
 }
 
-@keyframes treeMove{
-    30% {transform:skew(1deg)}
-    60% {transform:skew(0deg)}
-    90% {transform:skew(-1deg)}
-  }
-.deadtree{
-  height:40%;
-	width:auto; 
-	position:absolute;
-	bottom:0; 
-  opacity:0.6; 
-  animation:treeMove 2s linear infinite;
-  filter: drop-shadow(16px 16px 20px red) invert(75%); 
-}
 @keyframes bulletRight{
   from {transform: translate(-40px,0)}
   to {transform: translate(1440px,0)}
@@ -125,3 +111,4 @@ tt{
 .empty{
   background: transparent;
 }
+

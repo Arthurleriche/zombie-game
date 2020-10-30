@@ -1,34 +1,16 @@
 <script>
-  // stores
-  import { step } from './StoreCharacters.js';
-  import { direction } from './StoreCharacters.js';
-  import { leftSide } from './StoreCharacters.js';
-  import { bottomSide } from './StoreCharacters.js';
-  // svelte
-  import {onMount, onDestroy} from 'svelte'
-  // onMount
-  onMount (()=> {
-    console.log('Mount Hero')
-  })
-  // onDestroy
-  onDestroy(()=> {
-    console.log('Destroy Hero')
-  })
+  import { x, y, direction, pv } from '../stores/StoreCharacters';
 </script>
 
-<div class="divHero">
-  <div class="hero" style="bottom:{$bottomSide}px; left:{$leftSide}px">
-    <img
-      class="{$direction} moove-hero"
-      id="hero1"
-      src="./resources/space_hero.png"
-      alt="" />
-  </div>
-</div>
-
 <style>
+  .hero-div {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+  }
+
   .divHero {
-    /* position: relative; */
+    position: relative;
     width: 50px;
     height: 50px;
   }
@@ -37,14 +19,15 @@
     width: 50px;
     height: 50px;
     overflow: hidden;
-    position: relative;
-    
+    position: absolute;
+    background-color: transparent;
   }
+
   img {
     max-width: 600px;
     height: 400px;
-    
   }
+
   .down {
     position: absolute;
     left: -50px;
@@ -64,19 +47,23 @@
     left: -50px;
     top: -100px;
   }
+
   .step-down {
     animation: moove 0.25s steps(2) infinite;
   }
+
   .step-up {
     position: absolute;
     animation: moove 0.25s steps(2) infinite;
     top: -150px;
   }
+
   .step-left {
     position: absolute;
     animation: moove 0.25s steps(2) infinite;
     top: -50px;
   }
+
   .step-right {
     position: absolute;
     animation: moove 0.25s steps(2) infinite;
@@ -91,3 +78,13 @@
     }
   }
 </style>
+
+<div class="hero-div" style="top:{$y}px; left:{$x}px">
+  <div class="hero">
+    <img
+      class="{$direction} moove-hero "
+      id="hero1"
+      src="./resources/space_hero.png"
+      alt="" />
+  </div>
+</div>
