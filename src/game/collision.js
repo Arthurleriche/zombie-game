@@ -1,10 +1,11 @@
+import { newGame } from '../stores/Store.js';
 import { each } from 'svelte/internal'
 import { get, readable } from 'svelte/store'
-import { speed, x, y } from '../stores/StoreCharacters'
+import { speed, x, y, lastTouch, pv } from '../stores/StoreCharacters'
 import { enemyList } from '../stores/StoreCharacters'
 import {sabreX, sabreY} from '../stores/StoreWeapon'
 import {weaponActive} from '../stores/StoreWeapon'
-import {boostY, boostX, boostOnMap} from '../stores/StoreBonus'
+import {boostY, boostX, boostOnMap, heartY, heartX, heartOnMap} from '../stores/StoreBonus'
 
 const scream = ["./resources/goblin_1.wav", "./resources/goblin_2.wav", "./resources/goblin_3.wav"]
 let newlist 
@@ -14,14 +15,17 @@ export const distance = (x1, y1, x2, y2) => {
 }
 
 export const checkCollision = () => {
-   get(enemyList).forEach(enemy => {
-        
-        if(distance(enemy.left,enemy.top, get(x), get(y)) < 40){
+   get(enemyList).forEach(enemy => {     
+        if(distance(enemy.left,enemy.top, get(x), get(y)) < 40){      
             enemy.collision = true      
+            if (enemy.collision && Date.now() - get(lastTouch) > 1000){
+                lastTouch.update(a => Date.now())
+                pv.update(a => a - enemy.damage)
+                console.log(get(pv))
+            }
         } else {
             enemy.collision = false
         }
-
    })
 
     newlist = get(enemyList).filter(enemy => enemy.collision === true)
@@ -31,6 +35,17 @@ export const checkCollision = () => {
         document.querySelector('.hero').style.backgroundColor= ''
     }
 
+}
+
+const audio = new Audio('./resources/wilhelm.wav')
+
+export const isDead = () => {
+    if(get(pv) <= 0){
+        audio.play()
+        newGame.update(a => false)
+        pv.update(a => 100)
+
+    }
 }
 
 export const checkCollisionWeapon = () => {
@@ -49,6 +64,10 @@ export const checkCollisionBoost = () => {
            speed.update(a => 1)
        }, 5000)
     }
+    if(distance(get(x),get(y), get(heartX), get(heartY)) < 45 && get(heartOnMap)){
+        pv.update(a => 100)
+        heartOnMap.update(a => false)
+     }
 }
 
 function getRandomInt(max) {

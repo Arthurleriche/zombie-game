@@ -1,5 +1,5 @@
 <script>
-  import { x, y, direction } from '../stores/StoreCharacters';
+  import { x, y, direction, pv } from '../stores/StoreCharacters';
 </script>
 
 <style>
@@ -20,7 +20,7 @@
     height: 50px;
     overflow: hidden;
     position: absolute;
-    background-color:transparent; 
+    background-color: transparent;
   }
 
   img {

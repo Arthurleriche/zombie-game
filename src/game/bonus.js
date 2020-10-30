@@ -1,7 +1,4 @@
-import {get} from 'svelte/bonus'
-import {speed} from '../stores/StoreCharacters'
-import {boostY, boostX, boostOnMap} from '../stores/StoreBonus'
-
+import {boostY, boostX, boostOnMap, heartX, heartY,  heartOnMap} from '../stores/StoreBonus'
 
 const random = (num) => {
     let randomNum 
@@ -18,10 +15,22 @@ const boostHero = () => {
     }, 5000)
 
 }
+const heartHero = () => {
+    heartOnMap.update(a => true)
+    heartX.update(a => random(500))
+    heartY.update(a => random(500))
+    setTimeout(() => {
+        heartOnMap.update(a => false)
+    }, 5000)
+
+}
 
 export const boost = () => {
     setInterval(() => {
         boostHero()
-    },10000)
+    },14000)
+    setInterval(() => {
+        heartHero()
+    }, 22000)
 
 }

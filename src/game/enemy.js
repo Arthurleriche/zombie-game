@@ -25,7 +25,9 @@ const generateEnemy = () => {
         left: 375,
         id: generateId(), 
         collision: false, 
-        direction: direction
+        direction: direction,
+        damage: 10
+
     }])
     const audio = new Audio('./resources/ghost.wav')
     audio.play()

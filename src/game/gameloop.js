@@ -1,18 +1,23 @@
+import { newGame } from '../stores/Store.js';
 import {moveHero} from './hero.js'
 import { moveEnemy } from './enemy.js'
 // import {distance} from './collision.js'
-import {checkCollision, checkCollisionWeapon, checkCollisionBoost} from './collision.js'
+import {checkCollision, checkCollisionWeapon, checkCollisionBoost, isDead} from './collision.js'
 import { updateWeapon } from './weapon.js'
+import { get } from 'svelte/store';
 
 // import {debug} from '../components/Debug.svelte'
 
 function startLoop(steps) {
     window.requestAnimationFrame(() => {
-      steps.forEach(step => {
-        if (typeof step === 'function') step();
+      if(get(newGame)){
+        steps.forEach(step => {
+          if (typeof step === 'function') step();
+        });
+        startLoop(steps);
+      }
       });
-      startLoop(steps);
-    });
+
 
   }
 
@@ -23,7 +28,7 @@ function startLoop(steps) {
 
   export const startGame = () => {   
 
-    startLoop([moveHero, moveEnemy, checkCollision, checkCollisionWeapon,  updateWeapon, checkCollisionBoost]);
+    startLoop([moveHero, moveEnemy, checkCollision, checkCollisionWeapon,  updateWeapon, checkCollisionBoost, isDead]);
   };
 
   // startLoop([moveHero, moveEnemy]);
