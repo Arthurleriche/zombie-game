@@ -3,11 +3,8 @@ let right = false
 let leftc = false
 let down = false
 
-import {x, y } from '../stores/StoreCharacters'
+import {x, y, direction, speed } from '../stores/StoreCharacters'
 import { get } from 'svelte/store'
-
-export let top = 0
-export let left = 0
 
 document.addEventListener('keydown', (event) => {
     if(event.key === "ArrowDown"){
@@ -29,82 +26,101 @@ document.addEventListener('keyup', (event) => {
     if(event.key === "ArrowDown")
     {
         down = false
+        direction.update(a => "down")
     }
     if(event.key === "ArrowUp"){
         up = false
+        direction.update(a => "up")
     }
     if(event.key === "ArrowLeft"){
         leftc = false
+        direction.update(a => "left")
     }
     if(event.key === "ArrowRight"){
         right = false
+        direction.update(a => "right")
     }
 })
 
 
 export const moveHero = () => {
-    // console.log('TOP : '+  top + '  |  LEFT : ' + left)
     switch(true){
         case up && leftc:
-            if(get(x) === 0 || get(y) === 0){
+            if(get(x) === 45 || get(y) < 19){
+            direction.update(a => "up")
             break
             } else {
-                x.update(a => a - 1)
-                y.update(a => a - 1) 
+                x.update(a => a - 1 * get(speed))
+                y.update(a => a - 0.5 * get(speed)) 
+                direction.update(a => "step-left")
             }
             break
         case up && right:
-            if(get(x) === 0 || get(y) === 480){
+            if(get(y) <= 20 || get(x) === 800){
+            direction.update(a => "up")
             break
             } else {
-                x.update(a => a - 1)
-                y.update(a => a + 1)         
+                y.update(a => a - 0.5 * get(speed))
+                x.update(a => a + 1 * get(speed))     
+                direction.update(a => "step-right")    
             }
             break
         case down && leftc:
-            if(get(x) === 0 || get(y) === 0){
+            if(get(y) > 510 || get(x) < 45){
+                direction.update(a => "left")
                 break
             } else {
-            x.update(a => a + 1)
-            y.update(a => a - 1)      
+            x.update(a => a - 1 * get(speed))
+            y.update(a => a + 0.5 * get(speed))   
+            direction.update(a => "step-left")   
             }
             break
         case down && right:
-            if(get(x) === 480 || get(y) === 480){
+            if(get(x) === 800 || get(y) >= 510){
+            direction.update(a => "right")
             break
             } else {
-            x.update(a => a + 1)
-            y.update(a => a + 1)
+            x.update(a => a + 1  * get(speed))
+            y.update(a => a + 0.5 * get(speed))
+            direction.update(a => "step-right")
             }
             break
 
         case up:
-            if(get(x) === 0){
+            if(get(y) <= 20){
+                direction.update(a => "up")
                 break
             } else {
-            x.update(a => a - 1)
+            y.update(a => a - 1 * get(speed))
+            direction.update(a => "step-up")
             }
             break
            
             case leftc: 
-            if(get(y) === 0){
+            if(get(x) === 45 * get(speed)){
+                direction.update(a => "left")
             break
             } else {
-                y.update(a => a - 1)
+                x.update(a => a - 1 * get(speed))
+                direction.update(a => "step-left")
             }
             break
             case down: 
-            if(get(x) === 480){
+            if(get(y) >= 510){
+                direction.update(a => "down")
                 break
             } else {
-                x.update(a => a + 1)
+                y.update(a => a + 1 * get(speed))
+                direction.update(a => "step-down")
                 break 
             }
             case right: 
-            if(get(y) === 480){
+            if(get(x) === 800){
+                direction.update(a => "right")
                 break
             } else {
-                y.update(a => a + 1)
+                x.update(a => a + 1 * get(speed))
+                direction.update(a => "step-right")
             break
         }
         }

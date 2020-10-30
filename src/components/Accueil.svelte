@@ -1,12 +1,11 @@
 <script>
-  import Button from './Buttons.svelte'
-  import ButtonOpt from './ButtonOpt.svelte'
-  import ButtonHi from './ButtonHi.svelte'
+  import Button from './buttons/Buttons.svelte'
+  import ButtonOpt from './buttons/ButtonOpt.svelte'
+  import ButtonHi from './buttons/ButtonHi.svelte'
   
   let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   
   export let newGame;
- 
 </script>
 
 

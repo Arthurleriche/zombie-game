@@ -1,20 +1,34 @@
 <script>
-  import { top, left } from '../game/hero';
-  import { x, y } from '../stores/StoreCharacters';
+  import { x, y, direction, pv } from '../stores/StoreCharacters';
 </script>
 
 <style>
-  .hero {
+  .hero-div {
     width: 50px;
     height: 50px;
-    background-color: green;
     position: absolute;
   }
-</style>
 
-<div class="hero" style="top:{$x}px; left:{$y}px" />
+  .divHero {
+    position: relative;
+    width: 50px;
+    height: 50px;
+  }
+  .hero {
+    z-index: 1;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    position: absolute;
+    background-color: transparent;
+  }
 
-<!-- /* .down {
+  img {
+    max-width: 600px;
+    height: 400px;
+  }
+
+  .down {
     position: absolute;
     left: -50px;
   }
@@ -33,21 +47,44 @@
     left: -50px;
     top: -100px;
   }
+
   .step-down {
     animation: moove 0.25s steps(2) infinite;
   }
+
   .step-up {
     position: absolute;
     animation: moove 0.25s steps(2) infinite;
     top: -150px;
   }
+
   .step-left {
     position: absolute;
     animation: moove 0.25s steps(2) infinite;
     top: -50px;
   }
+
   .step-right {
     position: absolute;
     animation: moove 0.25s steps(2) infinite;
     top: -100px;
-  } */ -->
+  }
+  @keyframes moove {
+    from {
+      transform: translate3d(0px, 0, 0);
+    }
+    to {
+      transform: translate3d(-200px, 0, 0);
+    }
+  }
+</style>
+
+<div class="hero-div" style="top:{$y}px; left:{$x}px">
+  <div class="hero">
+    <img
+      class="{$direction} moove-hero "
+      id="hero1"
+      src="./resources/space_hero.png"
+      alt="" />
+  </div>
+</div>

@@ -1,5 +1,6 @@
 <script>
   import { sound } from '../stores/StoreOption.js';
+  import {newGame} from '../stores/Store'
 
   let src = './img/mute.svg';
 
@@ -14,17 +15,21 @@
     }
     $sound = !$sound;
   }
+
+
+  function handleClick() {
+    $newGame = false 
+  }
 </script>
 
 
-<div class="header  relative w-full">
-    <div class="title text-6xl text-center">
-      <p class="title">ALIENUX I.O - MOTORx </p>
-    </div>
+<div class="header   flex justify-around  w-full">
     <audio id="player" src="./audio/laylow.mp3">
       <track kind="captions" />
     </audio>
-    <img id="mute" class="h-16 w-16 absolute m-8 left-0 top-0" {src}  alt="volume" on:click={handleAudio} />
+    <img id="mute" class="h-16 w-16 mt-4" {src}  alt="volume" on:click={handleAudio} />
+    <p class="title text-6xl text-center">ALIENUX I.O - MOTORx </p>
+    <!-- <img src="./resources/backmenu.png" alt="back" class=" back h-12 w-12 text-white mt-6" on:click={handleClick}/> -->
 </div>
 
 
@@ -38,5 +43,9 @@
     }
     #mute {
         filter: drop-shadow(16px 16px 20px red) invert(75%);
+    }
+
+    .back{
+      filter:drop-shadow(16px 16px 20px red) invert(75%);
     }
 </style>
