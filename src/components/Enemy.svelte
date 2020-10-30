@@ -80,3 +80,4 @@
       src="./resources/enemy.png"
       alt="" />
   </div>
+</div>
