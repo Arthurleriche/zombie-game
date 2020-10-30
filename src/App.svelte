@@ -13,9 +13,11 @@
   import Enemy from './components/Enemy.svelte';
   import BoostHero from './components/boosts/BoostHero.svelte';
   import Medic from './components/boosts/Medic.svelte';
-  import Coin from './components/boosts/Coin.svelte'
+  import Coin from './components/boosts/Coin.svelte';
   import Gamefield from './components/Gamefield.svelte';
   import Debug from './components/Debug.svelte';
+
+  let dev = process.env.isDev;
 </script>
 
 <style>
@@ -28,7 +30,9 @@
   <Accueil bind:newGame={$newGame} />
 {:else}
   <div class="flex space-x-0 justify-around">
-    <Debug />
+    {#if dev}
+      <Debug />
+    {/if}
     <Gamefield>
       <Hero />
       {#if $boostOnMap}
@@ -38,7 +42,7 @@
         <Medic />
       {/if}
       {#if $coinOnMap}
-      <Coin/>
+        <Coin />
       {/if}
       {#if $weaponActive}
         <Sabre sabreX={$sabreX} sabreY={$sabreY} />
