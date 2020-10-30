@@ -29,4 +29,4 @@
 
 <div class="boost-hero" style="top: {$boostY}px; left:{$boostX}px">
   <img class="img" src="./resources/energy.png" alt="" />
-</div>/>
+</div>

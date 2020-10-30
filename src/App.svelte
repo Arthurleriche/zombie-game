@@ -3,7 +3,7 @@
   import Tailwindcss from './Tailwindcss.svelte';
   import { newGame } from './stores/Store.js';
   import { enemyList } from './stores/StoreCharacters';
-  import { boostOnMap, heartOnMap } from './stores/StoreBonus';
+  import { boostOnMap, heartOnMap, coinOnMap } from './stores/StoreBonus';
   import { weaponActive, sabreY, sabreX } from './stores/StoreWeapon';
   // -----------------------------------------------------------
   import Accueil from './components/Accueil.svelte';
@@ -13,6 +13,7 @@
   import Enemy from './components/Enemy.svelte';
   import BoostHero from './components/boosts/BoostHero.svelte';
   import Medic from './components/boosts/Medic.svelte';
+  import Coin from './components/boosts/Coin.svelte'
   import Gamefield from './components/Gamefield.svelte';
   import Debug from './components/Debug.svelte';
 </script>
@@ -35,6 +36,9 @@
       {/if}
       {#if $heartOnMap}
         <Medic />
+      {/if}
+      {#if $coinOnMap}
+      <Coin/>
       {/if}
       {#if $weaponActive}
         <Sabre sabreX={$sabreX} sabreY={$sabreY} />

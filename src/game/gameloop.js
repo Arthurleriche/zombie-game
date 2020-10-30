@@ -2,7 +2,7 @@ import { newGame } from '../stores/Store.js';
 import {moveHero} from './hero.js'
 import { moveEnemy } from './enemy.js'
 // import {distance} from './collision.js'
-import {checkCollision, checkCollisionWeapon, checkCollisionBoost, isDead} from './collision.js'
+import {checkCollision, checkCollisionWeapon, checkCollisionBoost, isDead, checkCollisionCoin} from './collision.js'
 import { updateWeapon } from './weapon.js'
 import { get } from 'svelte/store';
 
@@ -28,7 +28,7 @@ function startLoop(steps) {
 
   export const startGame = () => {   
 
-    startLoop([moveHero, moveEnemy, checkCollision, checkCollisionWeapon,  updateWeapon, checkCollisionBoost, isDead]);
+    startLoop([moveHero, moveEnemy, checkCollision, checkCollisionWeapon,  updateWeapon, checkCollisionBoost,checkCollisionCoin, isDead]);
   };
 
   // startLoop([moveHero, moveEnemy]);

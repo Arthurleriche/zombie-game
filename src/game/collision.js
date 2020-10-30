@@ -1,11 +1,11 @@
 import { newGame } from '../stores/Store.js';
 import { each } from 'svelte/internal'
 import { get, readable } from 'svelte/store'
-import { speed, x, y, lastTouch, pv } from '../stores/StoreCharacters'
+import { speed, x, y, lastTouch, pv, earnedCoins } from '../stores/StoreCharacters'
 import { enemyList } from '../stores/StoreCharacters'
 import {sabreX, sabreY} from '../stores/StoreWeapon'
 import {weaponActive} from '../stores/StoreWeapon'
-import {boostY, boostX, boostOnMap, heartY, heartX, heartOnMap} from '../stores/StoreBonus'
+import {boostY, boostX, boostOnMap, heartY, heartX, heartOnMap, coinX, coinY, coinOnMap} from '../stores/StoreBonus'
 
 const scream = ["./resources/goblin_1.wav", "./resources/goblin_2.wav", "./resources/goblin_3.wav"]
 let newlist 
@@ -42,7 +42,7 @@ const audio = new Audio('./resources/wilhelm.wav')
 export const isDead = () => {
     if(get(pv) <= 0){
         audio.play()
-        newGame.update(a => false)
+        newGame.update(a => false) //----------------------- fin du jeu !! 
         pv.update(a => 100)
 
     }
@@ -69,6 +69,20 @@ export const checkCollisionBoost = () => {
         heartOnMap.update(a => false)
      }
 }
+
+
+
+
+export const checkCollisionCoin = () => {
+    if(distance(get(x), get(y), get(coinX), get(coinY)) < 40 && get(coinOnMap)){
+        earnedCoins.update(a => a + 1)
+        coinOnMap.update(a => false)
+    }
+}
+
+
+
+
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));

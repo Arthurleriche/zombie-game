@@ -6,6 +6,7 @@ export const y = writable(50)
 export const speed = writable(1)
 export const lastTouch = writable(0)
 export const pv = writable(100)
+export const earnedCoins = writable(0)
 // ZOMBIE
 export const directionAlien = writable("down");
 export const enemyId = writable(1)

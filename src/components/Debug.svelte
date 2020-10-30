@@ -1,6 +1,6 @@
 <script>
   import { enemyList } from '../stores/StoreCharacters.js';
-  import { x, y, pv } from '../stores/StoreCharacters.js';
+  import { x, y, pv, earnedCoins } from '../stores/StoreCharacters.js';
   import { distance } from '../game/collision.js';
 </script>
 
@@ -15,7 +15,7 @@
   }
   .debugEnemy {
     width: 400px;
-    height: 500px;
+    height: 400px;
     border: 2px solid red;
   }
 </style>
@@ -64,5 +64,6 @@
     <div class="coord border border-white">X: {$x}</div>
     <div class="coord border border-white">Y: {$y}</div>
     <div class="coord border border-white">PV: {$pv}</div>
+    <div class="coord border border-white">$ : {$earnedCoins}</div>
   </div>
 </div>
