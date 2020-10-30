@@ -16,7 +16,6 @@ document.addEventListener('keydown', (event) => {
 
  
 export const updateWeapon = () => {   
-    console.log(get(direction))
     if(get(weaponActive)){  
         switch (get(direction)){
             case "down":

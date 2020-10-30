@@ -3,7 +3,7 @@ let right = false
 let leftc = false
 let down = false
 
-import {x, y, direction } from '../stores/StoreCharacters'
+import {x, y, direction, speed } from '../stores/StoreCharacters'
 import { get } from 'svelte/store'
 
 document.addEventListener('keydown', (event) => {
@@ -50,8 +50,8 @@ export const moveHero = () => {
             direction.update(a => "up")
             break
             } else {
-                x.update(a => a - 1)
-                y.update(a => a - 0.5) 
+                x.update(a => a - 1 * get(speed))
+                y.update(a => a - 0.5 * get(speed)) 
                 direction.update(a => "step-left")
             }
             break
@@ -60,8 +60,8 @@ export const moveHero = () => {
             direction.update(a => "up")
             break
             } else {
-                y.update(a => a - 0.5)
-                x.update(a => a + 1)     
+                y.update(a => a - 0.5 * get(speed))
+                x.update(a => a + 1 * get(speed))     
                 direction.update(a => "step-right")    
             }
             break
@@ -70,8 +70,8 @@ export const moveHero = () => {
                 direction.update(a => "left")
                 break
             } else {
-            x.update(a => a - 1)
-            y.update(a => a + 0.5)   
+            x.update(a => a - 1 * get(speed))
+            y.update(a => a + 0.5 * get(speed))   
             direction.update(a => "step-left")   
             }
             break
@@ -80,8 +80,8 @@ export const moveHero = () => {
             direction.update(a => "right")
             break
             } else {
-            x.update(a => a + 1)
-            y.update(a => a + 0.5)
+            x.update(a => a + 1  * get(speed))
+            y.update(a => a + 0.5 * get(speed))
             direction.update(a => "step-right")
             }
             break
@@ -91,17 +91,17 @@ export const moveHero = () => {
                 direction.update(a => "up")
                 break
             } else {
-            y.update(a => a - 1)
+            y.update(a => a - 1 * get(speed))
             direction.update(a => "step-up")
             }
             break
            
             case leftc: 
-            if(get(x) === 45){
+            if(get(x) === 45 * get(speed)){
                 direction.update(a => "left")
             break
             } else {
-                x.update(a => a - 1)
+                x.update(a => a - 1 * get(speed))
                 direction.update(a => "step-left")
             }
             break
@@ -110,7 +110,7 @@ export const moveHero = () => {
                 direction.update(a => "down")
                 break
             } else {
-                y.update(a => a + 1)
+                y.update(a => a + 1 * get(speed))
                 direction.update(a => "step-down")
                 break 
             }
@@ -119,7 +119,7 @@ export const moveHero = () => {
                 direction.update(a => "right")
                 break
             } else {
-                x.update(a => a + 1)
+                x.update(a => a + 1 * get(speed))
                 direction.update(a => "step-right")
             break
         }

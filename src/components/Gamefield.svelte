@@ -1,10 +1,12 @@
 <script>
   import { createEnemy } from '../game/enemy';
+  import { boost } from '../game/bonus';
   import { startGame, playerAmbiance } from '../game/gameloop';
 
   playerAmbiance();
   createEnemy();
   startGame();
+  boost();
 </script>
 
 <style>
@@ -20,19 +22,20 @@
     text-align: center;
     margin-bottom: 30px;
   }
-  .controls{
-    position:absolute; 
-    bottom:0; 
-    left:40%; 
+  .controls {
+    position: absolute;
+    bottom: 0;
+    left: 40%;
   }
 </style>
 
 <div>
-  
   <div
     class="gamefield m-auto"
     style="background-image: url('./resources/background_1.png')">
     <slot />
-    <p class=" controls text-lg text-red-600">Touches directionnelles = mouvement, espace = weapon</p>
+    <p class=" controls text-lg text-red-600">
+      Touches directionnelles = mouvement, espace = weapon
+    </p>
   </div>
 </div>
