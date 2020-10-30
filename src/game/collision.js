@@ -26,7 +26,7 @@ export const checkCollision = () => {
 
 export const checkCollisionWeapon = () => {
     get(enemyList).forEach(enemy => {     
-        if(distance(enemy.left,enemy.top, get(sabreX), get(sabreY)) < 40 && get(weaponActive)){
+        if(distance(enemy.left,enemy.top, get(sabreX), get(sabreY)) < 45 && get(weaponActive)){
             deleteEnemy(enemy.id)
         }
     })
