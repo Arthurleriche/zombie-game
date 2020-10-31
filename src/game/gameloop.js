@@ -1,12 +1,12 @@
 import { isPlaying } from '../stores/Store.js';
 import {moveHero} from './hero.js'
-import { moveEnemy } from './enemy.js'
-import {checkCollision, checkCollisionWeapon, checkCollisionBoost, isDead, checkCollisionCoin} from './collision.js'
+import { moveEnemy, stopCreatingEnemy } from './enemy.js'
+import {checkCollision, checkCollisionWeapon, checkCollisionBooste, isDead, checkCollisionCoin} from './collision.js'
 import { updateWeapon } from './weapon.js'
 import { get } from 'svelte/store';
 import { boost, stopBoost } from './bonus.js';
-import{enemyList, x,y} from '../stores/StoreCharacters';
-
+import{earnedCoins, enemyList, x,y} from '../stores/StoreCharacters';
+import {gameOver} from '../stores/Store'
 
 function startLoop(steps) {
     window.requestAnimationFrame(() => {
@@ -14,10 +14,7 @@ function startLoop(steps) {
           if (typeof step === 'function') step();
         });
         if(get(isPlaying)) startLoop(steps);
-        console.log('GAME TURNS');
       });
-
-
   }
 
   export const playerAmbiance = () => {
@@ -25,7 +22,7 @@ function startLoop(steps) {
     audio.play()
   }
 
-  export const startGame = () => {   
+  export const startGame = () => {  
     isPlaying.update(a => true)
     x.update(a => 50)
     y.update(a => 50)
@@ -36,14 +33,22 @@ function startLoop(steps) {
       damage: 10
   }])
     boost() 
-    startLoop([moveHero, moveEnemy, checkCollision, checkCollisionWeapon,  updateWeapon, checkCollisionBoost,checkCollisionCoin, isDead]);
+    startLoop([moveHero, moveEnemy, checkCollision, checkCollisionWeapon,  updateWeapon, checkCollisionBooste,checkCollisionCoin, stopGame]);
   };
 
-
   export const stopGame = () => {
-    console.log('STOP GAME');
-    stopBoost()
-    isPlaying.update(a => false)
+    if(get(gameOver)){
+      isPlaying.update(a => false)
+      earnedCoins.update(a => 0)
+      stopBoost(); 
+      stopCreatingEnemy(); 
+      enemyList.update(a => [])
+    } 
   }
+
+
+
+
+
 
 

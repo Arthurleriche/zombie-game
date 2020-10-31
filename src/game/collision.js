@@ -50,7 +50,7 @@ export const checkCollisionWeapon = () => {
 }
 
 
-export const checkCollisionBoost = () => {
+export const checkCollisionBooste = () => {
     if(distance(get(x),get(y), get(boostX), get(boostY)) < 45 && get(boostOnMap)){
        speed.update(a => 2)
        boostOnMap.update(a => false)
@@ -59,10 +59,11 @@ export const checkCollisionBoost = () => {
        }, 5000)
     }
     if(distance(get(x),get(y), get(heartX), get(heartY)) < 45 && get(heartOnMap)){
-        pv.update(a => 100)
+        // heroHeal()
         heartOnMap.update(a => false)
      }
 }
+
 
 
 export const checkCollisionCoin = () => {
@@ -89,7 +90,6 @@ export const isDead = () => {
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
   }
-
 
   
 const deleteEnemy = (enemyId) => {

@@ -7,6 +7,11 @@ export const speed = writable(1)
 export const lastTouch = writable(0)
 export const pv = writable(100)
 export const earnedCoins = writable(0)
+export const lifeList = writable([
+    {life: 100, id : 1, pv:100},
+    {life: 100, id : 2, pv: 100},
+    {life: 100, id : 3, pv:100}
+])
 // ZOMBIE
 export const directionAlien = writable("down");
 export const enemyId = writable(1)
@@ -16,3 +21,4 @@ export const enemyList = writable([{
     id: 1, 
     damage: 10
 }])
+

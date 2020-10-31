@@ -1,7 +1,7 @@
 <script>
   // -----------------------------------------------------------
   import Tailwindcss from './Tailwindcss.svelte';
-  import { isPlaying, newGame } from './stores/Store.js';
+  import { newGame } from './stores/Store.js';
   import { enemyList } from './stores/StoreCharacters';
   import { boostOnMap, heartOnMap, coinOnMap } from './stores/StoreBonus';
   import { weaponActive, sabreY, sabreX } from './stores/StoreWeapon';
@@ -26,7 +26,7 @@
 <Tailwindcss />
 
 <Header />
-{#if !$newGame}
+{#if $newGame === false || $newGame === null }
   <Accueil bind:newGame={$newGame} />
 {:else}
   <div class="flex space-x-0 justify-around">

@@ -1,6 +1,11 @@
 <script>
   import { sound } from '../stores/Store.js';
-  import { newGame } from '../stores/Store';
+
+  import { gameOver, i, newGame } from '../stores/Store';
+  import { isPlaying } from '../stores/Store';
+  import { stopCreatingEnemy } from '../game/enemy.js';
+  import { earnedCoins, enemyList, lifeList } from '../stores/StoreCharacters';
+  import { stopBoost } from '../game/bonus.js';
 
   let src = './img/mute.svg';
 
@@ -16,10 +21,30 @@
     $sound = !$sound;
   }
 
-  const soundOn = () => {};
+  function handleClick() {
+    $newGame = false;
+  }
 
   function handleClick() {
     $newGame = false;
+    isPlaying.update(a => false);
+    stopBoost();
+    stopCreatingEnemy();
+    lifeList.update(a => [
+      { life: 100, id: 1, pv: 100 },
+      { life: 100, id: 2, pv: 100 },
+      { life: 100, id: 3, pv: 100 },
+    ]);
+    i.update(a => 1);
+    earnedCoins.update(a => 0);
+    enemyList.update(a => [
+      {
+        top: -30,
+        left: 400,
+        id: 1,
+        damage: 10,
+      },
+    ]);
   }
 </script>
 
@@ -40,7 +65,7 @@
   }
 </style>
 
-<div class="header   flex justify-around  w-full" on:click={soundOn}>
+<div class="header flex justify-around  w-full">
   <audio id="player" src="./audio/laylow.mp3">
     <track kind="captions" />
   </audio>
@@ -51,5 +76,9 @@
     alt="volume"
     on:click={handleAudio} />
   <p class="title text-6xl text-center">ALIENUX I.O - MOTORx</p>
-  <!-- <img src="./resources/backmenu.png" alt="back" class=" back h-12 w-12 text-white mt-6" on:click={handleClick}/> -->
+  <img
+    src="./resources/backmenu.png"
+    alt="back"
+    class=" back h-12 w-12 text-white mt-6"
+    on:click={handleClick} />
 </div>

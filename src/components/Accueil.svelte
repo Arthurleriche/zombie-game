@@ -2,10 +2,15 @@
   import Button from './buttons/Buttons.svelte'
   import ButtonOpt from './buttons/ButtonOpt.svelte'
   import ButtonHi from './buttons/ButtonHi.svelte'
+  import { isPlaying } from '../stores/Store';
   
   let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   
   export let newGame;
+
+  const handleNewGame = () => {
+    isPlaying.update(a => true)
+  }
 </script>
 
 
@@ -17,7 +22,7 @@
     </div>
     <div class="animintro">
       <img class="img2" src='./img/ET1.png' alt='ET2' width='300px'>
-      <Button title = {'NEW GAME'} cat={'NewGame'} on:click={() => newGame=true}/>
+      <Button title = {'NEW GAME'} cat={'NewGame'} on:click={() => newGame=true} on:click={handleNewGame}/>
     </div>
     <div class="animintro" >
       <img class="img3" src='./img/ET2.png' alt='ET3' width='200px'>

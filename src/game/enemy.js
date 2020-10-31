@@ -4,6 +4,8 @@ import {enemyList} from '../stores/StoreCharacters'
 import {y, x} from '../stores/StoreCharacters'
 
 let enemyId = 1
+let generateenemy
+let direction = "down"
 
 const generateId = () => {
     enemyId++
@@ -16,8 +18,8 @@ const random = (num) => {
     return randomNum
 }
 
-
 const generateEnemy = () => {
+    console.log('Enemy Generated');
     enemyList.update(a => [...a,{         
         // top: random(0),
         // left: random(375),
@@ -33,16 +35,15 @@ const generateEnemy = () => {
 }
 
 
-
 export const createEnemy = () => {  
-    for(let i = 0; i<9; i++){
-        setTimeout(() => {
-            generateEnemy()
-        }, i * 9000)
-    } 
+        generateenemy = setInterval(generateEnemy, 4000)
 }
 
-let direction = "down"
+export const stopCreatingEnemy = () => {
+    clearInterval(generateenemy)
+    enemyId = 1
+}
+
 
 const directionEnemyX = (enemy, hero) => {
     if(enemy > hero + 25){
@@ -69,7 +70,6 @@ const directionEnemyY = (enemyY, hero, enemyX) => {
 }   
 
 export const moveEnemy = () => {
-    
     if(get(enemyList).length >= 1){
         enemyList.update(enemyList =>
             enemyList.map(enemy => ({
