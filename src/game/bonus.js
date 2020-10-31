@@ -24,7 +24,7 @@ const heartHero = () => {
     heartY.update(a => random(400) +50 )
     setTimeout(() => {
         heartOnMap.update(a => false)
-    })
+    }, 8000)
 }
 
 
@@ -34,7 +34,7 @@ const coinAppears = () => {
     coinY.update(a => random(500))
     setTimeout(() => {
         coinOnMap.update(a => false)
-    }, 8000)
+    }, 4000)
 
 }
 
@@ -58,11 +58,12 @@ export const boost = () => {
         boostHero()
     },14000)
     hearthero = setInterval(() => {
+        console.log('HEART APPEARS');
         heartHero()
-    }, 5000)
+    }, 3000)
     coinappears = setInterval(()=> {
         coinAppears()
-    }, 9000)
+    }, 5000)
     if(get(gunHero) === false ){
         gunappears = setInterval(() => {
            gunAppears() 

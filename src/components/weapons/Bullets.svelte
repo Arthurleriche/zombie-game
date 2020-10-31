@@ -1,5 +1,8 @@
 <script>
   export let bullet;
+  // import {direction} from '../../stores/StoreCharacters'
+  import { classProp } from '../../stores/StoreWeapon';
+
 </script>
 
 <style>
@@ -28,4 +31,4 @@
   }
 </style>
 
-<img src="./img/bullet.svg" alt="" class="bullet" style="left:{bullet.x}px; top:{bullet.y}px" />
+<img src="./img/bullet.svg" alt="" class="bullet {$classProp}" style="left:{bullet.x}px; top:{bullet.y}px" />
