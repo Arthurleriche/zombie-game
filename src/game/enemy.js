@@ -37,7 +37,6 @@ const generateEnemy = () => {
 
 
 export const createEnemy = () => {  
-        console.log('BONJOUUUR');
         generateenemy = setInterval(generateEnemy, 4000)
 }
 

@@ -1,18 +1,17 @@
 <script>
-import Accueil from "./Accueil.svelte";
-import {startGame, stopGame} from '../game/gameloop.js'
+import {startGame} from '../game/gameloop.js'
 import {gameOver} from '../stores/Store.js'
-import { createEnemy, stopCreatingEnemy } from "../game/enemy";
+import { createEnemy} from "../game/enemy";
+import {isPlaying} from '../stores/Store'
 
 function handleRetry() {
-    console.log('RETRY')
-    stopGame()
     startGame() 
     createEnemy()
     $gameOver = false
     document.getElementById('energy1').style.width = '100%'
     document.getElementById('energy2').style.width = '100%'
     document.getElementById('energy3').style.width = '100%'
+    isPlaying.update(a => true)
 }
 </script>
 
@@ -23,12 +22,9 @@ function handleRetry() {
 </div>
 
 
-
-
 <style>
     .gameover{
         position:absolute;
-        /* width:100%; */
         top:50%;
         left:50%; 
         transform: translate(-50%, -50%);

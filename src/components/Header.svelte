@@ -1,7 +1,10 @@
 <script>
   import { sound } from '../stores/StoreOption.js';
-  import { newGame} from '../stores/Store';
-  import {stopGame} from '../game/gameloop'
+  import {gameOver, i, newGame} from '../stores/Store';
+  import {isPlaying} from '../stores/Store'
+  import { stopCreatingEnemy } from '../game/enemy.js';
+  import {earnedCoins, enemyList, lifeList} from '../stores/StoreCharacters'
+  import { stopBoost } from '../game/bonus.js';
 
   let src = './img/mute.svg';
 
@@ -17,11 +20,25 @@
     $sound = !$sound;
   }
 
-
   function handleClick() {
     $newGame = false 
-    stopGame()
-    
+    isPlaying.update(a => false )
+    stopBoost()
+    stopCreatingEnemy()
+    lifeList.update(a => [
+    {life: 100, id : 1, pv:100},
+    {life: 100, id : 2, pv: 100},
+    {life: 100, id : 3, pv:100}
+    ])
+    i.update(a => 1)
+    earnedCoins.update(a => 0)
+    enemyList.update(a => [{
+      top: -30, 
+      left: 400,
+      id: 1, 
+      damage: 10
+    }])
+  
   }
 </script>
 

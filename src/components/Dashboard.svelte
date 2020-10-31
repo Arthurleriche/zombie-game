@@ -42,17 +42,9 @@
 </div>
 
 <style>
-
     .dashcoin{
-        /* right:33px; 
-        bottom: 18px;  */
         width:1.5rem;
         height:1.5rem; 
-    }
-    .coinsearned{
-        /* right:18px; 
-        bottom:18px;  */
-
     }
     .dashboard{
         width:180px;  
@@ -61,26 +53,21 @@
         width:25px; 
         height:10px; 
     }
-
     #energy1{
         /* border:3px solid black;  */
         width:100%; 
         height:100%; 
         background-color: rgb(109, 184, 109); 
     }
-
     #energy2{
         width:100%; 
         height:100%; 
         background-color: rgb(109, 184, 109); 
-
     }
-
     #energy3{
         width:100%; 
         height:100%; 
         background-color: rgb(109, 184, 109);
-
     }
 
 

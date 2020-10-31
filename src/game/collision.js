@@ -4,12 +4,7 @@ import { enemyList } from '../stores/StoreCharacters'
 import {sabreX, sabreY} from '../stores/StoreWeapon'
 import {weaponActive} from '../stores/StoreWeapon'
 import {boostY, boostX, boostOnMap, heartY, heartX, heartOnMap, coinX, coinY, coinOnMap} from '../stores/StoreBonus'
-import {gameOver} from '../stores/Store'
-import { isPlaying } from '../stores/Store.js';
-import {stopBoost } from './bonus.js';
-import {heroHurted} from './dashboard';
-import {lifeList} from '../stores/StoreCharacters'
-import { stopGame } from './gameloop'
+import { heroHurted} from './dashboard';
 
 const scream = ["./resources/goblin_1.wav", "./resources/goblin_2.wav", "./resources/goblin_3.wav"]
 let newlist 
@@ -43,15 +38,7 @@ export const checkCollision = () => {
 
 const audio = new Audio('./resources/wilhelm.wav')
 
-export const isDead = () => {
-    if(get(gameOver)){
-        // audio.play()
-        lifeList.update(a => a.filter(b => b.pv > 0))
-        // stopGame - we put these there in order to avoid circular dependencies between collision.js & gameloop.js 
-        stopGame()
-        // pv.update(a => 100)
-    }
-}
+
 
 export const checkCollisionWeapon = () => {
     get(enemyList).forEach(enemy => {     
@@ -70,7 +57,7 @@ export const checkCollisionBooste = () => {
        }, 5000)
     }
     if(distance(get(x),get(y), get(heartX), get(heartY)) < 45 && get(heartOnMap)){
-        pv.update(a => 100)
+        // heroHeal()
         heartOnMap.update(a => false)
      }
 }

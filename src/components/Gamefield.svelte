@@ -4,7 +4,6 @@
   import GameOver from './Gameover.svelte'
   import {gameOver} from '../stores/Store'
   import Dashboard from './Dashboard.svelte'
-  console.log('gameOver from gamefield : ' + $gameOver);
   playerAmbiance();
   createEnemy();
   startGame();
