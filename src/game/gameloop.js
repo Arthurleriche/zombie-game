@@ -1,6 +1,6 @@
 import { isPlaying } from '../stores/Store.js';
 import {moveHero} from './hero.js'
-import { moveEnemy } from './enemy.js'
+import { createEnemy, moveEnemy, stopCreatingEnemy } from './enemy.js'
 import {checkCollision, checkCollisionWeapon, checkCollisionBooste, isDead, checkCollisionCoin} from './collision.js'
 import { updateWeapon } from './weapon.js'
 import { get } from 'svelte/store';
@@ -14,10 +14,8 @@ function startLoop(steps) {
           if (typeof step === 'function') step();
         });
         if(get(isPlaying)) startLoop(steps);
-        console.log('GAME TURNS');
+        // console.log('GAME TURNS');
       });
-
-
   }
 
   export const playerAmbiance = () => {
@@ -25,12 +23,8 @@ function startLoop(steps) {
     audio.play()
   }
 
-  // export const playerPopsmoke = () => {
-  //   const audio2 = new Audio("./audio/laylow.mp3")
-  //   audio2.play()
-  // }
-
-  export const startGame = () => {   
+  export const startGame = () => {  
+    // createEnemy()  
     isPlaying.update(a => true)
     x.update(a => 50)
     y.update(a => 50)
@@ -48,9 +42,11 @@ function startLoop(steps) {
   export const stopGame = () => {
     isPlaying.update(a => false)
     stopBoost(); 
+    stopCreatingEnemy(); 
+    enemyList.update(a => [])
   }
 
-  
+
 
 
 

@@ -1,6 +1,4 @@
 import { get} from 'svelte/store'
-// import {stopGame} from './gameloop'
-
 import { speed, x, y, lastTouch, pv, earnedCoins } from '../stores/StoreCharacters'
 import { enemyList } from '../stores/StoreCharacters'
 import {sabreX, sabreY} from '../stores/StoreWeapon'
@@ -9,6 +7,9 @@ import {boostY, boostX, boostOnMap, heartY, heartX, heartOnMap, coinX, coinY, co
 import {gameOver} from '../stores/Store'
 import { isPlaying } from '../stores/Store.js';
 import {stopBoost } from './bonus.js';
+import {heroHurted} from './dashboard';
+import {lifeList} from '../stores/StoreCharacters'
+import { stopGame } from './gameloop'
 
 const scream = ["./resources/goblin_1.wav", "./resources/goblin_2.wav", "./resources/goblin_3.wav"]
 let newlist 
@@ -23,8 +24,8 @@ export const checkCollision = () => {
             enemy.collision = true      
             if (enemy.collision && Date.now() - get(lastTouch) > 1000){
                 lastTouch.update(a => Date.now())
-                pv.update(a => a - enemy.damage)
-                console.log(get(pv))
+                // pv.update(a => a - enemy.damage)
+                heroHurted(enemy.damage + 10)
             }
         } else {
             enemy.collision = false
@@ -43,18 +44,12 @@ export const checkCollision = () => {
 const audio = new Audio('./resources/wilhelm.wav')
 
 export const isDead = () => {
-    if(get(pv) <= 0){
-        audio.play()
-        
-        // stopGame 
-        console.log('STOP GAMEZZ');
-        stopBoost()
-        isPlaying.update(a => false)
-
-        gameOver.update (a => true) 
-        console.log('GAMEOVER:  ' + get(gameOver)); 
-        pv.update(a => 100)
-
+    if(get(gameOver)){
+        // audio.play()
+        lifeList.update(a => a.filter(b => b.pv > 0))
+        // stopGame - we put these there in order to avoid circular dependencies between collision.js & gameloop.js 
+        stopGame()
+        // pv.update(a => 100)
     }
 }
 

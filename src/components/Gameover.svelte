@@ -1,12 +1,18 @@
 <script>
 import Accueil from "./Accueil.svelte";
-import {startGame} from '../game/gameloop.js'
+import {startGame, stopGame} from '../game/gameloop.js'
 import {gameOver} from '../stores/Store.js'
+import { createEnemy, stopCreatingEnemy } from "../game/enemy";
 
 function handleRetry() {
     console.log('RETRY')
+    stopGame()
     startGame() 
+    createEnemy()
     $gameOver = false
+    document.getElementById('energy1').style.width = '100%'
+    document.getElementById('energy2').style.width = '100%'
+    document.getElementById('energy3').style.width = '100%'
 }
 </script>
 

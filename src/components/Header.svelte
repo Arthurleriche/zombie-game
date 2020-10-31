@@ -21,6 +21,7 @@
   function handleClick() {
     $newGame = false 
     stopGame()
+    
   }
 </script>
 

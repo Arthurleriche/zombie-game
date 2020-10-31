@@ -1,9 +1,9 @@
 <script>
   import { createEnemy } from '../game/enemy';
-  import { boost } from '../game/bonus';
   import { startGame, playerAmbiance } from '../game/gameloop';
   import GameOver from './Gameover.svelte'
   import {gameOver} from '../stores/Store'
+  import Dashboard from './Dashboard.svelte'
   console.log('gameOver from gamefield : ' + $gameOver);
   playerAmbiance();
   createEnemy();
@@ -33,6 +33,7 @@
 <div>
   <div class="gamefield m-auto" style="background-image: url('./resources/background_1.png')">
     <slot />
+    <Dashboard/>
     <p class=" controls text-lg text-red-600">
       Touches directionnelles = mouvement, espace = weapon
     </p>
