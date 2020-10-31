@@ -23,6 +23,7 @@ document.addEventListener('keyup', (event) => {
         }
         sabreActive.update(a=>true)
     }
+
     setTimeout(() => {
         sabreActive.update(a=>false)
     }, 300)
@@ -34,6 +35,8 @@ document.addEventListener('keyup', (event) => {
         chooseWeapon.update(a => weapon[index])
         index++        
     }
+
+    
 })
 
 export const chooseWeaponFct = () => {

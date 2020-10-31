@@ -82,14 +82,6 @@
     
   }
 
-  /* .step-down2{
-    position: absolute;
-    left: 250px;
-    animation: moove 0.25s steps(3) infinite;
-    top: 0px;
-
-  } */
-
   .step-up2{
     position: absolute;
     left: 0px; 
