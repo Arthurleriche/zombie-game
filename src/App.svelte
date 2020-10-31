@@ -18,6 +18,7 @@
     gunY,
     chooseWeapon,
     bullets,
+    machineGunActive,
   } from './stores/StoreWeapon';
   // -----------------------------------------------------------
   import Accueil from './components/Accueil.svelte';
@@ -32,6 +33,7 @@
   import Debug from './components/Debug.svelte';
   import Gun from './components/boosts/Gun.svelte';
   import GunShot from './components/weapons/GunShot.svelte';
+  import MachineGun from './components/weapons/MachineGun.svelte';
   import Bullets from './components/weapons/Bullets.svelte';
 
   let dev = process.env.isDev;
@@ -70,6 +72,9 @@
       {/if}
       {#if $gunActive}
         <GunShot gunX={$gunX} gunY={$gunY} />
+      {/if}
+      {#if $machineGunActive}
+        <MachineGun gunX={$gunX} gunY={$gunY} />
       {/if}
       {#each $bullets as bullet}
         <Bullets {bullet} />
