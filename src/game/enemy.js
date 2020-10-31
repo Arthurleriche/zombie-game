@@ -1,5 +1,5 @@
 import { get } from 'svelte/store'
-
+import { sound } from '../stores/Store'
 import {enemyList} from '../stores/StoreCharacters'
 import {y, x} from '../stores/StoreCharacters'
 
@@ -29,8 +29,7 @@ const generateEnemy = () => {
         damage: 10
 
     }])
-    const audio = new Audio('./resources/ghost.wav')
-    audio.play()
+    
 }
 
 
