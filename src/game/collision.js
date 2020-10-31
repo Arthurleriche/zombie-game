@@ -5,7 +5,7 @@ import { enemyList } from '../stores/StoreCharacters'
 import {sabreX, sabreY, bullets, gunBullet} from '../stores/StoreWeapon'
 import {sabreActive} from '../stores/StoreWeapon'
 import {boostY, boostX, boostOnMap, heartY, heartX, heartOnMap, coinX, coinY, coinOnMap, gunBonusY, gunBonusX, gunOnMap} from '../stores/StoreBonus'
-import {gameOver, sound} from '../stores/Store'
+import {gameOver, level, sound} from '../stores/Store'
 import {soundOn} from './option'
 import { heroHeal, heroHurted } from './dashboard'
 import {kills} from '../stores/Store'
@@ -57,12 +57,21 @@ export const checkCollisionWeapon = () => {
         if(distance(enemy.left,enemy.top, get(sabreX), get(sabreY)) < 45){
             deleteEnemy(enemy.id)
             kills.update(a => a + 1)
+            if(get(kills) === 3){
+                kills.update(a => 0)
+                level.update(a => 2)
+            }
         }
     })
     get(bullets).forEach(bullet => {
         get(enemyList).forEach(enemy => {     
             if(distance(enemy.left,enemy.top, bullet.x, bullet.y) < 30){
                 deleteEnemy(enemy.id)
+                kills.update(a => a + 1)
+            if(get(kills) === 3){
+                kills.update(a => 0)
+                level.update(a => 2)
+            }
                 deleteBullet(bullet.id)
             }
         })

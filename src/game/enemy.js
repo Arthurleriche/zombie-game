@@ -7,6 +7,7 @@ import {level} from '../stores/Store'
 let enemyId = 1
 let generateenemy
 let direction = "down"
+let speed = 1
 
 
 const generateId = () => {
@@ -53,10 +54,10 @@ const directionEnemyX = (enemy, hero) => {
     if(get(level)===1){
         if(enemy > hero + 25){
             direction = "step-left"
-            return enemy - 0.5
+            return enemy - speed
         } else {
             direction = "step-right"
-            return enemy + 0.5
+            return enemy + speed
         }
 
 
@@ -64,33 +65,37 @@ const directionEnemyX = (enemy, hero) => {
         switch(true){
             case enemy > hero + 10:
                 direction = "step-left2";
-                return enemy - 0.5; // PAS à accélerer pour Alien 2 
+                return enemy - speed; // PAS à accélerer pour Alien 2 
             case enemy <= hero + 10:
                 direction = "step-right2";
-                return enemy + 0.5;
+                return enemy + speed;
         }
     }
 }   
 
 
+
 const directionEnemyY = (enemyY, hero, enemyX) => {
     if(get(level)===1){
+        
         if(enemyY > hero ){
+            speed = 1
             direction = "step-up"
-            return enemyY - 0.5
+            return enemyY - speed
         } else {
             direction = "step-down"
-            return enemyY + 0.5
+            return enemyY + speed
         }
 
 
     } else if (get(level) === 2){
+        speed = 1.5
         if(enemyY > hero ){
             direction = "step-up2"
-            return enemyY - 0.5
+            return enemyY - speed
         } else {
             direction = "step-down2"
-            return enemyY + 0.5
+            return enemyY + speed
         }
     }
         
