@@ -11,21 +11,21 @@
         <div class="h-12 w-12 bg-red-500 sq{life.id}">BJ</div>
     {/each} -->
 
-        <div class="flex flex-col">
+        <div id="keur1" class="flex flex-col">
             <img src="./resources/heart2.png" alt="" class="heart2 h-4 w-4 m-auto coeur">
             <div id ="bar" class="bar h-4 w-12 border border-white ">
                 <div  id="energy1"></div>
             </div>
         </div>
 
-        <div class="flex flex-col">
+        <div id="keur2" class="flex flex-col">
             <img src="./resources/heart2.png" alt="" class="heart2 h-4 w-4 m-auto coeur">
             <div id ="bar" class="bar h-4 w-12 border border-white ">
                 <div  id="energy2"></div>
             </div>
         </div>
 
-        <div class="flex flex-col">
+        <div id="keur3"  class="flex flex-col">
             <img src="./resources/heart2.png" alt="" class="heart2 h-4 w-4 m-auto coeur">
             <div id ="bar" class="bar h-4 w-12 border border-white ">
                 <div  id="energy3"></div>
