@@ -47,7 +47,7 @@
         height:1.5rem; 
     }
     .dashboard{
-        width:180px;  
+        width:280px;  
     }
     #bar{
         width:25px; 

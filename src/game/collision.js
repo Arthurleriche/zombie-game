@@ -7,6 +7,7 @@ import {weaponActive} from '../stores/StoreWeapon'
 import {boostY, boostX, boostOnMap, heartY, heartX, heartOnMap, coinX, coinY, coinOnMap} from '../stores/StoreBonus'
 import {gameOver, sound} from '../stores/Store'
 import {soundOn} from './option'
+import { heroHeal, heroHurted } from './dashboard'
 
 const scream = ["./resources/goblin_1.wav", "./resources/goblin_2.wav", "./resources/goblin_3.wav"]
 let newlist 
@@ -23,8 +24,9 @@ export const checkCollision = () => {
             enemy.collision = true      
             if (enemy.collision && Date.now() - get(lastTouch) > 1000){
                 lastTouch.update(a => Date.now())
-                pv.update(a => a - enemy.damage)
-                console.log(get(pv))
+                // pv.update(a => a - enemy.damage)
+                // console.log(get(pv))
+                heroHurted(enemy.damage); 
             }
         } else {
             enemy.collision = false
@@ -34,7 +36,7 @@ export const checkCollision = () => {
     newlist = get(enemyList).filter(enemy => enemy.collision === true)
     if(newlist.length > 0){
         document.querySelector('.hero').style.backgroundColor= 'rgba(219, 33, 33,0.5)'
-    } else if(newlist.length === 0 ){
+    } else if(newlist.length === 0 &&  document.querySelector('.hero').style.backgroundColor !== null ){
         document.querySelector('.hero').style.backgroundColor= ''
     }
 
@@ -59,7 +61,7 @@ export const checkCollisionBooste = () => {
        }, 5000)
     }
     if(distance(get(x),get(y), get(heartX), get(heartY)) < 45 && get(heartOnMap)){
-        // heroHeal()
+        heroHeal()
         heartOnMap.update(a => false)
      }
 }
