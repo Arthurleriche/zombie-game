@@ -19,6 +19,8 @@ export const distance = (x1, y1, x2, y2) => {
 
 
 export const checkCollision = () => {
+
+    // ______ LEVEL 1 
    get(enemyList).forEach(enemy => {     
         if(distance(enemy.left,enemy.top, get(x), get(y)) < 40){      
             enemy.collision = true      
@@ -31,6 +33,12 @@ export const checkCollision = () => {
         } else {
             enemy.collision = false
         }
+    // ______ LEVEL 2
+    // ....... 
+    // ....... 
+    // ....... 
+    // ....... 
+
    })
 
     newlist = get(enemyList).filter(enemy => enemy.collision === true)

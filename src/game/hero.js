@@ -46,7 +46,7 @@ document.addEventListener('keyup', (event) => {
 export const moveHero = () => {
     switch(true){
         case up && leftc:
-            if(get(x) === 45 || get(y) < 19){
+            if(get(x) <= 45 || get(y) < 19){
             direction.update(a => "up")
             break
             } else {
@@ -76,7 +76,7 @@ export const moveHero = () => {
             }
             break
         case down && right:
-            if(get(x) === 800 || get(y) >= 510){
+            if(get(x) >= 800 || get(y) >= 510){
             direction.update(a => "right")
             break
             } else {
@@ -97,9 +97,9 @@ export const moveHero = () => {
             break
            
             case leftc: 
-            if(get(x) === 45 * get(speed)){
+            if(get(x) <= 50 ){
                 direction.update(a => "left")
-            break
+                break
             } else {
                 x.update(a => a - 1 * get(speed))
                 direction.update(a => "step-left")
@@ -115,7 +115,7 @@ export const moveHero = () => {
                 break 
             }
             case right: 
-            if(get(x) === 800){
+            if(get(x) >= 800){
                 direction.update(a => "right")
                 break
             } else {
