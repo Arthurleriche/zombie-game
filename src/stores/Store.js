@@ -14,6 +14,7 @@ export const i = writable(1)
 
 
 export const level = writable(1);
+export const kills = writable(0);
 
 
 

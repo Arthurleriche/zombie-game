@@ -120,11 +120,16 @@ export const updateWeapon = () => {
                 classProp.update(a => 'right')
                 break             
         }
+    } else { 
+        sabreY.update(a => null)
+        sabreX.update( a => null)
+
     }
 }
 
   
 export const updateGun = () => {   
+    
         switch (get(direction)){
             case "down":
                 gunY.update(a => get(y) + 45)

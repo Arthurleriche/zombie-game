@@ -39,7 +39,7 @@ const generateEnemy = () => {
 
 export const createEnemy = () => {  
     // if(get(level) === 1 ){
-        generateenemy = setInterval(generateEnemy, 4000)
+        generateenemy = setInterval(generateEnemy, 3000)
     // }
 }
 

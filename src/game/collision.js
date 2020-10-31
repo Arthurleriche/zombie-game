@@ -8,6 +8,7 @@ import {boostY, boostX, boostOnMap, heartY, heartX, heartOnMap, coinX, coinY, co
 import {gameOver, sound} from '../stores/Store'
 import {soundOn} from './option'
 import { heroHeal, heroHurted } from './dashboard'
+import {kills} from '../stores/Store'
 
 const scream = ["./resources/goblin_1.wav", "./resources/goblin_2.wav", "./resources/goblin_3.wav"]
 let newlist 
@@ -55,6 +56,7 @@ export const checkCollisionWeapon = () => {
     get(enemyList).forEach(enemy => {     
         if(distance(enemy.left,enemy.top, get(sabreX), get(sabreY)) < 45){
             deleteEnemy(enemy.id)
+            kills.update(a => a + 1)
         }
     })
     get(bullets).forEach(bullet => {
