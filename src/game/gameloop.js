@@ -2,7 +2,7 @@ import { isPlaying } from '../stores/Store.js';
 import {moveHero} from './hero.js'
 import { moveEnemy, stopCreatingEnemy } from './enemy.js'
 import {checkCollision, checkCollisionWeapon, checkCollisionBooste, isDead, checkCollisionCoin} from './collision.js'
-import { updateWeapon, updateGun, chooseWeaponFct, moveBullet } from './weapon.js'
+import { updateWeapon, updateGun, chooseWeaponFct, moveBullet, machineGun } from './weapon.js'
 import { get } from 'svelte/store';
 import { boost, stopBoost } from './bonus.js';
 import{earnedCoins, enemyList, x,y} from '../stores/StoreCharacters';
@@ -33,8 +33,8 @@ function startLoop(steps) {
       damage: 10
   }])
     boost() 
-    startLoop([moveHero, moveEnemy, checkCollision,moveBullet, checkCollisionWeapon, chooseWeaponFct,  updateWeapon, updateGun, checkCollisionBooste,checkCollisionCoin, stopGame]);
-  };
+    startLoop([moveHero, moveEnemy, checkCollision, machineGun, moveBullet, checkCollisionWeapon, chooseWeaponFct,  updateWeapon, updateGun, checkCollisionBooste,checkCollisionCoin, stopGame]);
+  }
 
   export const stopGame = () => {
     if(get(gameOver)){
