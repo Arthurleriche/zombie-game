@@ -7,6 +7,6 @@ export const soundOn = (son) => {
     if(get(sound)){
         const audio = new Audio(son)
         audio.play()
-        console.log('activate')
+        
     }  
 }

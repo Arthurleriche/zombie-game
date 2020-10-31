@@ -13,7 +13,7 @@ export const backToMenu = writable(false)
 export const i = writable(1)
 
 
-export const level = writable(2);
+export const level = writable(1);
 
 
 

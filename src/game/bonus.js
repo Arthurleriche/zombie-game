@@ -1,4 +1,7 @@
-import {boostY, boostX, boostOnMap, heartX, heartY,  heartOnMap, coinOnMap, coinX, coinY} from '../stores/StoreBonus'
+import { get } from 'svelte/store'
+import {boostY, boostX, boostOnMap, heartX, heartY,  heartOnMap, coinOnMap, coinX, coinY, gunOnMap} from '../stores/StoreBonus'
+import {gunHero} from '../stores/StoreWeapon'
+import { gunBonusX, gunBonusY} from '../stores/StoreBonus'
 
 const random = (num) => {
     let randomNum 
@@ -21,9 +24,9 @@ const heartHero = () => {
     heartY.update(a => random(400) +50 )
     setTimeout(() => {
         heartOnMap.update(a => false)
-    },4000)
-    console.log('HEART APPEARS')
+    })
 }
+
 
 const coinAppears = () => {
     coinOnMap.update(a => true)
@@ -32,12 +35,23 @@ const coinAppears = () => {
     setTimeout(() => {
         coinOnMap.update(a => false)
     }, 8000)
-    console.log('COIN APPEARS');
+
+}
+
+const gunAppears = () => {
+    gunOnMap.update(a => true)
+    gunBonusX.update(a => random(500))
+    gunBonusY.update(a => random(500))
+    setTimeout(() => {
+        gunOnMap.update(a => false)
+    }, 7000)
+    
 }
 
 let boosthero
 let hearthero
 let coinappears
+let gunappears
 export const boost = () => {
     console.log('BOOST ON')
     boosthero = setInterval(() => {
@@ -49,8 +63,11 @@ export const boost = () => {
     coinappears = setInterval(()=> {
         coinAppears()
     }, 9000)
-    console.log('BOOST APPEARS');
-    
+    if(get(gunHero) === false ){
+        gunappears = setInterval(() => {
+           gunAppears() 
+        }, 25000)
+    }
 }
 
 export const stopBoost = () => {
@@ -58,4 +75,5 @@ export const stopBoost = () => {
     clearInterval(boosthero)
     clearInterval(hearthero)
     clearInterval(coinappears)
+    clearInterval(gunappears)
 }

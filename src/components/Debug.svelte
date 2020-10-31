@@ -2,6 +2,16 @@
   import { enemyList } from '../stores/StoreCharacters.js';
   import { x, y, pv, earnedCoins } from '../stores/StoreCharacters.js';
   import { distance } from '../game/collision.js';
+  import {level} from '../stores/Store'
+
+  const handleLevel = () => {
+    console.log('OUAIS OUAIS ' + $level)
+    if($level === 1){
+      $level = 2
+    } else {
+      $level = 1
+    }
+  }
 </script>
 
 <style>
@@ -65,5 +75,9 @@
     <div class="coord border border-white">Y: {$y}</div>
     <div class="coord border border-white">PV: {$pv}</div>
     <div class="coord border border-white">$ : {$earnedCoins}</div>
+    <button class="coord border border-blue-600 rounded-lg  m-2  level   " on:click={handleLevel}>Level : {$level}</button>
+
   </div>
+
+  
 </div>
