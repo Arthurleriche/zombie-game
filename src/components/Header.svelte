@@ -1,7 +1,5 @@
 <script>
-  import { sound } from '../stores/Store.js';
-
-  import { gameOver, i, newGame } from '../stores/Store';
+  import { gameOver, i, newGame, sound } from '../stores/Store';
   import { isPlaying } from '../stores/Store';
   import { stopCreatingEnemy } from '../game/enemy.js';
   import { earnedCoins, enemyList, lifeList } from '../stores/StoreCharacters';
@@ -11,18 +9,15 @@
 
   function handleAudio() {
     var Player = document.getElementById('player');
-    if ($sound == true) {
+    if ($sound == false) {
       Player.play();
       src = './img/volume.svg';
+      $sound = true;
     } else {
       Player.pause();
       src = './img/mute.svg';
+      $sound = false;
     }
-    $sound = !$sound;
-  }
-
-  function handleClick() {
-    $newGame = false;
   }
 
   function handleClick() {
