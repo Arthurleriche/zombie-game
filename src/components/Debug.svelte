@@ -10,7 +10,7 @@
     if ($level === 1) {
       $level = 2;
     } else {
-      $level = 1;
+      $level = 3;
     }
   };
 </script>

@@ -34,12 +34,6 @@ export const checkCollision = () => {
         } else {
             enemy.collision = false
         }
-    // ______ LEVEL 2
-    // ....... 
-    // ....... 
-    // ....... 
-    // ....... 
-
    })
 
     newlist = get(enemyList).filter(enemy => enemy.collision === true)
@@ -51,27 +45,44 @@ export const checkCollision = () => {
 
 }
 
+const killsLevelUp = () => {
+    kills.update(a => a + 1)
+    switch (get(level)){
+        case 1: 
+        console.log('BIENVENU AU NIVEAU 1')
+        if(get(kills) === 5){
+            kills.update(a => 0)
+            level.update(a => a + 1)
+        }
+        break; 
+
+        case 2:
+        console.log('BIENVENU AU NIVEAU 2 ')
+        if(get(kills) === 5){
+            kills.update(a => 0)
+            level.update(a => a + 1)
+        }
+        break; 
+
+        case 3: 
+        console.log('BIENVENU AU NIVEAU 3')
+        break; 
+    }
+}
+
 
 export const checkCollisionWeapon = () => {
     get(enemyList).forEach(enemy => {     
         if(distance(enemy.left,enemy.top, get(sabreX), get(sabreY)) < 45){
             deleteEnemy(enemy.id)
-            kills.update(a => a + 1)
-            if(get(kills) === 3){
-                kills.update(a => 0)
-                level.update(a => 2)
-            }
+            killsLevelUp(); 
         }
     })
     get(bullets).forEach(bullet => {
         get(enemyList).forEach(enemy => {     
             if(distance(enemy.left,enemy.top, bullet.x, bullet.y) < 30){
                 deleteEnemy(enemy.id)
-                kills.update(a => a + 1)
-            if(get(kills) === 3){
-                kills.update(a => 0)
-                level.update(a => 2)
-            }
+                killsLevelUp(); 
                 deleteBullet(bullet.id)
             }
         })
