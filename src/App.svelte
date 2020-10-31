@@ -66,7 +66,7 @@
       {#if $gunOnMap}
         <Gun />
       {/if}
-      {#if $sabreActive && $chooseWeapon === 'sabre'}
+      {#if $sabreActive}
         <Sabre sabreX={$sabreX} sabreY={$sabreY} />
         <!-- <Gun gunX={$gunX} gunY={$gunY} /> -->
       {/if}

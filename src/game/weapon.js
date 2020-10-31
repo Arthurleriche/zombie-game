@@ -26,7 +26,7 @@ document.addEventListener('keyup', (event) => {
             lastShot = Date.now()
             gunBullet.update(a => a - 1)
         }
-        if(get(chooseWeapon === "sabre")){
+        if(get(chooseWeapon) === "sabre"){
             sabreActive.update(a=>true)
             setTimeout(() => {
                 sabreActive.update(a=>false)
