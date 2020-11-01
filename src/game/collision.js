@@ -94,10 +94,10 @@ export const checkCollisionWeapon = () => {
 
 export const checkCollisionBooste = () => {
     if(distance(get(x),get(y), get(boostX), get(boostY)) < 45 && get(boostOnMap)){
-       speed.update(a => 2)
+       speed.update(a => a + 2)
        boostOnMap.update(a => false)
        setTimeout(() => {
-           speed.update(a => 1)
+           speed.update(a => 4)
        }, 5000)
     }
     if(distance(get(x),get(y), get(heartX), get(heartY)) < 45 && get(heartOnMap)){

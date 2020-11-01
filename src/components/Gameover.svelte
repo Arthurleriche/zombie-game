@@ -4,6 +4,7 @@ import {gameOver, kills, level} from '../stores/Store.js'
 import { createEnemy} from "../game/enemy";
 import {isPlaying} from '../stores/Store'
 import { speed } from '../stores/StoreCharacters.js';
+import { gunBullet } from '../stores/StoreWeapon.js';
 
 function handleRetry() {
     startGame() 
@@ -18,6 +19,7 @@ function handleRetry() {
     level.update(a => 1)
     kills.update(a=>0)
     speed.update(a => 4)
+    gunBullet.update(a => 10)
 }
 </script>
 

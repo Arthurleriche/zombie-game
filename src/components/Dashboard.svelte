@@ -1,5 +1,6 @@
 <script>
     import {lifeList, earnedCoins} from '../stores/StoreCharacters'
+    import {gunBullet} from '../stores/StoreWeapon'
     console.log('DASH SVELTE');
     console.log($lifeList)
     import {level} from '../stores/Store'
@@ -33,8 +34,11 @@
     </div>
 
     <div class="level mt-2 pl-4 text-yellow-500 font-bold">Lv.{$level}</div>
-    <div class="kills text-white font-bold absolute ">K : {$kills} </div>
-    <div class="munitions text-white font-bold  absolute  ">M : </div>
+    <div class="wrapper flex flex-col space-y-2">
+        <div class="kills text-white font-bold absolute ml-4 flex"><img class="h-8 w-8" src="./resources/kills.png" alt="" /> <p class="ml-2 mt-1">{$kills}</p> </div>
+        <div class="munitions text-white font-bold  absolute mt-2 flex ml-4 "> <img class="h-6 w-8" src="./resources/munitions.png" alt="" /> <p class="ml-2 mt-1">{$gunBullet}</p></div>
+    </div>
+
 </div>
 
 <style>
@@ -44,7 +48,7 @@
     }
     .dashboard{
         width:250px; 
-        height:100px; 
+        height:120px; 
     }
     .kills{
         bottom:30%;

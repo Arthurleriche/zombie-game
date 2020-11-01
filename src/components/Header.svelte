@@ -4,6 +4,7 @@
   import { stopCreatingEnemy } from '../game/enemy.js';
   import { earnedCoins, enemyList, lifeList, speed } from '../stores/StoreCharacters';
   import { stopBoost } from '../game/bonus.js';
+import { gunBullet } from '../stores/StoreWeapon';
 
 
   let src = './img/mute.svg';
@@ -25,6 +26,7 @@
     level.update(a => 1)
     kills.update(a=>0)
     speed.update(a => 4)
+    gunBullet.update(a => 10)
 
     $newGame = false;
     isPlaying.update(a => false);

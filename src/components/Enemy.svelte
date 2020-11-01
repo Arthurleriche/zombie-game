@@ -8,6 +8,7 @@
 <style>
   .enemy {
     position: absolute;
+    z-index:30; 
   }
   .alien1 {
     width: 50px;
