@@ -39,7 +39,7 @@ function startLoop(steps) {
   export const stopGame = () => {
     if(get(gameOver)){
       isPlaying.update(a => false)
-      earnedCoins.update(a => 0)
+      // earnedCoins.update(a => 0)
       stopBoost(); 
       stopCreatingEnemy(); 
       enemyList.update(a => [])

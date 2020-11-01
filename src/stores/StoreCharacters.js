@@ -19,7 +19,7 @@ export const enemyList = writable([{
     top: -30, 
     left: 400,
     id: 1, 
-    damage: 10
+    damage: 20
 }])
 
 
@@ -31,4 +31,6 @@ export const enemyList2  = writable([{
     id:1, 
     damage:20
 }])
+
+
 

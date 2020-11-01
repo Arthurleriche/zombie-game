@@ -6,9 +6,7 @@ import {i} from '../stores/Store'
 
 
 export const heroHurted = (damage) => {
-    
     get(lifeList).forEach( keur => {
-        
         if(get(i) === 1 && keur.id === 1){
             keur.pv -= damage
             document.getElementById('energy1').style.width = keur.pv +'%' 
@@ -22,9 +20,7 @@ export const heroHurted = (damage) => {
             if(keur.pv <= 10){
                 i.update(a => 3)
                 document.getElementById('keur2').style.opacity = '0.5' 
-
             }
-            console.log('KEUR 2 PV :' + keur.pv)
         } else if (get(i) ===3 && keur.id === 3){
             keur.pv -= damage
             document.getElementById('energy3').style.width = keur.pv +'%' 
@@ -46,7 +42,6 @@ export const heroHurted = (damage) => {
 
 
 export const heroHeal = () => {
-
     get(lifeList).forEach (keur => {
         if(get(i) === 1 && keur.id === 1 ){
             keur.pv += 10

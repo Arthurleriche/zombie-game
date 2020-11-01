@@ -120,9 +120,6 @@ const directionEnemyY = (enemyY, hero, enemyX, speedY) => {
 }   
 
 export const moveEnemy = () => {
-    // console.log(document.getElementById('alien2'))
-    // console.log(get(enemyList))
-
     //_______LEVEL 1 
     if(get(level)===1){
         if(get(enemyList).length >= 1){
@@ -136,7 +133,6 @@ export const moveEnemy = () => {
             );
         }
     }
-
     //_______LEVEL 2 
     if(get(level)===2){
         if(get(enemyList).length >= 1){
@@ -150,7 +146,6 @@ export const moveEnemy = () => {
             );
         }
     }
-
     //_______LEVEL 3 
     if(get(level)===3){
         if(get(enemyList).length >= 1){

@@ -19,8 +19,9 @@ export const distance = (x1, y1, x2, y2) => {
 
 
 export const checkCollision = () => {
-   get(enemyList).forEach(enemy => {     
-        if(distance(enemy.left,enemy.top, get(x), get(y)) < 40){      
+   get(enemyList).forEach(enemy => {  
+       enemy.damage =20    
+        if(distance(enemy.left,enemy.top, get(x), get(y)) < 45){      
             enemy.collision = true      
             if (enemy.collision && Date.now() - get(lastTouch) > 1000){
                 lastTouch.update(a => Date.now())
@@ -31,9 +32,9 @@ export const checkCollision = () => {
         }
         //LEVEL DAMAGE 
         if(get(level) === 2){
-            enemy.damage = 20
-        } else if (get(level)===3){
             enemy.damage = 30
+        } else if (get(level)===3){
+            enemy.damage = 40
         }
    })
     newlist = get(enemyList).filter(enemy => enemy.collision === true)
@@ -51,15 +52,15 @@ const killsLevelUp = () => {
         case 1: 
         console.log('BIENVENU AU NIVEAU 1')
         if(get(kills) === 5){
-            kills.update(a => 0)
+            // kills.update(a => 0)
             level.update(a => a + 1)
         }
         break; 
 
         case 2:
         console.log('BIENVENU AU NIVEAU 2 ')
-        if(get(kills) === 5){
-            kills.update(a => 0)
+        if(get(kills) === 10){
+            // kills.update(a => 0)
             level.update(a => a + 1)
         }
         break; 
