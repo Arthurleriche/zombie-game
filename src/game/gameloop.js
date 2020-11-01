@@ -33,7 +33,7 @@ function startLoop(steps) {
       damage: 10
   }])
     boost() 
-    startLoop([moveHero, moveEnemy, checkCollision, machineGun, moveBullet, checkCollisionWeapon, chooseWeaponFct,  updateWeapon, updateGun, checkCollisionBooste,checkCollisionCoin, stopGame]);
+    startLoop([moveHero, moveEnemy, checkCollision, machineGun, moveBullet, updateWeapon, checkCollisionWeapon, chooseWeaponFct, updateGun, checkCollisionBooste,checkCollisionCoin, stopGame]);
   }
 
   export const stopGame = () => {

@@ -1,10 +1,9 @@
 import {get} from 'svelte/store'
-import {sabreActive, gunActive, chooseWeapon, bullets, gunBullet, machineGunBullet, machineGunActive, isFired} from '../stores/StoreWeapon'
+import {sabreActive, gunActive, chooseWeapon, bullets, gunBullet, machineGunBullet, machineGunActive, isFired, weapons, gunHero, machineGunHero} from '../stores/StoreWeapon'
 import {sabreX, sabreY, gunX, gunY} from '../stores/StoreWeapon' 
 import {x, y, direction} from '../stores/StoreCharacters'
 import {classProp} from '../stores/StoreWeapon'
 
-const weapon = ["sabre", "gun", "machineGun"];
 let index = 0;
 let lastShot = Date.now()
 let bulletX;
@@ -37,14 +36,13 @@ document.addEventListener('keyup', (event) => {
 
 
     if(event.key === "a"){
-        if(index >= weapon.length){
+        if(index >= get(weapons).length){
          index = 0
         } 
-        chooseWeapon.update(a => weapon[index])
+        chooseWeapon.update(a => get(weapons)[index])
+        console.log(get(chooseWeapon))
         index++        
-    }
-
-    
+    }  
 })
 
 export const chooseWeaponFct = () => {
@@ -58,18 +56,18 @@ export const chooseWeaponFct = () => {
             sabreActive.update(a => false)
             gunActive.update(a => true)
             updateGun()
-            break
-            case "machineGun":
+        break
+        case "machineGun":
                 machineGunActive.update(a => true)
                 sabreActive.update(a => false)
                 gunActive.update(a => false)
                 updateGun()
-                break
+        break
     }
 }
 
 export const machineGun = () => {
-    if(get(isFired) && get(chooseWeapon) === "machineGun" && get(gunBullet) > 0 && Date.now() - lastShot > 100){
+    if(get(isFired) && get(chooseWeapon) === "machineGun" && get(machineGunBullet) > 0 && Date.now() - lastShot > 100){
         generateBullet()
         lastShot = Date.now()
         machineGunBullet.update(a => a - 1)
@@ -130,7 +128,17 @@ export const updateWeapon = () => {
 
   
 export const updateGun = () => {   
-    
+        if(get(machineGunBullet) <= 0){
+            weapons.update(a => a.filter(gun => gun !==  "machineGun"))
+            machineGunHero.update(a => false)
+            machineGunActive.update(a => false)
+        }
+        if(get(gunBullet) <= 0){
+            weapons.update(a => a.filter(gun => gun !==  "gun"))
+            gunHero.update(a => false)
+            gunActive.update(a => false)
+        }
+
         switch (get(direction)){
             case "down":
                 gunY.update(a => get(y) + 45)

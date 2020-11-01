@@ -2,9 +2,9 @@ import { get} from 'svelte/store'
 import {stopGame} from './gameloop'
 import { speed, x, y, lastTouch, pv, earnedCoins } from '../stores/StoreCharacters'
 import { enemyList } from '../stores/StoreCharacters'
-import {sabreX, sabreY, bullets, gunBullet} from '../stores/StoreWeapon'
+import {sabreX, sabreY, bullets, gunBullet, machineGunActive, machineGunBullet, weapons, gunHero, machineGunHero} from '../stores/StoreWeapon'
 import {sabreActive} from '../stores/StoreWeapon'
-import {boostY, boostX, boostOnMap, heartY, heartX, heartOnMap, coinX, coinY, coinOnMap, gunBonusY, gunBonusX, gunOnMap} from '../stores/StoreBonus'
+import {boostY, boostX, boostOnMap, heartY, heartX, heartOnMap, coinX, coinY, coinOnMap, gunBonusY, gunBonusX, gunOnMap, machineGunBonusX, machineGunBonusY, machineGunOnMap} from '../stores/StoreBonus'
 import {gameOver, level, sound} from '../stores/Store'
 import {soundOn} from './option'
 import { heroHeal, heroHurted } from './dashboard'
@@ -43,14 +43,12 @@ export const checkCollision = () => {
     } else if(newlist.length === 0 &&  document.querySelector('.hero').style.backgroundColor !== null ){
         document.querySelector('.hero').style.backgroundColor= ''
     }
-    // console.log(collisionBlocks(get(x),get(y)))
 }
 
 const killsLevelUp = () => {
     kills.update(a => a + 1)
     switch (get(level)){
         case 1: 
-        console.log('BIENVENU AU NIVEAU 1')
         if(get(kills) === 5){
             // kills.update(a => 0)
             level.update(a => a + 1)
@@ -58,15 +56,12 @@ const killsLevelUp = () => {
         break; 
 
         case 2:
-        console.log('BIENVENU AU NIVEAU 2 ')
         if(get(kills) === 10){
             // kills.update(a => 0)
             level.update(a => a + 1)
         }
         break; 
-
         case 3: 
-        console.log('BIENVENU AU NIVEAU 3')
         break; 
     }
 }
@@ -87,10 +82,21 @@ export const checkCollisionWeapon = () => {
                 deleteBullet(bullet.id)
             }
         })
+ 
+    })
+
+    get(bullets).forEach(bullet => {
+        if(bullet.x < 45 || bullet.x > 800 || bullet.y < 15 || bullet.y > 510){
+            deleteBullet(bullet.id)
+        }     
     })
 }
 
+
+
+
 export const checkCollisionBooste = () => {
+    console.log(get(weapons))
     if(distance(get(x),get(y), get(boostX), get(boostY)) < 45 && get(boostOnMap)){
        speed.update(a => a + 2)
        boostOnMap.update(a => false)
@@ -103,8 +109,20 @@ export const checkCollisionBooste = () => {
         heartOnMap.update(a => false)
      }
      if(distance(get(x),get(y), get(gunBonusX), get(gunBonusY)) < 45 && get(gunOnMap)){
+         if(get(gunHero) === false){
+             weapons.update(a => [...a, "gun"])
+             gunHero.update(a => true)
+         }
         gunOnMap.update(a => false)
         gunBullet.update(a => a + 10)
+     }
+     if(distance(get(x),get(y), get(machineGunBonusX), get(machineGunBonusY)) < 45 && get(machineGunOnMap)){
+         if(get(machineGunHero) === false){
+             weapons.update(a => [...a, "machineGun"])
+             machineGunHero.update(a => true)
+         }
+        machineGunOnMap.update(a => false)
+        machineGunBullet.update(a => a + 25)
      }
 }
 
@@ -138,10 +156,3 @@ const deleteBullet = (bulletId) => {
     soundOn(scream[getRandomInt(3)])
 }
 
-// export const collisionBlocks = (x,y) => {
-//     if( x> 260 && x < 370 && y> 180 && y < 370 ){
-//         return true
-//     } else {
-//         return false
-//     }
-// }

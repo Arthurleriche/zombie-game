@@ -8,6 +8,7 @@
     heartOnMap,
     coinOnMap,
     gunOnMap,
+    machineGunOnMap,
   } from './stores/StoreBonus';
   import {
     sabreActive,
@@ -32,11 +33,12 @@
   import Gamefield from './components/Gamefield.svelte';
   import Debug from './components/Debug.svelte';
   import Gun from './components/boosts/Gun.svelte';
+  import MachineGun from './components/boosts/MachineGun.svelte';
   import GunShot from './components/weapons/GunShot.svelte';
-  import MachineGun from './components/weapons/MachineGun.svelte';
+  import MachineGunShot from './components/weapons/MachineGunShot.svelte';
   import Bullets from './components/weapons/Bullets.svelte';
-  import Controls from './components/Controls.svelte'
-  import Missions from './components/Missions.svelte'
+  import Controls from './components/Controls.svelte';
+  import Missions from './components/Missions.svelte';
 
   let dev = process.env.isDev;
 </script>
@@ -55,10 +57,10 @@
       <Debug />
     {/if} -->
     <div class="message flex flex-col">
-      <Controls/>
-      <Missions/>
+      <Controls />
+      <Missions />
     </div>
-    
+
     <Gamefield>
       <Hero />
       {#if $boostOnMap}
@@ -73,6 +75,9 @@
       {#if $gunOnMap}
         <Gun />
       {/if}
+      {#if $machineGunOnMap}
+        <MachineGun />
+      {/if}
       {#if $sabreActive}
         <Sabre sabreX={$sabreX} sabreY={$sabreY} />
         <!-- <Gun gunX={$gunX} gunY={$gunY} /> -->
@@ -81,7 +86,7 @@
         <GunShot gunX={$gunX} gunY={$gunY} />
       {/if}
       {#if $machineGunActive}
-        <MachineGun gunX={$gunX} gunY={$gunY} />
+        <MachineGunShot gunX={$gunX} gunY={$gunY} />
       {/if}
       {#each $bullets as bullet}
         <Bullets {bullet} />
