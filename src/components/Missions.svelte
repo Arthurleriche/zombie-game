@@ -4,6 +4,8 @@
 <div class="wrapper">
     <div id="missions" class="missions m-auto">
     <p>
+        Salut à toi jeune entrepreneu(r)se, <br>
+        <br>
         Si tu peux voir détruit <br>
          l'ouvrage de ta vie<br>
         Et sans dire un seul mot<br> 
@@ -16,8 +18,16 @@
         en étant populaire,<br>
         Si tu peux rester peuple<br>
          en conseillant les rois,<br>
-        Et si tu peux aimer tous tes amis <br> en frères,<br>
+        Et si tu peux aimer tous tes ami(e)s <br> en soeurs oufrères,<br>
         Sans qu'aucun d'eux soit tout pour toi ;<br>
+        <br> <br>
+        MASSEZ-LES <br><br>
+        AMASSEZ L'OSEILLE <br>      
+         
+        
+
+
+
     </p>
 </div>
 </div>

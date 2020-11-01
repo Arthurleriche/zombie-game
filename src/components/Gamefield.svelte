@@ -15,8 +15,10 @@
     height: 570px;
     width: 900px;
     background-size: cover;
-    border: 3px solid rgb(252, 252, 252);
+    /* border: 3px solid rgb(252, 252, 252); */
     position: relative;
+    border: 5px solid;
+    border-image: conic-gradient(red, yellow, lime, aqua, blue, magenta, red) 1;
   }
   
 </style>
