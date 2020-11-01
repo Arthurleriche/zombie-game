@@ -18,26 +18,6 @@
     border: 3px solid rgb(252, 252, 252);
     position: relative;
   }
-  p {
-    color: white;
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  .controls {
-    position: absolute;
-    bottom: 0;
-    left: 40%;
-  }
-/* 
-  .container{
-    width:50px; 
-    height:50px; 
-    overflow:hidden; 
-    position:relative;
-    border:1px solid green; 
-  } */
-
-
   
 </style>
 

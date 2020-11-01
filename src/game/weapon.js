@@ -15,6 +15,12 @@ let bulletId = 0
 document.addEventListener('keydown', (event) => {
     if(event.key === " "){
         isFired.update(a => true)
+        if(get(chooseWeapon) === "sabre"){
+            sabreActive.update(a=>true)
+            setTimeout(() => {
+                sabreActive.update(a=>false)
+            }, 300)
+        }
     }
 })
 
@@ -26,12 +32,7 @@ document.addEventListener('keyup', (event) => {
             lastShot = Date.now()
             gunBullet.update(a => a - 1)
         }
-        if(get(chooseWeapon) === "sabre"){
-            sabreActive.update(a=>true)
-            setTimeout(() => {
-                sabreActive.update(a=>false)
-            }, 300)
-        }
+        
     }
 
 

@@ -58,7 +58,7 @@ export const moveHero = () => {
                 break
 
                 case up && right:
-                    if(get(y) <= 20 || get(x) === 800){
+                    if(get(y) <= 20 || get(x) >= 800){
                     direction.update(a => "up")
                     break
                     } else {

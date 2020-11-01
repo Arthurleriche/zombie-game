@@ -1,5 +1,4 @@
 <style>
-
 .container{
     width:150px; 
     height: 130px; 
@@ -14,7 +13,6 @@
     bottom:0; 
     left:0; 
   }
-
   .container2{
     width:135px; 
     height: 130px; 
@@ -24,14 +22,11 @@
     right:-90px; 
     transform:skew(0, 25deg);
   }
-
   #block2{
     z-index:0;
     position:absolute;  
     right:83px; 
   }
-
-
   .container3{
     width:100px; 
     height: 170px; 
@@ -41,13 +36,11 @@
     left:-60px; 
     transform: skew(0, 36deg)
   }
-
   #block3{
     z-index:0;
     position:absolute;  
     left:58px; 
   }
-
   .container4{
     width:100px; 
     height: 170px; 
@@ -57,14 +50,12 @@
     right:0px; 
     transform: skew(0, -38deg)
   }
-
   #block4{
     z-index:0;
     position:absolute;  
     left:70px; 
   }
 </style>
-
 
 <div class="container">
     <img src="./resources/block.png" alt="" id="block" class="absolute" /> 
