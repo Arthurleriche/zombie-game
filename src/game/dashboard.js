@@ -34,7 +34,7 @@ export const heroHurted = (damage) => {
                })
                i.update(a => 1)
             }
-            console.log('KEUR 3 PV :' + keur.pv)
+        
         } 
     }) 
     

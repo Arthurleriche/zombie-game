@@ -1,5 +1,5 @@
 import { get } from 'svelte/store'
-import {boostY, boostX, boostOnMap, heartX, heartY,  heartOnMap, coinOnMap, coinX, coinY, gunOnMap} from '../stores/StoreBonus'
+import {boostY, boostX, boostOnMap, heartX, heartY,  heartOnMap, coinOnMap, coinX, coinY, gunOnMap, machineGunOnMap, machineGunBonusY, machineGunBonusX} from '../stores/StoreBonus'
 import {gunHero} from '../stores/StoreWeapon'
 import { gunBonusX, gunBonusY} from '../stores/StoreBonus'
 
@@ -48,33 +48,45 @@ const gunAppears = () => {
     
 }
 
+const machineGunAppears = () => {
+    machineGunOnMap.update(a => true)
+    machineGunBonusX.update(a => random(500))
+    machineGunBonusY.update(a => random(500))
+    setTimeout(() => {
+        machineGunOnMap.update(a => false)
+    }, 6000)
+    
+}
+
 let boosthero
 let hearthero
 let coinappears
 let gunappears
+let machinegunappears
+
 export const boost = () => {
-    console.log('BOOST ON')
     boosthero = setInterval(() => {
         boostHero()
     },14000)
     hearthero = setInterval(() => {
-        console.log('HEART APPEARS');
         heartHero()
     }, 3000)
     coinappears = setInterval(()=> {
         coinAppears()
     }, 5000)
-    if(get(gunHero) === false ){
-        gunappears = setInterval(() => {
-           gunAppears() 
-        }, 25000)
-    }
+
+    gunappears = setInterval(() => {
+        gunAppears()  
+    }, 25000)
+    machinegunappears = setInterval(() => {
+        machineGunAppears() 
+    }, 25000)
 }
 
 export const stopBoost = () => {
-    console.log('BOOST OFF')
     clearInterval(boosthero)
     clearInterval(hearthero)
     clearInterval(coinappears)
     clearInterval(gunappears)
+    clearInterval(machinegunappears)
 }

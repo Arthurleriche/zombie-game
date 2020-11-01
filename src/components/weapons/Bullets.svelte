@@ -2,7 +2,6 @@
   export let bullet;
   // import {direction} from '../../stores/StoreCharacters'
   import { classProp } from '../../stores/StoreWeapon';
-
 </script>
 
 <style>
@@ -15,20 +14,24 @@
   .down {
     width: 20px;
     height: 20px;
-    transform: rotate(90deg)
+    transform: rotate(90deg);
   }
 
-  .left{
+  .left {
     width: 20px;
     height: 20px;
-    transform: rotate(180deg)
+    transform: rotate(180deg);
   }
 
-  .up{
+  .up {
     width: 20px;
     height: 20px;
-    transform: rotate(-90deg)
+    transform: rotate(-90deg);
   }
 </style>
 
-<img src="./img/bullet.svg" alt="" class="bullet {$classProp}" style="left:{bullet.x}px; top:{bullet.y}px" />
+<img
+  src="./img/bullet.svg"
+  alt=""
+  class="bullet {bullet.direction}"
+  style="left:{bullet.x}px; top:{bullet.y}px" />
