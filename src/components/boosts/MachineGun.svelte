@@ -30,5 +30,5 @@
 <div
   class="boost-hero"
   style="top: {$machineGunBonusY}px; left:{$machineGunBonusX}px">
-  <img class="img" src="./resources/machineGun1.png" alt="" />
+  <img class="img" src="./resources/machinegun1.png" alt="" />
 </div>
