@@ -1,8 +1,7 @@
 <script>
     import {lifeList, earnedCoins} from '../stores/StoreCharacters'
     import {gunBullet} from '../stores/StoreWeapon'
-    console.log('DASH SVELTE');
-    console.log($lifeList)
+    import{machineGunBullet} from '../stores/StoreWeapon'
     import {level} from '../stores/Store'
     import {kills} from '../stores/Store'
 </script>
@@ -36,12 +35,18 @@
     <div class="level mt-2 pl-4 text-yellow-500 font-bold">Lv.{$level}</div>
     <div class="wrapper flex flex-col space-y-2">
         <div class="kills text-white font-bold absolute ml-4 flex"><img class="h-8 w-8" src="./resources/kills.png" alt="" /> <p class="ml-2 mt-1">{$kills}</p> </div>
-        <div class="munitions text-white font-bold  absolute mt-2 flex ml-4 "> <img class="h-6 w-8" src="./resources/munitions.png" alt="" /> <p class="ml-2 mt-1">{$gunBullet}</p></div>
+        <div class="munitions text-white font-bold  absolute mt-2 flex ml-4 "> <img class="h-8 w-10" src="./resources/gun1side.png" alt="" /> <p class="ml-2 mt-1">{$gunBullet - 1}</p></div> <br>
+        <div class="machinegun munitions text-white font-bold  absolute mt-2 flex ml-4 "> <img class="h-8 w-10" src="./resources/machinegun1.png" alt="" /> <p class="ml-2 mt-1">{$machineGunBullet-1}</p></div>
+
     </div>
 
 </div>
 
 <style>
+    .machinegun{
+        right: 0px; 
+        top:120px; 
+    }
     .dashcoin{
         width:1.5rem;
         height:1.5rem; 
