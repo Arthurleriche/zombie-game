@@ -1,51 +1,86 @@
 <script>
-  import { sound } from '../stores/StoreOption.js';
-  import {newGame} from '../stores/Store'
+  import { gameOver, i, newGame, sound } from '../stores/Store';
+  import { isPlaying, kills, level } from '../stores/Store';
+  import { stopCreatingEnemy } from '../game/enemy.js';
+  import { earnedCoins, enemyList, lifeList, speed } from '../stores/StoreCharacters';
+  import { stopBoost } from '../game/bonus.js';
+import { gunBullet } from '../stores/StoreWeapon';
+
 
   let src = './img/mute.svg';
 
   function handleAudio() {
     var Player = document.getElementById('player');
-    if ($sound == true) {
+    if ($sound == false) {
       Player.play();
       src = './img/volume.svg';
+      $sound = true;
     } else {
       Player.pause();
       src = './img/mute.svg';
+      $sound = false;
     }
-    $sound = !$sound;
   }
 
-
   function handleClick() {
-    $newGame = false 
+    level.update(a => 1)
+    kills.update(a=>0)
+    speed.update(a => 4)
+    gunBullet.update(a => 10)
+
+    $newGame = false;
+    isPlaying.update(a => false);
+    stopBoost();
+    stopCreatingEnemy();
+    lifeList.update(a => [
+      { life: 100, id: 1, pv: 100 },
+      { life: 100, id: 2, pv: 100 },
+      { life: 100, id: 3, pv: 100 },
+    ]);
+    i.update(a => 1);
+    earnedCoins.update(a => 0);
+    enemyList.update(a => [
+      {
+        top: -30,
+        left: 400,
+        id: 1,
+        damage: 10,
+      },
+    ]);
   }
 </script>
 
-
-<div class="header   flex justify-around  w-full">
-    <audio id="player" src="./audio/laylow.mp3">
-      <track kind="captions" />
-    </audio>
-    <img id="mute" class="h-16 w-16 mt-4" {src}  alt="volume" on:click={handleAudio} />
-    <p class="title text-6xl text-center">ALIENUX I.O - MOTORx </p>
-    <!-- <img src="./resources/backmenu.png" alt="back" class=" back h-12 w-12 text-white mt-6" on:click={handleClick}/> -->
-</div>
-
-
 <style>
-    .title {
-        font-family: 'Courier New', Courier, monospace;
-        font-weight: bold;
-        color: white;
-        -webkit-text-stroke-width: 2px;
-        -webkit-text-stroke-color: rgb(64, 131, 78);
-    }
-    #mute {
-        filter: drop-shadow(16px 16px 20px red) invert(75%);
-    }
+  .title {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: white;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: rgb(64, 131, 78);
+  }
+  #mute {
+    filter: drop-shadow(16px 16px 20px red) invert(75%);
+  }
 
-    .back{
-      filter:drop-shadow(16px 16px 20px red) invert(75%);
-    }
+  .back {
+    filter: drop-shadow(16px 16px 20px red) invert(75%);
+  }
 </style>
+
+<div class="header flex justify-around  w-full">
+  <audio id="player" src="./audio/laylow.mp3">
+    <track kind="captions" />
+  </audio>
+  <img
+    id="mute"
+    class="h-16 w-16 mt-4"
+    {src}
+    alt="volume"
+    on:click={handleAudio} />
+  <p class="title text-6xl text-center">ALIENUX I.O - MOTORx</p>
+  <img
+    src="./resources/backmenu.png"
+    alt="back"
+    class=" back h-12 w-12 text-white mt-6"
+    on:click={handleClick} />
+</div>

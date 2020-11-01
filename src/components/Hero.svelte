@@ -21,6 +21,7 @@
     overflow: hidden;
     position: absolute;
     background-color: transparent;
+    border-radius: 100px; 
   }
 
   img {
