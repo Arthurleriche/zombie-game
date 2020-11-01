@@ -11,6 +11,12 @@
 </script>
 
 <style>
+
+  .container{
+    /* border:4px solid white;  */
+    height: 580px; 
+    width:920px; 
+  }
   .gamefield {
     height: 570px;
     width: 900px;
@@ -23,7 +29,7 @@
   
 </style>
 
-<div>
+<div class="container">
   <div class="gamefield m-auto" style="background-image: url('./resources/background_1.png')">
     <slot />
     <Deco/>

@@ -56,7 +56,7 @@ const killsLevelUp = () => {
         break; 
 
         case 2:
-        if(get(kills) === 10){
+        if(get(kills) === 15){
             // kills.update(a => 0)
             level.update(a => a + 1)
         }
