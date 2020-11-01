@@ -4,6 +4,7 @@
   import GameOver from './Gameover.svelte'
   import {gameOver} from '../stores/Store'
   import Dashboard from './Dashboard.svelte'
+  import Deco from './Deco.svelte'
   playerAmbiance();
   createEnemy();
   startGame();
@@ -37,26 +38,14 @@
   } */
 
 
-  /* #block{
-    width:200px; 
-    height:300px; 
-    z-index:0; 
-    left:300px; 
-    top:200px; 
-  } */
+  
 </style>
 
 <div>
   <div class="gamefield m-auto" style="background-image: url('./resources/background_1.png')">
     <slot />
-    <div class="container">
-      <!-- <img src="./resources/block.png" alt="" id="block" class="absolute" />  -->
-    </div>
-
+    <Deco/>
     <Dashboard/>
-    <p class=" controls text-lg text-red-600">
-      Touches directionnelles = mouvement, espace = weapon
-    </p>
     {#if $gameOver}
     <GameOver/>
     {/if}

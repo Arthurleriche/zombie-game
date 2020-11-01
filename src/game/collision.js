@@ -13,36 +13,36 @@ import {kills} from '../stores/Store'
 const scream = ["./resources/goblin_1.wav", "./resources/goblin_2.wav", "./resources/goblin_3.wav"]
 let newlist 
 
-
 export const distance = (x1, y1, x2, y2) => {
     return Math.trunc(Math.sqrt((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1)))
 }
 
 
 export const checkCollision = () => {
-
-    // ______ LEVEL 1 
    get(enemyList).forEach(enemy => {     
         if(distance(enemy.left,enemy.top, get(x), get(y)) < 40){      
             enemy.collision = true      
             if (enemy.collision && Date.now() - get(lastTouch) > 1000){
                 lastTouch.update(a => Date.now())
-                // pv.update(a => a - enemy.damage)
-                // console.log(get(pv))
                 heroHurted(enemy.damage); 
             }
         } else {
             enemy.collision = false
         }
+        //LEVEL DAMAGE 
+        if(get(level) === 2){
+            enemy.damage = 20
+        } else if (get(level)===3){
+            enemy.damage = 30
+        }
    })
-
     newlist = get(enemyList).filter(enemy => enemy.collision === true)
     if(newlist.length > 0){
         document.querySelector('.hero').style.backgroundColor= 'rgba(219, 33, 33,0.5)'
     } else if(newlist.length === 0 &&  document.querySelector('.hero').style.backgroundColor !== null ){
         document.querySelector('.hero').style.backgroundColor= ''
     }
-
+    // console.log(collisionBlocks(get(x),get(y)))
 }
 
 const killsLevelUp = () => {
@@ -89,9 +89,6 @@ export const checkCollisionWeapon = () => {
     })
 }
 
-
-
-
 export const checkCollisionBooste = () => {
     if(distance(get(x),get(y), get(boostX), get(boostY)) < 45 && get(boostOnMap)){
        speed.update(a => a + 2)
@@ -111,7 +108,6 @@ export const checkCollisionBooste = () => {
 }
 
 
-
 export const checkCollisionCoin = () => {
     if(distance(get(x), get(y), get(coinX), get(coinY)) < 40 && get(coinOnMap)){
         earnedCoins.update(a => a + 1)
@@ -119,23 +115,18 @@ export const checkCollisionCoin = () => {
     }
 }
 
-
 export const isDead = () => {
     if(get(pv) <= 0){
         soundOn('./resources/wilhelm.wav')
-        // newGame.update(a => false) 
         stopGame()
         gameOver.update (a => true) 
         pv.update(a => 100)
-
     }
 }
-
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
   }
-
   
 const deleteEnemy = (enemyId) => {
     enemyList.update(enemies => enemies.filter(enemy => enemy.id !== enemyId))
@@ -145,3 +136,11 @@ const deleteBullet = (bulletId) => {
     bullets.update(bullet => bullet.filter(bullet => bullet.id !== bulletId))
     soundOn(scream[getRandomInt(3)])
 }
+
+// export const collisionBlocks = (x,y) => {
+//     if( x> 260 && x < 370 && y> 180 && y < 370 ){
+//         return true
+//     } else {
+//         return false
+//     }
+// }
