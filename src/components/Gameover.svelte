@@ -1,8 +1,9 @@
 <script>
 import {startGame} from '../game/gameloop.js'
-import {gameOver} from '../stores/Store.js'
+import {gameOver, kills, level} from '../stores/Store.js'
 import { createEnemy} from "../game/enemy";
 import {isPlaying} from '../stores/Store'
+import { speed } from '../stores/StoreCharacters.js';
 
 function handleRetry() {
     startGame() 
@@ -12,6 +13,11 @@ function handleRetry() {
     document.getElementById('energy2').style.width = '100%'
     document.getElementById('energy3').style.width = '100%'
     isPlaying.update(a => true)
+
+    
+    level.update(a => 1)
+    kills.update(a=>0)
+    speed.update(a => 4)
 }
 </script>
 

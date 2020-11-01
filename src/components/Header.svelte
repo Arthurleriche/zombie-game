@@ -1,9 +1,10 @@
 <script>
   import { gameOver, i, newGame, sound } from '../stores/Store';
-  import { isPlaying } from '../stores/Store';
+  import { isPlaying, kills, level } from '../stores/Store';
   import { stopCreatingEnemy } from '../game/enemy.js';
-  import { earnedCoins, enemyList, lifeList } from '../stores/StoreCharacters';
+  import { earnedCoins, enemyList, lifeList, speed } from '../stores/StoreCharacters';
   import { stopBoost } from '../game/bonus.js';
+
 
   let src = './img/mute.svg';
 
@@ -21,6 +22,10 @@
   }
 
   function handleClick() {
+    level.update(a => 1)
+    kills.update(a=>0)
+    speed.update(a => 4)
+
     $newGame = false;
     isPlaying.update(a => false);
     stopBoost();

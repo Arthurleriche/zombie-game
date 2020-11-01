@@ -29,6 +29,9 @@ export const heroHurted = (damage) => {
             keur.pv -= damage
             document.getElementById('energy3').style.width = keur.pv +'%' 
             if(keur.pv < 10 ){
+                document.getElementById('keur1').style.opacity = '1'
+                document.getElementById('keur2').style.opacity = '1'
+                document.getElementById('keur3').style.opacity = '1'
                gameOver.update (a => true)
                get(lifeList).forEach (keur => {
                    keur.pv = 100

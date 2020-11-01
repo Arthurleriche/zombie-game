@@ -35,6 +35,8 @@
   import GunShot from './components/weapons/GunShot.svelte';
   import MachineGun from './components/weapons/MachineGun.svelte';
   import Bullets from './components/weapons/Bullets.svelte';
+  import Controls from './components/Controls.svelte'
+  import Missions from './components/Missions.svelte'
 
   let dev = process.env.isDev;
 </script>
@@ -48,10 +50,15 @@
 {#if $newGame === false || $newGame === null}
   <Accueil bind:newGame={$newGame} />
 {:else}
-  <div class="flex space-x-0 justify-around">
-    {#if dev}
+  <div class="flex space-x-0 justify-start">
+    <!-- {#if dev}
       <Debug />
-    {/if}
+    {/if} -->
+    <div class="message flex flex-col">
+      <Controls/>
+      <Missions/>
+    </div>
+    
     <Gamefield>
       <Hero />
       {#if $boostOnMap}
